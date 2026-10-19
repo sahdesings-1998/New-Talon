@@ -1,0 +1,29 @@
+/**
+ * TALON — Unified section-to-section spacing
+ * Tokens: --section-gap, --section-gap-half (snippets/css-variables.liquid)
+ * Adjacent sections: half-gap bottom + half-gap top = --section-gap (40px mobile / 64px desktop)
+ */
+
+/* ── Homepage hero: flush top/bottom; gap to next section comes from OEM showcase .section-spacing ── */
+.shopify-section--custom-liquid:has(.hero-carousel) > .section-spacing {
+  padding-block: 0;
+}
+
+.shopify-section--custom-liquid:has(.hero-carousel) .hero-carousel {
+  padding-block: 0;
+}
+
+/* ── About Talon inline sections (override template padding) ── */
+.shopify-section--custom-liquid:has(.about-hero) .intro-section,
+.shopify-section--custom-liquid:has(.about-hero) .vision-section,
+.shopify-section--custom-liquid:has(.about-hero) .client-section,
+.shopify-section--custom-liquid:has(.about-hero) .divisions-section,
+.shopify-section--custom-liquid:has(.about-hero) .partnership-section,
+.shopify-section--custom-liquid:has(.about-hero) .cta-section {
+  padding-block: var(--section-gap-half);
+  padding-inline: max(1rem, var(--container-gutter, 1.25rem));
+}
+
+/* OEM & ODM page (/pages/oem-odm): assets/talon-oem-page-rhythm.css (56px major rhythm) */
+
+/* Homepage video + section rhythm: talon-homepage-rhythm.css */

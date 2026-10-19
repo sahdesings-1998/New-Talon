@@ -1,0 +1,138 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "talon_oem_main": {
+      "type": "talon-oem-main",
+      "settings": {
+        "logistics_heading": "Logistics Service",
+        "logistics_image": "shopify://shop_images/Logistics_jpg.png",
+        "payment_heading": "Payment Method",
+        "sample_title": "Sample Order",
+        "sample_text": "For the samples, we usually send it directly to you by DHL/UPS/Fedex express, and the transportation time is 5-7 days",
+        "bulk_title": "Bulk order",
+        "bulk_text": "<p>For bulk order, We have 4 different kinds of logistics options:</p><ol><li>DHL / UPS / FedEx Express (5–7 days)</li><li>Air Freight via Freight Forwarder (12–15 days, all taxes included)</li><li>Truck + Air Freight via Freight Forwarder (30–35 days to EU, all taxes included)</li><li>Sea Freight via Freight Forwarder (45–60 days to EU, all taxes included)</li></ol>",
+        "shipping_title": "Changes of Shipping",
+        "shipping_text": "Any changes that you make regarding shipping once the item is shipped, including but not limited to changing the address, putting an order on hold, or updating shipping settings/preferences may delay your receipt of the products and replacement products and/or refunds. If you have any modification, you must do so prior to your order being shipped."
+      }
+    },
+    "talon_oem_faq": {
+      "type": "talon-oem-faq",
+      "blocks": {
+        "faq_item_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "1. Q:Are you a trading company or manufacturer?",
+            "answer": "<p>A: We have own factory with more than 20 years of experience, experienced designer, low MOQ, excellent quality, reasonable price, good service, and fast delivery.</p>",
+            "open_by_default": true
+          }
+        },
+        "faq_item_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "2. Q:How to get a sample?",
+            "answer": "<p>A: Sample order is welcome. Please contact us and make sure what sample you need. It usually takes 10-20 days to finish your sample according to the design.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "3. Q:Can we print our own brand or logo on your products",
+            "answer": "<p>A: Yes, of course. Please provide digital file and size of your logo/label/tag. It is our pleasure to be one of your good OEM manufacturers in China.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "4.Q:Why do some goods have difference between website picture and practical items?",
+            "answer": "<p>A: Different batches of fabric or different light and browser may cause the difference between the picture and practical goods.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "5.Q:Do you provide free sample ?",
+            "answer": "<p>A: Sample fee is charged per design. For sportswear made of woven fabric, Sample fee will be fully refunded once the bulk order quantities meet 300 pieces /design. For knit wear, Sample fee will be fully refunded once the bulk order meet 100 pieces per design.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "6.Q:What is your minimum order quantities (MOQ) ?",
+            "answer": "<p>A: As a direct sports wear factory, our MOQ of custom designs is 100 pieces per design per color and mixed 4 size for fabric made goods. For our available stock goods, our MOQ is 1 pieces.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "7.Q:Can I have my private label on the sports wear ?",
+            "answer": "<p>A: Yes, you can. It is OK for us to custom made your own logo and attach on your design products. We also can make sample development according to your own design because we offer both OEM and ODM service.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "8.Q: Can I get a sample before pacing order ?",
+            "answer": "<p>A: Yes, you can. we can develop and send samples for your quality approval firstly.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "9.Q: How long is your sample lead time and production lead time ?",
+            "answer": "<p>A: Our sample lead time for custom made style is 10-20days and 25-35days for production. For our available styles, our sample lead time is7 days and 20~30 days for bulk.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_item_10": {
+          "type": "faq_item",
+          "settings": {
+            "question": "10.Q: How about the shipping cost ?",
+            "answer": "<p>A: Shipping cost depends on the order quantity, package size and shipping way like Express DHL, FEDEX, UPS ect. By air or by sea shipment cost ,pls contact us for detail information and we will offer different options for your selection</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_1",
+        "faq_item_2",
+        "faq_item_3",
+        "faq_item_4",
+        "faq_item_5",
+        "faq_item_6",
+        "faq_item_7",
+        "faq_item_8",
+        "faq_item_9",
+        "faq_item_10"
+      ],
+      "settings": {
+        "stat1_title": "Sample Time",
+        "stat1_sub": "10-20 Days",
+        "stat2_title": "Bulk Order Time",
+        "stat2_sub": "20-30 Days",
+        "stat3_title": "24/7 Live Support",
+        "stat3_sub": "Call, message, or email us anytime, anywhere",
+        "faq_heading": "Frequently Asked Questions",
+        "faq_support_text": ""
+      }
+    }
+  },
+  "order": [
+    "talon_oem_main",
+    "talon_oem_faq"
+  ]
+}

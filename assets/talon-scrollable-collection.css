@@ -1,0 +1,557 @@
+/**
+ * TALON Scrollable Collection Carousel Section
+ * Fully responsive, horizontally scrollable product carousel with touch/swipe & arrow navigation
+ * Minimal, clean product card UI matching TALON reference:
+ * - Clean white background, no card borders or box-shadows
+ * - Centered title, bold centered price ($299.00 USD)
+ * - Centered circular thumbnail swatch below price
+ * - No green text, default black/gray colors and hovers
+ */
+
+.talon-sc {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--talon-sc-bg, #ffffff);
+  color: var(--talon-sc-text, #111827);
+  overflow: hidden;
+  padding-top: var(--talon-sc-padding-top, 48px);
+  padding-bottom: var(--talon-sc-padding-bottom, 48px);
+}
+
+.talon-sc *,
+.talon-sc *::before,
+.talon-sc *::after {
+  box-sizing: border-box;
+}
+
+/* Container */
+.talon-sc__container {
+  width: 100%;
+  max-width: var(--talon-sc-container-max, 1440px);
+  margin: 0 auto;
+  padding-left: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+  padding-right: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+}
+
+/* Header Area */
+.talon-sc__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: clamp(20px, 3vw, 36px);
+  flex-wrap: wrap;
+}
+
+.talon-sc__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 720px;
+}
+
+.talon-sc__subheading {
+  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--talon-sc-subheading-color, #4b5563);
+  margin: 0;
+}
+
+.talon-sc__heading {
+  font-size: clamp(1.5rem, 1.25rem + 1.2vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  color: var(--talon-sc-text, #111827);
+  margin: 0;
+}
+
+.talon-sc__controls-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.talon-sc__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--talon-sc-text, #111827);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.talon-sc__view-all:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.talon-sc__view-all svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+}
+
+.talon-sc__view-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* Navigation Arrow Buttons */
+.talon-sc__nav-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.talon-sc__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  background-color: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 0;
+}
+
+.talon-sc__nav-btn:hover:not(:disabled) {
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.talon-sc__nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.talon-sc__nav-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+/* Carousel Track & Scroller */
+.talon-sc__scroller-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.talon-sc__track {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  justify-content: safe center;
+  gap: var(--talon-sc-gap, 24px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  padding-bottom: 8px;
+  /* Allow edge bleed with inner scroll-padding */
+  padding-left: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+  padding-right: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+  scroll-padding-left: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+  cursor: grab;
+  user-select: none;
+}
+
+.talon-sc__track:active,
+.talon-sc__track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.talon-sc__track::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / Edge */
+}
+
+/* Centered Layout & Hidden Scrollbar when cards fit without horizontal scrolling */
+.talon-sc.talon-sc--fits-screen .talon-sc__track {
+  justify-content: center;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  cursor: default;
+}
+
+.talon-sc.talon-sc--fits-screen .talon-sc__track:active,
+.talon-sc.talon-sc--fits-screen .talon-sc__track.is-dragging {
+  cursor: default;
+}
+
+.talon-sc.talon-sc--fits-screen .talon-sc__progress-container {
+  display: none !important;
+}
+
+.talon-sc.talon-sc--fits-screen .talon-sc__nav-btns {
+  display: none;
+}
+
+/* Card Sizing & Clean UI */
+.talon-sc__card {
+  flex: 0 0 calc((100% - (var(--talon-sc-cols-desktop, 5) - 1) * var(--talon-sc-gap, 16px)) / var(--talon-sc-cols-desktop, 5));
+  min-width: 170px;
+  max-width: 270px;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  position: relative;
+  text-align: center;
+}
+
+/* Card Media / Image */
+.talon-sc-card__media-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  /* Aspect ratios */
+  aspect-ratio: var(--talon-sc-img-ratio, 4 / 5);
+}
+
+.talon-sc-card__media-wrap--square {
+  aspect-ratio: 1 / 1;
+}
+
+.talon-sc-card__media-wrap--portrait-3-4 {
+  aspect-ratio: 3 / 4;
+}
+
+.talon-sc-card__media-wrap--portrait-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
+.talon-sc-card__media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+}
+
+.talon-sc-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+
+.talon-sc__card:hover .talon-sc-card__img--primary {
+  transform: scale(1.02);
+}
+
+.talon-sc-card__img--secondary {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.talon-sc__card:hover .talon-sc-card__img--secondary {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* Badges (Subtle) */
+.talon-sc-card__badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.talon-sc-card__badge {
+  display: inline-block;
+  padding: 3px 7px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.talon-sc-card__badge--sale {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.talon-sc-card__badge--discount {
+  background-color: #4b5563;
+  color: #ffffff;
+}
+
+/* Card Content Details */
+.talon-sc-card__content {
+  padding: 10px 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.talon-sc-card__vendor {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin: 0;
+}
+
+.talon-sc-card__title {
+  margin: 0;
+  font-size: clamp(0.8125rem, 0.77rem + 0.18vw, 0.9rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #111827;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.talon-sc-card__title-link {
+  color: #111827;
+  text-decoration: none;
+  transition: opacity 0.18s ease;
+}
+
+.talon-sc-card__title-link:hover {
+  color: #000000;
+  opacity: 0.7;
+}
+
+/* Pricing Area - Bold Centered (e.g. $299.00 USD) */
+.talon-sc-card__pricing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 1px;
+}
+
+.talon-sc-card__price {
+  font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.9375rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000000;
+  text-align: center;
+}
+
+.talon-sc-card__price--sale {
+  color: #000000;
+}
+
+.talon-sc-card__compare-price {
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+/* Centered Circular Thumbnail Swatch */
+.talon-sc-card__thumb-circle {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.talon-sc-card__thumb-img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease;
+}
+
+.talon-sc-card__thumb-img:hover {
+  transform: scale(1.15);
+  border-color: #000000;
+}
+
+/* Visual Progress Bar */
+.talon-sc__progress-container {
+  margin-top: 24px;
+  width: 100%;
+  max-width: var(--talon-sc-container-max, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+  padding-right: var(--talon-sc-gutter, clamp(16px, 3.5vw, 40px));
+}
+
+.talon-sc__progress-track {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.talon-sc__progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 25%;
+  background-color: #000000;
+  border-radius: 2px;
+  transition: transform 0.1s linear, width 0.2s ease;
+  transform-origin: left center;
+}
+
+/* Responsive Breakpoints */
+/* Large Desktop (≥1200px): Exactly 5 cards in a row */
+@media screen and (min-width: 1200px) {
+  .talon-sc__card {
+    flex: 0 0 calc((100% - (var(--talon-sc-cols-desktop, 5) - 1) * var(--talon-sc-gap, 16px)) / var(--talon-sc-cols-desktop, 5));
+    min-width: 170px;
+    max-width: 270px;
+  }
+}
+
+/* Medium Desktop / Small Laptop (992px - 1199px): 4 cards in a row */
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .talon-sc__card {
+    flex: 0 0 calc((100% - (4 - 1) * var(--talon-sc-gap, 16px)) / 4);
+    min-width: 170px;
+    max-width: 260px;
+  }
+}
+
+/* Tablet (768px - 991px): 3 cards in a row */
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .talon-sc__card {
+    flex: 0 0 calc((100% - (3 - 1) * var(--talon-sc-gap, 14px)) / 3);
+    min-width: 160px;
+    max-width: 240px;
+  }
+  .talon-sc__header {
+    margin-bottom: 20px;
+  }
+}
+
+/* Mobile Screens (481px - 767px): 2 cards in a row with compact spacing */
+@media screen and (max-width: 767px) {
+  .talon-sc {
+    padding-top: var(--talon-sc-padding-top-mob, 28px);
+    padding-bottom: var(--talon-sc-padding-bottom-mob, 32px);
+  }
+
+  .talon-sc__header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .talon-sc__heading {
+    font-size: 1.35rem;
+  }
+
+  .talon-sc__view-all {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .talon-sc__track {
+    gap: var(--talon-sc-gap-mob, 12px);
+  }
+
+  /* Show 2 cards for compact tiny product card experience on mobile */
+  .talon-sc__card {
+    flex: 0 0 calc((100% - (var(--talon-sc-cols-mobile, 2) - 1) * var(--talon-sc-gap-mob, 12px)) / var(--talon-sc-cols-mobile, 2));
+    min-width: 140px;
+    max-width: 220px;
+  }
+
+  .talon-sc-card__content {
+    padding: 8px 3px 6px;
+    gap: 3px;
+  }
+
+  .talon-sc-card__title {
+    font-size: 0.8125rem;
+  }
+
+  .talon-sc-card__price {
+    font-size: 0.85rem;
+  }
+
+  .talon-sc-card__thumb-img {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Mobile arrows hidden for touch swipe */
+  .talon-sc__nav-btns {
+    display: none;
+  }
+}
+
+/* Small Mobile Screens (320px - 480px): 2 cards in a row with 10px gap */
+@media screen and (max-width: 480px) {
+  .talon-sc__card {
+    flex: 0 0 calc((100% - 10px) / 2);
+    min-width: 130px;
+    max-width: 190px;
+  }
+
+  .talon-sc-card__title {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .talon-sc-card__price {
+    font-size: 0.8rem;
+  }
+
+  .talon-sc-card__thumb-img {
+    width: 20px;
+    height: 20px;
+  }
+}

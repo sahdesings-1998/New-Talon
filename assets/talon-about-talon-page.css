@@ -1,0 +1,89 @@
+/* About Talon page — section overrides (moved from template custom_css, 500 char limit) */
+
+#our-factory,
+#production-process,
+#certifications,
+#sustainability {
+  scroll-margin-top: calc(var(--header-height, 0px) + 16px);
+}
+
+.shopify-section--custom-liquid .container {
+  padding: 0;
+  margin: 0;
+}
+
+.shopify-section--custom-liquid:has(.about-hero) > .section-spacing {
+  padding-block-start: 0;
+  padding-block-end: 0;
+}
+
+.shopify-section--custom-liquid .about-hero {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 3 / 2;
+  max-height: min(48vh, 480px);
+  min-height: 240px;
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a;
+  overflow: hidden;
+  line-height: 0;
+  border-radius: 0;
+}
+
+.shopify-section--custom-liquid .about-hero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  /* Native asset pixels — no CSS blur/transform */
+  transform: none;
+  filter: none;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Prevent theme zoom-on-hover from resampling hero */
+.features--zoom-image .shopify-section--custom-liquid .about-hero__img {
+  transform: none !important;
+}
+
+@media screen and (max-width: 699px) {
+  .shopify-section--custom-liquid .about-hero {
+    aspect-ratio: 4 / 3;
+    max-height: min(42vh, 320px);
+    min-height: 200px;
+  }
+
+  .shopify-section--custom-liquid .about-hero__img {
+    object-position: center 40%;
+  }
+}
+
+.shopify-section--custom-liquid .Rte h1,
+.shopify-section--custom-liquid .Rte h2 {
+  margin: 0;
+}
+
+.shopify-section--custom-liquid .Rte img {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.shopify-section--custom-liquid * {
+  letter-spacing: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .topbar {
+    padding: 4rem 2rem;
+  }
+
+  .ips-card-grid {
+    padding: 0 30px;
+  }
+}

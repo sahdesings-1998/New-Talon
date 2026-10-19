@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".section-header {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "page_width": "xs"
+      }
+    },
+    "about_us_page_K4pqe9": {
+      "type": "about-us-page",
+      "name": "Company Profile",
+      "settings": {
+        "profile_title": "Company Profile",
+        "profile_text": "<p>Zhongshan City Haofeng Apparels Co., Ltd is a professional sports wear manufacturer with more than 20 years of industry experience, Our company covering an area of 3000 square meters, it has more than 10 advanced production lines and 300 staffs, with an annual output of more than 2 million pieces,we has been verified by BSCI and  Higg index, We provide one-stop customized services, including product design, sample &bulk order production, We have a strict product quality control process that enables us to deliver satisfactory products to customers on time, We will provide customers with the best professional services, We look forward to establishing a long-term business reltionship with you!</p>",
+        "factory_small": "OUR FACTORY",
+        "factory_big": "",
+        "work_title": "Work content",
+        "work_text": "Our company provide one-stop customized \nservices including product design, sample \n&bulk order production,specializes in helping \ncustomers design and produce various \nsportswear ,caps,socks. The crafts we can \nmake include: soft and breathable jacquard \nfabric,heat-seal logo and patterns , sublimation \nprinting and more,We will provide customers \nwith the best products with diversified designs \nand professional services.",
+        "work_image": "shopify://shop_images/apparel-design-team-meeting.jpg",
+        "capacity_title": "Capacity",
+        "capacity_text": "Our company covering an area of 3000 \nsquare meters, it has more than 10 \nadvanced production lines and 300 \nstaffs, with an annual output of more \nthan 2 million pieces,we has been \nverified by BSCI and  received the \n\"Facility Environment Model\" award for \nseveral years",
+        "capacity_image": "shopify://shop_images/garment-factory-sewing-production-line.jpg",
+        "quality_title": "Quality Control",
+        "quality_text": "We have a complete quality inspection process \nto ensure that every piece of clothing from \ncustomers can be made according to customer \nrequirements, and improve products that meet \ncustomer requirements to each customer. Our \nfactories are continuously monitored and \nformally audited by BSCI at least twice a year. \nIn order to maintain the highest possible \nstandards, we require compliance with our \nCode of Conduct and Corporate Social \nResponsibility Policy.",
+        "gallery_image_1": "shopify://shop_images/fabric-rolls-warehouse-inventory.jpg",
+        "gallery_image_2": "shopify://shop_images/apparel-packaging-warehouse-inspection.jpg",
+        "gallery_image_3": "shopify://shop_images/garment-quality-check-sewing-factory.jpg",
+        "certificate_heading": "Qualification Certificate",
+        "certificate_image_1": "shopify://shop_images/SGS-Certificate_58947549-7f45-4cc7-bf07-260bff33e57c.png",
+        "certificate_text_1": "SGS Test Verification",
+        "certificate_image_2": "shopify://shop_images/ChatGPT_Image_May_29_2026_12_59_40_PM.png",
+        "certificate_text_2": "Amfori BSCI",
+        "certificate_image_3": "shopify://shop_images/Sustainable_Apparel_Coalition_2_3e92dd03-f273-47c2-95e3-6ccfd30a4656.png",
+        "certificate_text_3": "Sustainable Apparel Coalition",
+        "commitment_heading": "Commitment To A Sustainable Future",
+        "commitment_Top_text": "<p>Protecting Our Environment With Sustainability And Responsibility.<br/>Consideration for our environment informs every decision we make.</p>",
+        "commitment_Top_image": "shopify://shop_images/sustainable_fashion.png",
+        "commitment_text": "<p>Our corporate policies, factory remediation efforts, and product manufacturing processes are all guided by a commitment to minimize environmental impact and maximize sustainability. That commitment manifests itself through efforts to minimize water, energy, and materials wastage for every product we make.<br/><br/></p>",
+        "commitment_tag_1": "Our Environment",
+        "commitment_tag_2": "Our Responsibility",
+        "commitment_image": "shopify://shop_images/sustainable-fashion-eco-clothing-banner_2.png",
+        "banner_title": "Some of what makes us different includes",
+        "banner_text": "<p>Helping facility to be environmentally conscious and use all optimal material for business. We also guarantee that our products are of the highest quality.</p>",
+        "bottom_banner": "shopify://shop_images/green-earth-globe-view-updated.jpg",
+        "banner_point_1": "Requiring Compliance with all local , state, and federal environmental regulations",
+        "banner_point_2": "Promoting healthy factory environments, including noise and air pollution reduction measures",
+        "banner_point_3": "A prohibition on the use of environmentally hazardous materials; Secure chemical storage and disposal protocols",
+        "banner_point_4": "Implementation of energy and water optimization techniques."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "about_us_page_K4pqe9"
+  ]
+}

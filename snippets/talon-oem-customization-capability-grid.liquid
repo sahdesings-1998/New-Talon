@@ -1,0 +1,199 @@
+{%- comment -%} Customization Services — four major sections (one card each) {%- endcomment -%}
+{%- liquid
+  assign cap_design_image = 'custom-sportswear-design-sample-development.jpg'
+  assign cap_design_alt = 'Custom apparel design and sample development mockup for sportswear brands.'
+  assign cap_fabric_image = 'custom-fabric-sublimation-printing-machine.jpg'
+  assign cap_fabric_alt = 'Industrial fabric printing machine manufacturing custom sportswear patterns.'
+  assign cap_color_image = 'custom-clothing-color-pantone-charts-size-specs.jpg'
+  assign cap_color_alt = 'Pantone color selection charts and apparel size spec technical sketches.'
+  assign cap_labels_image = 'custom-apparel-clothing-hangtags-brand-labels.jpg'
+  assign cap_labels_alt = 'Custom woven labels hangtags and branding tags for private label apparel.'
+  assign cap_img_sizes = '(min-width: 769px) min(660px, 50vw), 100vw'
+  assign cap_img_width = 1600
+  assign cap_img_height = 1000
+-%}
+
+<style>
+    :root {
+    {% comment %} --cp-pad-x: clamp(1.25rem, 3vw, 2.5rem);
+    --cp-pad-y-top: clamp(3rem, 4.5vw, 3.5rem);
+    --cp-pad-y-bot: clamp(3rem, 4.5vw, 3.5rem); {% endcomment %}
+    --cp-grid-gap: clamp(1.2rem, 2.5vw, 1.65rem) ;
+    --cp-tab-grid-gap: clamp(1.875rem, 2.5vw, 2rem);
+    --oem-cp-desktop: clamp(2.5rem, 4vw, 3.5rem);
+   --oem-cp-desk:clamp(2.5rem, 4vw, 3rem);
+   --oem-cp-pad:clamp(2.125rem, 2rem + .6vw, 2.375rem);
+   --oem-cp-mobile:clamp(2rem, 1.9rem + .5vw, 2.125rem);
+  }
+    .oem-image-section{
+      padding-bottom: var(--cp-grid-gap) !important;
+      margin-top:0px !important;
+      margin-bottom:0px !important;
+    }
+    .oem-customization-major{
+    margin:0px !important;
+    }
+
+    .oem-image-grid-top{
+      padding-top: var(--oem-cp-desktop);
+    }
+
+
+    @media (max-width: 1024px) {
+    .oem-image-grid{
+      padding-top:var(--oem-cp-desk) ;
+      padding-bottom:var(--oem-cp-desk) ;
+    }
+    .breadcrumb{
+    padding-top:var(--oem-cp-desk) ;
+    }
+    }
+
+   @media (max-width: 768px) {
+     .oem-image-grid{
+      padding-top:var(--oem-cp-pad) ;
+      padding-bottom:var(--oem-cp-pad) ;
+    }
+
+   .oem-image-section{
+      padding-bottom: var(--cp-tab-grid-gap) !important;
+      margin-top:0px !important;
+      margin-bottom:0px !important;
+    }
+    .breadcrumb{
+    padding-top:var(--oem-cp-pad) ;
+    }
+  }
+
+    @media (max-width: 500px) {
+      .oem-image-grid{
+      padding-top:var(--oem-cp-mobile) ;
+      padding-bottom:var(--oem-cp-mobile) ;
+    }
+    .oem-image-section{
+    padding-bottom:clamp(24px, 2.5vw, 2rem) !important;
+    }
+    .breadcrumb{
+    padding-top:var(--oem-cp-mobile) ;
+    }
+  }
+</style>
+
+<div class="oem-image-grid oem-image-grid-top">
+  <section
+    class="oem-section oem-capability-section oem-customization-major oem-image-section"
+    id="customization-capability-design"
+    aria-labelledby="customization-capability-design-title"
+  >
+    <article class="oem-card oem-media-card">
+      <div class="oem-media-card__media">
+        {%- render 'talon-oem-asset-image',
+          asset: cap_design_image,
+          alt: cap_design_alt,
+          sizes: cap_img_sizes,
+          preset: 'large',
+          width: cap_img_width,
+          height: cap_img_height,
+          loading: 'lazy'
+        -%}
+      </div>
+      <div class="oem-media-card__body">
+        <h3 id="customization-capability-design-title">Custom Design and Sample Development</h3>
+        <p>
+          We support you can provide us with your own design files or sending us original samples with adjustments
+          advice, or based on our existing design and specifications. We will based on your demand and provide our
+          suggestions on design, size specs, yarn, color, workmanship, etc.
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <section
+    {% comment %} class="oem-section oem-capability-section oem-customization-major oem-capability-section--reverse oem-image-section" {% endcomment %}
+    class="oem-section oem-capability-section  oem-capability-section--reverse "
+    id="customization-capability-fabric"
+    aria-labelledby="customization-capability-fabric-title"
+  >
+    <article class="oem-card oem-media-card oem-image-section">
+      <div class="oem-media-card__media">
+        {%- render 'talon-oem-asset-image',
+          asset: cap_fabric_image,
+          alt: cap_fabric_alt,
+          sizes: cap_img_sizes,
+          preset: 'large',
+          width: cap_img_width,
+          height: cap_img_height,
+          loading: 'lazy'
+        -%}
+      </div>
+      <div class="oem-media-card__body">
+        <h3 id="customization-capability-fabric-title">Custom Fabric and Stock Fabric</h3>
+        <p>
+          More than 100 kinds of fabric are available, such as 100% cotton, cotton acrylic, cotton viscose, nylon,
+          polyester and wool mixed, Tencel, silk, linen, metallic, and so on. Based on your design, we'll recommend
+          suitable stock fabric for your reference to short the leadtime. We can provide custom fabric solutions for
+          nearly any design.
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <section
+    {% comment %} class="oem-section oem-capability-section oem-customization-major oem-image-section" {% endcomment %}
+    class="oem-section oem-capability-section"
+    id="customization-capability-color-size"
+    aria-labelledby="customization-capability-color-size-title"
+  >
+    <article class="oem-card oem-media-card oem-image-section">
+      <div class="oem-media-card__media">
+        {%- render 'talon-oem-asset-image',
+          asset: cap_color_image,
+          alt: cap_color_alt,
+          sizes: cap_img_sizes,
+          preset: 'large',
+          width: cap_img_width,
+          height: cap_img_height,
+          loading: 'lazy'
+        -%}
+      </div>
+      <div class="oem-media-card__body">
+        <h3 id="customization-capability-color-size-title">Custom Color &amp; Size</h3>
+        <p>
+          After confirming the kind of fabric, we will send you color card to choose. If the color you need is not in
+          the card, just send us images or Pantone number. We can dye whatever colors you want from standard to unique
+          colors. You can provide us with your own design size chart. If you don't have a size chart, our masters can
+          provide you with size recommendations for your country according to your design. Work with many international
+          brands so we knew the sizes for different designs.
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <section
+    class="oem-section oem-capability-section  oem-capability-section--reverse oem-image-section"
+    {% comment %} class="oem-section oem-capability-section oem-customization-major oem-capability-section--reverse oem-image-section" {% endcomment %}
+    id="customization-capability-labels"
+    aria-labelledby="customization-capability-labels-title"
+  >
+    <article class="oem-card oem-media-card">
+      <div class="oem-media-card__media">
+        {%- render 'talon-oem-asset-image',
+          asset: cap_labels_image,
+          alt: cap_labels_alt,
+          sizes: cap_img_sizes,
+          preset: 'large',
+          width: cap_img_width,
+          height: cap_img_height,
+          loading: 'lazy'
+        -%}
+      </div>
+      <div class="oem-media-card__body">
+        <h3 id="customization-capability-labels-title">Custom Logo, Label &amp; Tag</h3>
+        <p>
+          We are offering custom LOGO service, including hangtags, brand labels, washing labels, zipper, and packages
+          for your private label brands. LOGO style and workmanship can be made according to your requirements.
+        </p>
+      </div>
+    </article>
+  </section>
+</div>

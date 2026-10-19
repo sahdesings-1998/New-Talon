@@ -1,0 +1,53 @@
+{%- comment -%}
+  About Us nav links — desktop compact dropdown and mobile drawer.
+  Params:
+    about_base_url — page URL without hash (default /pages/about-talon)
+    variant — 'sidebar' for mobile drawer list items
+{%- endcomment -%}
+{%- assign about_base = about_base_url | default: '/pages/about-us-page' -%}
+{%- assign is_sidebar = false -%}
+{%- if variant == 'sidebar' -%}
+  {%- assign is_sidebar = true -%}
+{%- endif -%}
+
+{%- capture sidebar_link_class -%}header-sidebar__linklist-button{% if section.settings.sidebar_text_font == 'heading' %} h6{% endif %}{%- endcapture -%}
+
+{%- if is_sidebar -%}
+  <li>
+    <a href="{{ about_base }}#our-factory" class="{{ sidebar_link_class }}">Our Factory</a>
+  </li>
+  <li>
+    <a href="{{ about_base }}#production-process" class="{{ sidebar_link_class }}">Production Process</a>
+  </li>
+  <li>
+    <a href="{{ about_base }}#certifications" class="{{ sidebar_link_class }}">Our Certificate</a>
+  </li>
+  {% comment %} <li>
+    <a href="{{ about_base }}#our-team" class="{{ sidebar_link_class }}">Our Team</a>
+  </li> {% endcomment %}
+  {% comment %} <li>
+    <a href="{{ about_base }}#core-values" class="{{ sidebar_link_class }}">Our Core Values</a>
+  </li> {% endcomment %}
+  <li>
+    <a href="{{ about_base }}#sustainability" class="{{ sidebar_link_class }}">Sustainability</a>
+  </li>
+{%- else -%}
+  <li>
+    <a href="{{ about_base }}#our-factory" class="link-faded-reverse">Our Factory</a>
+  </li>
+  <li>
+    <a href="{{ about_base }}#production-process" class="link-faded-reverse">Production Process</a>
+  </li>
+  <li>
+    <a href="{{ about_base }}#certifications" class="link-faded-reverse">Our Certificate</a>
+  </li>
+  {% comment %} <li>
+    <a href="{{ about_base }}#our-team" class="link-faded-reverse">Our Team</a>
+  </li> {% endcomment %}
+  {% comment %} <li>
+    <a href="{{ about_base }}#core-values" class="link-faded-reverse">Our Core Values</a>
+  </li> {% endcomment %}
+  <li>
+    <a href="{{ about_base }}#sustainability" class="link-faded-reverse">Sustainability</a>
+  </li>
+{%- endif -%}

@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&family=Montserrat:ital,wght@0,800;0,900;1,800;1,900&family=Oswald:wght@700&family=Syne:wght@800&display=swap');
+
+/* ==========================================================================
+   TALON SPLIT BANNER ("OWN THE MOMENT") COMPONENT
+   ========================================================================== */
+
+.talon-split-banner {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.talon-split-banner *,
+.talon-split-banner *::before,
+.talon-split-banner *::after {
+  box-sizing: inherit;
+}
+
+.talon-split-banner__container {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.talon-split-banner__container--boxed {
+  max-width: var(--tsb-container-max, 1440px);
+  padding-inline: var(--tsb-container-gutter, 20px);
+}
+
+.talon-split-banner__wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: var(--tsb-min-height-desktop, 460px);
+  background-color: var(--tsb-banner-bg, #ffffff);
+  border-radius: var(--tsb-border-radius, 0px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Reverse desktop layout (Image Left / Text Right) */
+.talon-split-banner__wrapper--reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text Column */
+.talon-split-banner__text-col {
+  flex: 0 0 var(--tsb-text-col-width, 50%);
+  max-width: var(--tsb-text-col-width, 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--tsb-text-bg, #ffffff);
+  color: var(--tsb-text-color, #000000);
+  padding: var(--tsb-pad-y-desktop, 48px) var(--tsb-pad-x-desktop, 56px);
+  position: relative;
+  z-index: 2;
+}
+
+.talon-split-banner__content {
+  width: 100%;
+  max-width: var(--tsb-content-max-width, 560px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Alignment modifier classes */
+.talon-split-banner__content--align-right {
+  margin-left: auto;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.talon-split-banner__content--align-left {
+  margin-right: auto;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.talon-split-banner__content--align-center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+/* Subheading / Kicker */
+.talon-split-banner__subheading {
+  font-family: var(--tsb-subheading-font, var(--font-body-family, sans-serif));
+  font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin: 0 0 14px 0;
+  color: var(--tsb-subheading-color, #555555);
+}
+
+/* Main Impact Heading */
+.talon-split-banner__heading {
+  font-family: var(--tsb-font-family, 'Montserrat', sans-serif);
+  font-size: var(--tsb-font-size-desktop, clamp(2.8rem, 6.2vw, 6.4rem));
+  font-weight: 900;
+  line-height: var(--tsb-line-height, 0.88);
+  letter-spacing: var(--tsb-letter-spacing, -0.035em);
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--tsb-text-color, #000000);
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.talon-split-banner__heading-line {
+  display: block;
+}
+
+/* Body description */
+.talon-split-banner__description {
+  margin: 18px 0 0 0;
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--tsb-description-color, #444444);
+  max-width: 440px;
+}
+
+/* Call to Action Button */
+.talon-split-banner__cta-wrap {
+  margin-top: 26px;
+}
+
+.talon-split-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 34px;
+  background-color: var(--tsb-btn-bg, #000000);
+  color: var(--tsb-btn-text, #ffffff);
+  border: 1px solid var(--tsb-btn-border, #000000);
+  border-radius: var(--tsb-btn-radius, 0px);
+  font-family: var(--tsb-font-family, 'Montserrat', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.talon-split-banner__btn:hover {
+  background-color: var(--tsb-btn-hover-bg, #222222);
+  color: var(--tsb-btn-hover-text, #ffffff);
+  border-color: var(--tsb-btn-hover-border, #222222);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Column */
+.talon-split-banner__media-col {
+  flex: 0 0 var(--tsb-media-col-width, 50%);
+  max-width: var(--tsb-media-col-width, 50%);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--tsb-media-bg, #f2f2f2);
+  min-height: 100%;
+}
+
+.talon-split-banner__media-inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.talon-split-banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--tsb-image-focal, center center);
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle image scale effect if the banner is a clickable link */
+.talon-split-banner__link-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+
+.talon-split-banner__wrapper:has(.talon-split-banner__link-overlay:hover) .talon-split-banner__image {
+  transform: scale(1.025);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Tablet & Mobile Layout (< 990px) */
+@media screen and (max-width: 989px) {
+  .talon-split-banner__wrapper {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .talon-split-banner__wrapper--reverse-mobile {
+    flex-direction: column-reverse;
+  }
+
+  .talon-split-banner__text-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: var(--tsb-pad-y-mobile, 36px) var(--tsb-pad-x-mobile, 24px);
+  }
+
+  .talon-split-banner__content {
+    max-width: 100%;
+  }
+
+  /* Mobile text alignment options */
+  .talon-split-banner__content--mobile-align-right {
+    margin-left: auto;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .talon-split-banner__content--mobile-align-center {
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .talon-split-banner__content--mobile-align-left {
+    margin-right: auto;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .talon-split-banner__heading {
+    font-size: var(--tsb-font-size-mobile, clamp(2.3rem, 11vw, 4.2rem));
+    line-height: var(--tsb-line-height-mobile, 0.90);
+  }
+
+  .talon-split-banner__media-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    min-height: var(--tsb-media-min-height-mobile, 320px);
+    aspect-ratio: var(--tsb-media-aspect-mobile, 4 / 3);
+  }
+
+  .talon-split-banner__media-inner {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Small mobile (< 480px) fine-tuning */
+@media screen and (max-width: 480px) {
+  .talon-split-banner__text-col {
+    padding-inline: 18px;
+    padding-block: 28px;
+  }
+
+  .talon-split-banner__heading {
+    letter-spacing: -0.03em;
+  }
+
+  .talon-split-banner__btn {
+    width: 100%;
+  }
+}

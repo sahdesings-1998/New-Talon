@@ -1,0 +1,651 @@
+{{ 'talon-scrollable-collection.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #talon-sc-{{ section.id }} {
+    --talon-sc-bg: {{ section.settings.background_color | default: '#ffffff' }};
+    --talon-sc-text: {{ section.settings.text_color | default: '#111827' }};
+    --talon-sc-accent: {{ section.settings.accent_color | default: '#000000' }};
+    --talon-sc-subheading-color: {{ section.settings.subheading_color | default: '#4b5563' }};
+    --talon-sc-padding-top: {{ section.settings.padding_top | default: 40 }}px;
+    --talon-sc-padding-bottom: {{ section.settings.padding_bottom | default: 40 }}px;
+    --talon-sc-gap: {{ section.settings.card_gap_desktop | default: 16 }}px;
+    --talon-sc-gap-mob: {{ section.settings.card_gap_mobile | default: 12 }}px;
+    --talon-sc-cols-desktop: {{ section.settings.columns_desktop | default: 5 }};
+    --talon-sc-cols-mobile: {{ section.settings.columns_mobile | default: 2 }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign products_limit = section.settings.products_to_show | default: 10
+  assign has_products = false
+
+  if collection != blank and collection.products_count > 0
+    assign has_products = true
+  endif
+
+  assign ratio_class = 'talon-sc-card__media-wrap--portrait-4-5'
+  if section.settings.image_ratio == 'square'
+    assign ratio_class = 'talon-sc-card__media-wrap--square'
+  elsif section.settings.image_ratio == 'portrait-3-4'
+    assign ratio_class = 'talon-sc-card__media-wrap--portrait-3-4'
+  endif
+-%}
+
+<div id="talon-sc-{{ section.id }}" class="talon-sc talon-scrollable-collection-section" data-section-id="{{ section.id }}">
+  <div class="talon-sc__container">
+    {% comment %} Section Header: Title, Subheading, View All, Nav Arrows {% endcomment %}
+    <div class="talon-sc__header">
+      <div class="talon-sc__title-group">
+        {%- if section.settings.subheading != blank -%}
+          <span class="talon-sc__subheading">{{ section.settings.subheading | escape }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="talon-sc__heading">{{ section.settings.title | escape }}</h2>
+        {%- elsif collection != blank -%}
+          <h2 class="talon-sc__heading">{{ collection.title | escape }}</h2>
+        {%- else -%}
+          <h2 class="talon-sc__heading">Trending Sportswear</h2>
+        {%- endif -%}
+      </div>
+
+      <div class="talon-sc__controls-group">
+        {%- if section.settings.view_all_text != blank and collection != blank -%}
+          <a href="{{ collection.url }}" class="talon-sc__view-all" aria-label="{{ section.settings.view_all_text }} {{ collection.title }}">
+            <span>{{ section.settings.view_all_text | escape }}</span>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.show_arrows -%}
+          <div class="talon-sc__nav-btns" aria-label="Carousel navigation">
+            <button type="button" class="talon-sc__nav-btn talon-sc__nav-btn--prev" aria-label="Previous products" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="talon-sc__nav-btn talon-sc__nav-btn--next" aria-label="Next products">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M9 18L15 12L9 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Horizontal Scroll Track {% endcomment %}
+  <div class="talon-sc__scroller-wrapper">
+    <div class="talon-sc__track" tabindex="0" role="region" aria-label="Product list carousel">
+      {%- if has_products -%}
+        {%- for product in collection.products limit: products_limit -%}
+          <div class="talon-sc__card" data-product-id="{{ product.id }}">
+            <div class="talon-sc-card__media-wrap {{ ratio_class }}">
+              {%- if section.settings.show_badges -%}
+                <div class="talon-sc-card__badges">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="talon-sc-card__badge talon-sc-card__badge--sale">Sale</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              <a href="{{ product.url }}" class="talon-sc-card__media-link" tabindex="-1" aria-hidden="true">
+                {%- if product.featured_media != blank -%}
+                  {{ product.featured_media | image_url: width: 800 | image_tag:
+                    loading: 'lazy',
+                    class: 'talon-sc-card__img talon-sc-card__img--primary',
+                    widths: '300, 450, 600, 800',
+                    alt: product.featured_media.alt | default: product.title | escape
+                  }}
+                  {%- if section.settings.show_secondary_image and product.media.size > 1 -%}
+                    {{ product.media[1] | image_url: width: 800 | image_tag:
+                      loading: 'lazy',
+                      class: 'talon-sc-card__img talon-sc-card__img--secondary',
+                      widths: '300, 450, 600, 800',
+                      alt: product.media[1].alt | default: product.title | escape
+                    }}
+                  {%- endif -%}
+                {%- else -%}
+                  <div class="talon-sc-card__img talon-sc-card__img--placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; background: #ffffff; color: #9ca3af;">
+                    <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                  </div>
+                {%- endif -%}
+              </a>
+            </div>
+
+            <div class="talon-sc-card__content">
+              {%- if section.settings.show_vendor and product.vendor != blank -%}
+                <span class="talon-sc-card__vendor">{{ product.vendor | escape }}</span>
+              {%- endif -%}
+
+              <h3 class="talon-sc-card__title">
+                <a href="{{ product.url }}" class="talon-sc-card__title-link">
+                  {{ product.title | escape }}
+                </a>
+              </h3>
+
+              {%- if section.settings.show_price -%}
+                <div class="talon-sc-card__pricing">
+                  <span class="talon-sc-card__price">
+                    {%- if settings.currency_code_enabled -%}
+                      {{ product.price | money_with_currency }}
+                    {%- else -%}
+                      {{ product.price | money }} {{ cart.currency.iso_code }}
+                    {%- endif -%}
+                  </span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <s class="talon-sc-card__compare-price">
+                      {%- if settings.currency_code_enabled -%}
+                        {{ product.compare_at_price | money_with_currency }}
+                      {%- endif -%}
+                    </s>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.show_swatch and product.featured_media != blank -%}
+                <div class="talon-sc-card__thumb-circle">
+                  <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+                    <img
+                      src="{{ product.featured_media | image_url: width: 100 }}"
+                      alt="{{ product.title | escape }}"
+                      class="talon-sc-card__thumb-img"
+                      loading="lazy"
+                      width="38"
+                      height="38"
+                    >
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+        {% comment %} Onboarding preview matching reference UI {% endcomment %}
+        {%- for i in (1..6) -%}
+          <div class="talon-sc__card">
+            <div class="talon-sc-card__media-wrap {{ ratio_class }}">
+              <a href="#" class="talon-sc-card__media-link" tabindex="-1" aria-hidden="true">
+                {%- capture placeholder_img -%}
+                  {%- cycle 'talon-jacket-gallery-1.jpg', 'talon-category-sportswear-1.jpg', 'talon-category-sportswear-2.jpg', 'talon-category-sportswear-3.jpg', 'talon-jacket-gallery-2.jpg', 'talon-category-sportswear-4.jpg' -%}
+                {%- endcapture -%}
+                <img
+                  src="{{ placeholder_img | strip | asset_url }}"
+                  alt="TALON Sportswear Apparel {{ i }}"
+                  class="talon-sc-card__img talon-sc-card__img--primary"
+                  loading="lazy"
+                  width="600"
+                  height="750"
+                >
+              </a>
+            </div>
+
+            <div class="talon-sc-card__content">
+              {%- if section.settings.show_vendor -%}
+                <span class="talon-sc-card__vendor">TALON</span>
+              {%- endif -%}
+
+              <h3 class="talon-sc-card__title">
+                <a href="#" class="talon-sc-card__title-link">
+                  {%- cycle 'Talon Kinetic White Jacket', 'Talon Matrix Shell Jacket', 'Talon Horizon Field Jacket', 'Talon Core Hooded Jacket', 'Talon Cipher Windrunner', 'Talon Apex Training Jacket' -%}
+                </a>
+              </h3>
+
+              {%- if section.settings.show_price -%}
+                <div class="talon-sc-card__pricing">
+                  <span class="talon-sc-card__price">$299.00 USD</span>
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.show_swatch -%}
+                <div class="talon-sc-card__thumb-circle">
+                  <img
+                    src="{{ placeholder_img | strip | asset_url }}"
+                    alt="Thumbnail swatch"
+                    class="talon-sc-card__thumb-img"
+                    loading="lazy"
+                    width="38"
+                    height="38"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.show_progress_bar -%}
+    <div class="talon-sc__progress-container" aria-hidden="true">
+      <div class="talon-sc__progress-track">
+        <div class="talon-sc__progress-bar"></div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  (function() {
+    function initTalonScSection(container) {
+      if (!container) return;
+      const track = container.querySelector('.talon-sc__track');
+      const prevBtn = container.querySelector('.talon-sc__nav-btn--prev');
+      const nextBtn = container.querySelector('.talon-sc__nav-btn--next');
+      const progressBar = container.querySelector('.talon-sc__progress-bar');
+      const progressContainer = container.querySelector('.talon-sc__progress-container');
+      if (!track) return;
+
+      function updateNav() {
+        const cards = track.querySelectorAll('.talon-sc__card');
+        if (!cards.length) return;
+
+        // Calculate total width occupied by cards and gaps
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+        let totalCardsWidth = 0;
+        cards.forEach(function(card, index) {
+          totalCardsWidth += card.offsetWidth;
+          if (index < cards.length - 1) {
+            totalCardsWidth += gap;
+          }
+        });
+
+        // Available width inside track excluding gutters
+        const trackStyle = window.getComputedStyle(track);
+        const padLeft = parseFloat(trackStyle.paddingLeft) || 0;
+        const padRight = parseFloat(trackStyle.paddingRight) || 0;
+        const availableWidth = track.clientWidth - padLeft - padRight;
+
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+
+        // Subpixel tolerance threshold (2px)
+        const isOverflowing = (totalCardsWidth > availableWidth + 2) || (maxScroll > 2);
+
+        if (!isOverflowing) {
+          container.classList.add('talon-sc--fits-screen');
+          container.classList.remove('talon-sc--is-overflowing');
+          track.scrollLeft = 0;
+          if (prevBtn) prevBtn.disabled = true;
+          if (nextBtn) nextBtn.disabled = true;
+          if (progressContainer) progressContainer.style.display = 'none';
+        } else {
+          container.classList.remove('talon-sc--fits-screen');
+          container.classList.add('talon-sc--is-overflowing');
+          if (progressContainer) progressContainer.style.display = '';
+
+          if (prevBtn) {
+            prevBtn.disabled = track.scrollLeft <= 5;
+          }
+          if (nextBtn) {
+            nextBtn.disabled = track.scrollLeft >= maxScroll - 5;
+          }
+          if (progressBar && maxScroll > 0) {
+            const ratio = Math.min(Math.max(track.scrollLeft / maxScroll, 0), 1);
+            const barWidthPercent = Math.max((track.clientWidth / track.scrollWidth) * 100, 16);
+            progressBar.style.width = barWidthPercent + '%';
+            const maxTranslatePercent = (100 - barWidthPercent);
+            progressBar.style.transform = 'translateX(' + (ratio * maxTranslatePercent * (100 / barWidthPercent)) + '%)';
+          }
+        }
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const card = track.querySelector('.talon-sc__card');
+          const gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+          const step = card ? (card.offsetWidth + gap) * 2 : 360;
+          track.scrollBy({ left: -step, behavior: 'smooth' });
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const card = track.querySelector('.talon-sc__card');
+          const gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+          const step = card ? (card.offsetWidth + gap) * 2 : 360;
+          track.scrollBy({ left: step, behavior: 'smooth' });
+        });
+      }
+
+      track.addEventListener('scroll', updateNav, { passive: true });
+      window.addEventListener('resize', updateNav, { passive: true });
+
+      if (window.ResizeObserver) {
+        const ro = new ResizeObserver(function() {
+          updateNav();
+        });
+        ro.observe(track);
+      }
+
+      track.querySelectorAll('img').forEach(function(img) {
+        if (!img.complete) {
+          img.addEventListener('load', updateNav, { once: true });
+        }
+      });
+
+      requestAnimationFrame(updateNav);
+      setTimeout(updateNav, 150);
+      setTimeout(updateNav, 500);
+
+      // Desktop Mouse Grab & Drag to Scroll
+      let isDown = false;
+      let startX = 0;
+      let scrollLeftPos = 0;
+      let hasDragged = false;
+
+      track.addEventListener('mousedown', function(e) {
+        if (container.classList.contains('talon-sc--fits-screen')) return;
+        isDown = true;
+        hasDragged = false;
+        track.classList.add('is-dragging');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeftPos = track.scrollLeft;
+      });
+
+      window.addEventListener('mouseup', function() {
+        if (!isDown) return;
+        isDown = false;
+        track.classList.remove('is-dragging');
+      });
+
+      track.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.4;
+        if (Math.abs(x - startX) > 6) {
+          hasDragged = true;
+        }
+        track.scrollLeft = scrollLeftPos - walk;
+      });
+
+      track.addEventListener('click', function(e) {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    }
+
+    function initAll() {
+      document.querySelectorAll('.talon-sc').forEach(initTalonScSection);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.target.matches('.talon-scrollable-collection-section') || e.target.querySelector('.talon-sc')) {
+        initTalonScSection(e.target.querySelector('.talon-sc') || e.target);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Talon Product Carousel",
+  "tag": "section",
+  "class": "section talon-scrollable-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection Selection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "label": "Maximum products to display",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section heading",
+      "default": "Trending Sportswear"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "PREMIUM PERFORMANCE GEAR"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading text color",
+      "default": "#4b5563"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all link label",
+      "default": "View All Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show scroll progress bar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Card Settings"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Product image aspect ratio",
+      "options": [
+        {
+          "value": "portrait-4-5",
+          "label": "4:5 Portrait (Recommended)"
+        },
+        {
+          "value": "portrait-3-4",
+          "label": "3:4 Portrait"
+        },
+        {
+          "value": "square",
+          "label": "1:1 Square"
+        }
+      ],
+      "default": "portrait-4-5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show secondary image on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show product prices",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swatch",
+      "label": "Show thumbnail swatch circle",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "Show sale badges",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Responsive Columns & Spacing"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop visible cards",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 Cards"
+        },
+        {
+          "value": "3.5",
+          "label": "3.5 Cards (Peek)"
+        },
+        {
+          "value": "4",
+          "label": "4 Cards"
+        },
+        {
+          "value": "4.5",
+          "label": "4.5 Cards (Peek)"
+        },
+        {
+          "value": "5",
+          "label": "5 Cards (Recommended)"
+        }
+      ],
+      "default": "5"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Mobile visible cards",
+      "options": [
+        {
+          "value": "1.4",
+          "label": "1.4 Cards"
+        },
+        {
+          "value": "1.75",
+          "label": "1.75 Cards"
+        },
+        {
+          "value": "2",
+          "label": "2 Cards (Recommended Compact)"
+        },
+        {
+          "value": "2.2",
+          "label": "2.2 Cards (Peek)"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "card_gap_desktop",
+      "min": 10,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop card gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile card gap",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors & Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111827"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon Product Carousel",
+      "settings": {
+        "title": "Trending Sportswear",
+        "subheading": "PREMIUM PERFORMANCE GEAR",
+        "subheading_color": "#4b5563",
+        "products_to_show": 10,
+        "columns_desktop": "4",
+        "columns_mobile": "1.4",
+        "show_arrows": true,
+        "show_progress_bar": true,
+        "show_secondary_image": true,
+        "show_swatch": true,
+        "image_ratio": "portrait-4-5",
+        "background_color": "#ffffff",
+        "text_color": "#111827"
+      }
+    }
+  ]
+}
+{% endschema %}

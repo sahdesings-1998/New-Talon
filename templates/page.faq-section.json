@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".section-header {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "page_width": "xs"
+      }
+    },
+    "faq_section_eyiLt7": {
+      "type": "faq-section",
+      "blocks": {
+        "faq_item_EzDpJg": {
+          "type": "faq_item",
+          "settings": {
+            "question": "1. Q:How to get a sample?",
+            "answer": "We have own factory with more than 20 years of experience, experienced designer, low MOQ, excellent quality, reasonable price, good service, and fast delivery.",
+            "open_by_default": true
+          }
+        },
+        "faq_item_RqDwGF": {
+          "type": "faq_item",
+          "settings": {
+            "question": "2. Q:How to get a sample?",
+            "answer": "Sample order is welcome. Please contact us and make sure what sample you need. It usually takes 10-20 days to finish your sample according to the design.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_dnbHtk": {
+          "type": "faq_item",
+          "settings": {
+            "question": "3. Q:Can we print our own brand or logo on your products",
+            "answer": "Yes, of course. Please provide digital file and size of your logo/label/tag. It is our pleasure to be one of your good OEM manufacturers in China.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_afVgtA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "4. Q:Why do some goods have difference between website picture and practical items?",
+            "answer": "Different batches of fabric or different light and browser may cause the difference between the picture and practical goods.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_DaBM4B": {
+          "type": "faq_item",
+          "settings": {
+            "question": "5. Q:Do you provide free sample?",
+            "answer": "Sample fee is charged per design. For sportswear made of woven fabric, Sample fee will be fully refunded once the bulk order quantities meet 300 pieces /design. For knit wear, Sample fee will be fully refunded once the bulk order meet 100 pieces per design.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_TyWdJP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "6. Q:What is your minimum order quantities (MOQ)?",
+            "answer": "As a direct sports wear factory, our MOQ of custom designs is 100 pieces per design per color and mixed 4 size for fabric made goods. For our available stock goods, our MOQ is 1 pieces.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_V7WE36": {
+          "type": "faq_item",
+          "settings": {
+            "question": "7. Q:Can I have my private label on the sports wear?",
+            "answer": "Yes, you can. It is OK for us to custom made your own logo and attach on your design products. We also can make sample development according to your own design because we offer both OEM and ODM service.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_mwmUKe": {
+          "type": "faq_item",
+          "settings": {
+            "question": "8. Q: Can I get a sample before pacing order?",
+            "answer": "Yes, you can. we can develop and send samples for your quality approval firstly.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_hWkjf8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "9. Q: How long is your sample lead time and production lead time?",
+            "answer": "Our sample lead time for custom made style is 10-20days and 25-35days for production. For our available styles, our sample lead time is 7 days and 20~30 days for bulk.",
+            "open_by_default": false
+          }
+        },
+        "faq_item_PQ3WWz": {
+          "type": "faq_item",
+          "settings": {
+            "question": "10. Q: How about the shipping cost?",
+            "answer": "Shipping cost depends on the order quantity, package size and shipping way like Express DHL, FEDEX, UPS ect. By air or by sea shipment cost, please contact us for detail information and we will offer different options for your selection.",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_EzDpJg",
+        "faq_item_RqDwGF",
+        "faq_item_dnbHtk",
+        "faq_item_afVgtA",
+        "faq_item_DaBM4B",
+        "faq_item_TyWdJP",
+        "faq_item_V7WE36",
+        "faq_item_mwmUKe",
+        "faq_item_hWkjf8",
+        "faq_item_PQ3WWz"
+      ],
+      "name": "FAQ with Stats",
+      "settings": {
+        "stat1_title": "Samp Time",
+        "stat1_sub": "10-20 Days",
+        "stat2_title": "Bulk Order Time",
+        "stat2_sub": "20-30 Days",
+        "stat3_title": "24/7 Live Support",
+        "stat3_sub": "Call, message, or email us anytime, anywhere",
+        "faq_heading": "Frequently Asked Questions",
+        "faq_support_text": "Still have questions? Contact us anytime."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq_section_eyiLt7"
+  ]
+}

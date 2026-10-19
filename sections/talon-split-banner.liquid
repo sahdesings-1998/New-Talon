@@ -1,0 +1,598 @@
+{{ 'talon-split-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .talon-split-banner {
+    padding-top: {{ section.settings.padding_top_desktop }}px;
+    padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    background-color: {{ section.settings.section_bg_color | default: 'transparent' }};
+  }
+
+  #shopify-section-{{ section.id }} .talon-split-banner__wrapper {
+    --tsb-banner-bg: {{ section.settings.text_bg_color | default: '#ffffff' }};
+    --tsb-text-bg: {{ section.settings.text_bg_color | default: '#ffffff' }};
+    --tsb-text-color: {{ section.settings.text_color | default: '#000000' }};
+    --tsb-subheading-color: {{ section.settings.subheading_color | default: '#666666' }};
+    --tsb-description-color: {{ section.settings.description_color | default: '#333333' }};
+    --tsb-font-family: {{ section.settings.web_font | default: "'Montserrat', sans-serif" }};
+    --tsb-min-height-desktop: {{ section.settings.desktop_min_height | default: 460 }}px;
+    --tsb-border-radius: {{ section.settings.border_radius | default: 0 }}px;
+    --tsb-image-focal: {{ section.settings.image_focal_point | default: 'center top' }};
+
+    {%- case section.settings.split_ratio -%}
+      {%- when '40_60' -%}
+        --tsb-text-col-width: 40%;
+        --tsb-media-col-width: 60%;
+      {%- when '45_55' -%}
+        --tsb-text-col-width: 45%;
+        --tsb-media-col-width: 55%;
+      {%- when '55_45' -%}
+        --tsb-text-col-width: 55%;
+        --tsb-media-col-width: 45%;
+      {%- when '60_40' -%}
+        --tsb-text-col-width: 60%;
+        --tsb-media-col-width: 40%;
+      {%- else -%}
+        --tsb-text-col-width: 50%;
+        --tsb-media-col-width: 50%;
+    {%- endcase -%}
+
+    --tsb-btn-bg: {{ section.settings.button_bg_color | default: '#000000' }};
+    --tsb-btn-text: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --tsb-btn-border: {{ section.settings.button_border_color | default: '#000000' }};
+    --tsb-btn-hover-bg: {{ section.settings.button_hover_bg_color | default: '#222222' }};
+    --tsb-btn-hover-text: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
+    --tsb-btn-hover-border: {{ section.settings.button_hover_border_color | default: '#222222' }};
+    --tsb-btn-radius: {{ section.settings.button_radius | default: 0 }}px;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .talon-split-banner {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .talon-split-banner__media-col {
+      --tsb-media-min-height-mobile: {{ section.settings.mobile_media_min_height | default: 320 }}px;
+      --tsb-media-aspect-mobile: {{ section.settings.mobile_media_aspect | default: '4 / 3' }};
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign default_fallback_image = 'talon-hoodie-model.png' | asset_url
+  assign image_alt = section.settings.image.alt | default: section.settings.heading | default: 'Talon Apparel Banner'
+
+  assign wrapper_classes = 'talon-split-banner__wrapper'
+  if section.settings.layout_direction == 'image_left'
+    assign wrapper_classes = wrapper_classes | append: ' talon-split-banner__wrapper--reverse'
+  endif
+  if section.settings.mobile_layout_order == 'image_first'
+    assign wrapper_classes = wrapper_classes | append: ' talon-split-banner__wrapper--reverse-mobile'
+  endif
+
+  assign content_classes = 'talon-split-banner__content'
+  case section.settings.desktop_text_alignment
+    when 'left'
+      assign content_classes = content_classes | append: ' talon-split-banner__content--align-left'
+    when 'center'
+      assign content_classes = content_classes | append: ' talon-split-banner__content--align-center'
+    else
+      assign content_classes = content_classes | append: ' talon-split-banner__content--align-right'
+  endcase
+
+  case section.settings.mobile_text_alignment
+    when 'left'
+      assign content_classes = content_classes | append: ' talon-split-banner__content--mobile-align-left'
+    when 'center'
+      assign content_classes = content_classes | append: ' talon-split-banner__content--mobile-align-center'
+    else
+      assign content_classes = content_classes | append: ' talon-split-banner__content--mobile-align-right'
+  endcase
+-%}
+
+<section
+  class="talon-split-banner talon-split-banner--{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  aria-label="{{ section.settings.heading | escape | default: 'Talon Banner' }}"
+>
+  <div class="talon-split-banner__container{% if section.settings.boxed_container %} talon-split-banner__container--boxed{% endif %}">
+    <div class="{{ wrapper_classes }}">
+      {%- comment -%} Optional full-banner clickable link when no separate button is used {%- endcomment -%}
+      {%- if section.settings.banner_link != blank and section.settings.button_label == blank -%}
+        <a href="{{ section.settings.banner_link }}" class="talon-split-banner__link-overlay" aria-hidden="true" tabindex="-1">
+          {{- section.settings.heading | default: 'Shop Now' -}}
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} TEXT COLUMN {%- endcomment -%}
+      <div class="talon-split-banner__text-col">
+        <div class="{{ content_classes }}">
+          {%- if section.settings.subheading != blank -%}
+            <span class="talon-split-banner__subheading">
+              {{- section.settings.subheading -}}
+            </span>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="talon-split-banner__heading">
+              {%- assign heading_lines = section.settings.heading | split: '
+' -%}
+              {%- for line in heading_lines -%}
+                {%- assign trimmed_line = line | strip -%}
+                {%- if trimmed_line != blank -%}
+                  <span class="talon-split-banner__heading-line">{{ trimmed_line }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </h2>
+          {%- endif -%}
+
+          {%- if section.settings.description != blank -%}
+            <div class="talon-split-banner__description">
+              {{- section.settings.description -}}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.button_label != blank -%}
+            <div class="talon-split-banner__cta-wrap">
+              <a
+                href="{{ section.settings.button_link | default: section.settings.banner_link | default: '/collections/all' }}"
+                class="talon-split-banner__btn"
+              >
+                {{- section.settings.button_label -}}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} IMAGE COLUMN {%- endcomment -%}
+      <div class="talon-split-banner__media-col">
+        <div class="talon-split-banner__media-inner">
+          <picture>
+            {%- if section.settings.image_mobile != blank -%}
+              <source
+                media="(max-width: 989px)"
+                srcset="{{ section.settings.image_mobile | image_url: width: 900 }} 1x, {{ section.settings.image_mobile | image_url: width: 1800 }} 2x"
+              >
+            {%- endif -%}
+
+            {%- if section.settings.image != blank -%}
+              {{- section.settings.image | image_url: width: 1600 | image_tag:
+                loading: 'lazy',
+                class: 'talon-split-banner__image',
+                alt: image_alt,
+                widths: '600, 800, 1000, 1200, 1600, 2000'
+              -}}
+            {%- else -%}
+              <img
+                src="{{ default_fallback_image }}"
+                alt="{{ image_alt }}"
+                class="talon-split-banner__image"
+                loading="lazy"
+                width="800"
+                height="500"
+              >
+            {%- endif -%}
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Talon Split Banner",
+  "tag": "section",
+  "class": "shopify-section--talon-split-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Typography & Font (Web-Based)"
+    },
+    {
+      "type": "select",
+      "id": "web_font",
+      "label": "Web Font Family",
+      "options": [
+        {
+          "value": "'Montserrat', sans-serif",
+          "label": "Montserrat Black (Default — Geometric & Bold)"
+        },
+        {
+          "value": "'Archivo Black', sans-serif",
+          "label": "Archivo Black (Heavyweight Display)"
+        },
+        {
+          "value": "'Anton', sans-serif",
+          "label": "Anton (Tall Condensed Impact)"
+        },
+        {
+          "value": "'Oswald', sans-serif",
+          "label": "Oswald Bold (Condensed Athletic)"
+        },
+        {
+          "value": "'Syne', sans-serif",
+          "label": "Syne ExtraBold (Modern Avant-Garde)"
+        },
+        {
+          "value": "inherit",
+          "label": "Theme Heading Font"
+        }
+      ],
+      "default": "'Montserrat', sans-serif"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading Text",
+      "default": "OWN\nTHE\nMOMENT",
+      "info": "Press Enter to create stacked words (e.g. OWN on line 1, THE on line 2, MOMENT on line 3)."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading / Kicker (Optional)"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Body Description (Optional)"
+    },
+    {
+      "type": "select",
+      "id": "desktop_text_alignment",
+      "label": "Desktop Text Alignment",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right (As in screenshot)"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Mobile Text Alignment",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action / Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Entire Banner Link (When no button is used)"
+    },
+    {
+      "type": "header",
+      "content": "Image Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop Image",
+      "info": "Leave blank to display the default Talon hoodie model image."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image (Optional)"
+    },
+    {
+      "type": "select",
+      "id": "image_focal_point",
+      "label": "Image Focal Point",
+      "options": [
+        {
+          "value": "center top",
+          "label": "Top Center"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom Center"
+        }
+      ],
+      "default": "center top"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Sizing"
+    },
+    {
+      "type": "checkbox",
+      "id": "boxed_container",
+      "label": "Boxed Container (Default is Full-Width edge-to-edge)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Desktop Layout Direction",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text Left, Image Right (Default)"
+        },
+        {
+          "value": "image_left",
+          "label": "Image Left, Text Right"
+        }
+      ],
+      "default": "text_left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout_order",
+      "label": "Mobile Layout Order",
+      "options": [
+        {
+          "value": "text_first",
+          "label": "Text on Top, Image on Bottom (Default)"
+        },
+        {
+          "value": "image_first",
+          "label": "Image on Top, Text on Bottom"
+        }
+      ],
+      "default": "text_first"
+    },
+    {
+      "type": "select",
+      "id": "split_ratio",
+      "label": "Column Split Ratio (Desktop)",
+      "options": [
+        {
+          "value": "50_50",
+          "label": "50% Text / 50% Image"
+        },
+        {
+          "value": "45_55",
+          "label": "45% Text / 55% Image"
+        },
+        {
+          "value": "40_60",
+          "label": "40% Text / 60% Image"
+        },
+        {
+          "value": "55_45",
+          "label": "55% Text / 45% Image"
+        },
+        {
+          "value": "60_40",
+          "label": "60% Text / 40% Image"
+        }
+      ],
+      "default": "50_50"
+    },
+    {
+      "type": "range",
+      "id": "desktop_min_height",
+      "min": 350,
+      "max": 750,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop Banner Height",
+      "default": 460
+    },
+    {
+      "type": "range",
+      "id": "mobile_media_min_height",
+      "min": 240,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile Image Minimum Height",
+      "default": 320
+    },
+    {
+      "type": "select",
+      "id": "mobile_media_aspect",
+      "label": "Mobile Image Aspect Ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Widescreen (16:9)"
+        }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Corner Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Outer Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_bg_color",
+      "label": "Text Column Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button Hover Border",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding (Mobile)",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon Split Banner (Own The Moment)",
+      "settings": {
+        "heading": "OWN\nTHE\nMOMENT",
+        "desktop_text_alignment": "right",
+        "mobile_text_alignment": "center",
+        "split_ratio": "50_50",
+        "desktop_min_height": 460
+      }
+    }
+  ]
+}
+{% endschema %}

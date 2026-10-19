@@ -1,0 +1,132 @@
+{%- comment -%}
+  CUSTOM SPORTSWEAR navigation — desktop mega menu (default) and mobile drawer (variant: sidebar).
+{%- endcomment -%}
+{%- assign is_sidebar = false -%}
+{%- if variant == 'sidebar' -%}
+  {%- assign is_sidebar = true -%}
+{%- endif -%}
+
+{%- capture sidebar_summary_class -%}header-sidebar__linklist-button{% if section.settings.sidebar_text_font == 'heading' %} h6{% endif %}{%- endcapture -%}
+
+{%- if is_sidebar -%}
+  <li>
+    <accordion-disclosure>
+      <details class="accordion__disclosure group" {% if open_second_level_menus %}open{% endif %}>
+        <summary class="{{ sidebar_summary_class }}">
+          CUSTOM MEN&apos;S SPORTSWEAR
+          <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+        </summary>
+        <div class="header-sidebar__nested-linklist">
+          <a href="/collections/jackets" class="link-faded-reverse">Jackets</a>
+          {% comment %} <a href="/collections/mens-tracksuits" class="link-faded-reverse">Pullover Sweater</a> {% endcomment %}
+          {% comment %} <a href="/collections/mens-teamwear" class="link-faded-reverse">Cardigan Sport wear</a> {% endcomment %}
+          <a href="/collections/Pullover-long-sleeves-shirt" class="link-faded-reverse">Long sleeves / Shirt</a>
+          <a href="/collections/hoodie-sport-wear" class="link-faded-reverse">Hoodie</a>
+          <a href="/collections/vest-and-short-sleeves" class="link-faded-reverse">Vest and Short Sleeves</a>
+          <a href="/collections/shorts-and-pants" class="link-faded-reverse">Shorts and Pants</a>
+        </div>
+      </details>
+    </accordion-disclosure>
+  </li>
+  <li>
+    <accordion-disclosure>
+      <details class="accordion__disclosure group" {% if open_second_level_menus %}open{% endif %}>
+        <summary class="{{ sidebar_summary_class }}">
+          CUSTOM WOMMEN&apos;S SPORT WEAR
+          <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+        </summary>
+        <div class="header-sidebar__nested-linklist">
+          <a href="/collections/jackets-women" class="link-faded-reverse">Jackets</a>
+          {% comment %} <a href="/collections/womens-tracksuits" class="link-faded-reverse">Pullover Sweater</a> {% endcomment %}
+          {% comment %} <a href="/collections/womens-teamwear" class="link-faded-reverse">Cardigan Sport wear</a> {% endcomment %}
+          <a href="/collections/pullover-long-sleeves-shirt-women" class="link-faded-reverse">Long sleeves / Shirt</a>
+          <a href="/collections/hoodie-sport-wear-women" class="link-faded-reverse">Hoodie</a>
+          <a href="/collections/vest-and-short-sleeves-women" class="link-faded-reverse">Vest and Short Sleeves</a>
+          <a href="/collections/shorts-and-pants-women" class="link-faded-reverse">Shorts and Pants</a>
+          <a href="/collections/women-set-and-suit" class="link-faded-reverse">Women set and suit</a>
+        </div>
+      </details>
+    </accordion-disclosure>
+  </li>
+  <li>
+    <accordion-disclosure>
+      <details class="accordion__disclosure group" {% if open_second_level_menus %}open{% endif %}>
+        <summary class="{{ sidebar_summary_class }}">
+          CUSTOM KIDS SPORT WEAR
+          <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+        </summary>
+        <div class="header-sidebar__nested-linklist">
+          {% comment %} <a href="/collections/boys-sport-wear" class="link-faded-reverse">Boys Sport Wear</a> {% endcomment %}
+          {% comment %} <a href="/collections/girls-sport-wear" class="link-faded-reverse">Girls Sport Wear</a> {% endcomment %}
+          <a href="/collections/youth-sportwear" class="link-faded-reverse">Youth Sportswear</a>
+          <a href="/collections/sample-bulk-order" class="link-faded-reverse">Sample & Bulk Order</a>
+        </div>
+      </details>
+    </accordion-disclosure>
+  </li>
+  <li>
+    <accordion-disclosure>
+      <details class="accordion__disclosure group" {% if open_second_level_menus %}open{% endif %}>
+        <summary class="{{ sidebar_summary_class }}">
+          CUSTOM ACCESSORIES
+          <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+        </summary>
+        <div class="header-sidebar__nested-linklist">
+          <a href="/collections/caps" class="link-faded-reverse">CAPS</a>
+          <a href="/collections/socks" class="link-faded-reverse">SOCKS</a>
+          <a href="/collections/gloves" class="link-faded-reverse">GLOVES</a>
+        </div>
+      </details>
+    </accordion-disclosure>
+  </li>
+{%- else -%}
+  <div class="talon-mega">
+    <div class="talon-mega__grid">
+      <div class="talon-mega__col">
+        <p class="talon-mega__col-title" id="talon-shop-col-mens">CUSTOM MEN&apos;S SPORTSWEAR</p>
+        <ul class="talon-mega__list unstyled-list" role="list" aria-labelledby="talon-shop-col-mens">
+          <li><a class="talon-mega__link" href="/collections/jackets">Jackets</a></li>
+          {% comment %} <li><a class="talon-mega__link" href="/collections/pullover-sweater">Pullover Sweater</a></li> {% endcomment %}
+          {% comment %} <li><a class="talon-mega__link" href="/collections/cardigan-sport-wear">Cardigan Sport wear</a></li> {% endcomment %}
+          <li><a class="talon-mega__link" href="/collections/pullover-long-sleeves-shirt">Long sleeves / Shirt</a></li>
+          <li><a class="talon-mega__link" href="/collections/hoodie-sport-wear">Hoodie</a></li>
+          <li><a class="talon-mega__link" href="/collections/vest-and-short-sleeves">Vest and Short Sleeves</a></li>
+          <li><a class="talon-mega__link" href="/collections/shorts-and-pants">Shorts and Pants</a></li>
+        </ul>
+      </div>
+
+      <div class="talon-mega__col">
+        <p class="talon-mega__col-title" id="talon-shop-col-womens">CUSTOM WOMEN&apos;S SPORTSWEAR</p>
+        <ul class="talon-mega__list unstyled-list" role="list" aria-labelledby="talon-shop-col-womens">
+          <li><a class="talon-mega__link" href="/collections/jackets-women">Jackets</a></li>
+          {% comment %} <li><a class="talon-mega__link" href="/collections/pullover-sweater-women">Pullover Sweater</a></li> {% endcomment %}
+          {% comment %} <li><a class="talon-mega__link" href="/collections/cardigan-sport-wear-women">Cardigan Sport wear</a></li> {% endcomment %}
+          <li><a class="talon-mega__link" href="/collections/pullover-long-sleeves-shirt-women">Long sleeves / Shirt</a></li>
+          <li><a class="talon-mega__link" href="/collections/hoodie-sport-wear-women">Hoodie</a></li>
+          <li><a class="talon-mega__link" href="/collections/vest-and-short-sleeves-women">Vest and Short Sleeves</a></li>
+          <li><a class="talon-mega__link" href="/collections/shorts-and-pants-women">Shorts and Pants</a></li>
+          <li><a class="talon-mega__link" href="/collections/women-set-and-suit">Women set and suit</a></li>
+        </ul>
+      </div>
+
+      <div class="talon-mega__col">
+        <p class="talon-mega__col-title" id="talon-shop-col-kids">CUSTOM KIDS SPORTSWEAR</p>
+        <ul class="talon-mega__list unstyled-list" role="list" aria-labelledby="talon-shop-col-kids">
+          {% comment %} <li><a class="talon-mega__link" href="/collections/boys-sport-wear">Boys SportsWear</a></li> {% endcomment %}
+          {% comment %} <li><a class="talon-mega__link" href="/collections/girls-sport-wear">Girls SportsWear</a></li> {% endcomment %}
+          <li><a class="talon-mega__link" href="/collections/youth-sportwear">Youth Sportswear</a></li>
+          <li><a class="talon-mega__link" href="/collections/sample-bulk-order">Sample & Bulk Order</a></li>
+        </ul>
+      </div>
+
+      <div class="talon-mega__col">
+        <p class="talon-mega__col-title" id="talon-shop-col-acc">CUSTOM ACCESSORIES</p>
+        <ul class="talon-mega__list unstyled-list" role="list" aria-labelledby="talon-shop-col-acc">
+          <li><a class="talon-mega__link" href="/collections/caps">CAPS</a></li>
+          <li><a class="talon-mega__link" href="/collections/socks">SOCKS</a></li>
+          <li><a class="talon-mega__link" href="/collections/gloves">GLOVES</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

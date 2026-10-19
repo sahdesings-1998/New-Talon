@@ -1,0 +1,22 @@
+{%- comment -%}
+  Detailed OEM manufacturing workflow card.
+  Accepts: step_index, title, description, image (asset filename), alt (optional)
+{%- endcomment -%}
+{%- liquid
+  assign step_label = step_index | prepend: '00' | slice: -2, 2
+  assign image_alt = alt | default: title | append: ' — TALON OEM manufacturing'
+-%}
+<article class="oem-card oem-workflow-card">
+  <div class="oem-workflow-card__media">
+    {%- render 'talon-oem-asset-image',
+      asset: image,
+      alt: image_alt,
+      loading: 'lazy'
+    -%}
+    <span class="oem-workflow-card__badge" aria-hidden="true">{{ step_label }}</span>
+  </div>
+  <div class="oem-workflow-card__body">
+    <h3 class="oem-workflow-card__title">{{ title }}</h3>
+    <p class="oem-workflow-card__text">{{ description }}</p>
+  </div>
+</article>

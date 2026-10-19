@@ -1,0 +1,1317 @@
+{{ 'talon-product-showcase.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign color_scheme_hash = section.settings.color_scheme.settings.background_gradient | default: section.settings.color_scheme.settings.background | md5
+  assign loading_strategy = 'lazy'
+  if section.index <= 2
+    assign loading_strategy = 'eager'
+  endif
+
+  # Filter blocks by type
+  assign gallery_blocks = section.blocks | where: 'type', 'gallery_image'
+  assign feature_blocks = section.blocks | where: 'type', 'feature'
+  assign button_blocks = section.blocks | where: 'type', 'button'
+  assign badge_blocks = section.blocks | where: 'type', 'badge'
+
+  # Fallback default assets for images
+  assign default_img_1 = 'talon-jacket-gallery-1.jpg' | asset_url
+  assign default_img_2 = 'talon-jacket-gallery-2.jpg' | asset_url
+  assign default_img_3 = 'talon-jacket-gallery-3.jpg' | asset_url
+  assign default_img_4 = 'talon-jacket-gallery-4.jpg' | asset_url
+  assign default_img_5 = 'talon-jacket-gallery-5.jpg' | asset_url
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --talon-ps-max-w: {{ section.settings.container_max_width | default: '1440px' }};
+    --talon-ps-pt: {{ section.settings.padding_top }}px;
+    --talon-ps-pb: {{ section.settings.padding_bottom }}px;
+    --talon-ps-pt-mob: {{ section.settings.padding_top_mobile }}px;
+    --talon-ps-pb-mob: {{ section.settings.padding_bottom_mobile }}px;
+    --talon-ps-radius: {{ section.settings.image_border_radius }}px;
+    --talon-ps-gallery-gap: {{ section.settings.gallery_gap }}px;
+    --talon-ps-heading-color: {{ section.settings.heading_color }};
+    --talon-ps-text-color: {{ section.settings.text_color }};
+    --talon-ps-muted-text: {{ section.settings.muted_text_color }};
+    --talon-ps-eyebrow-color: {{ section.settings.eyebrow_color }};
+    --talon-ps-card-bg: {{ section.settings.card_background }};
+    --talon-ps-card-border: {{ section.settings.card_border }};
+    --talon-ps-accent: {{ section.settings.accent_color }};
+    --talon-ps-btn-bg: {{ section.settings.button_bg_color }};
+    --talon-ps-btn-text: {{ section.settings.button_text_color }};
+    --talon-ps-btn-hover-bg: {{ section.settings.button_hover_bg_color }};
+
+    {% case section.settings.gallery_aspect_ratio %}
+      {% when 'portrait' %}
+        --talon-ps-main-aspect: 3 / 4;
+        --talon-ps-thumb-aspect: 3 / 4;
+        --talon-ps-mobile-main-aspect: 3 / 4;
+      {% when 'square' %}
+        --talon-ps-main-aspect: 1 / 1;
+        --talon-ps-thumb-aspect: 1 / 1;
+        --talon-ps-mobile-main-aspect: 1 / 1;
+      {% when 'natural' %}
+        --talon-ps-main-aspect: auto;
+        --talon-ps-thumb-aspect: auto;
+        --talon-ps-mobile-main-aspect: auto;
+      {% else %}
+        --talon-ps-main-aspect: 3 / 4;
+        --talon-ps-thumb-aspect: 3 / 4;
+        --talon-ps-mobile-main-aspect: 3 / 4;
+    {% endcase %}
+  }
+
+  #shopify-section-{{ section.id }} .talon-product-showcase {
+    padding-top: var(--talon-ps-pt-mob);
+    padding-bottom: var(--talon-ps-pb-mob);
+    {% if section.settings.use_custom_bg %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .talon-product-showcase {
+      padding-top: var(--talon-ps-pt);
+      padding-bottom: var(--talon-ps-pb);
+    }
+  }
+</style>
+
+<div class="talon-product-showcase {% if section.settings.color_scheme != blank and section.settings.use_custom_bg == false %}color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }}{% endif %} {% if section.settings.separate_section_with_border %}bordered-section{% endif %}" id="TalonShowcase-{{ section.id }}">
+  <div class="talon-product-showcase__container">
+    <div class="talon-product-showcase__inner talon-product-showcase__inner--split-{{ section.settings.desktop_split }} {% if section.settings.desktop_layout == 'gallery_right' %}talon-product-showcase__inner--reversed{% endif %}">
+      
+      {%- comment -%} ==========================================
+          LEFT COLUMN: Carousel Gallery with 5-Thumbnail Strip
+          ========================================== {%- endcomment -%}
+      <div class="talon-product-showcase__gallery-col" data-gallery-container>
+        <div class="talon-product-showcase__gallery-wrapper">
+
+          {%- liquid
+            assign img_list = ''
+            assign alt_list = ''
+
+            # Check if any gallery block has an image uploaded
+            assign has_block_images = false
+            for block in gallery_blocks
+              if block.settings.image != blank
+                assign has_block_images = true
+                break
+              endif
+            endfor
+
+            # Check if section settings have images uploaded
+            assign has_section_images = false
+            if section.settings.image_main != blank or section.settings.image_1 != blank or section.settings.image_2 != blank or section.settings.image_3 != blank or section.settings.image_4 != blank
+              assign has_section_images = true
+            endif
+
+            if has_block_images
+              for block in gallery_blocks limit: 5
+                assign cur_src = ''
+                if block.settings.image != blank
+                  assign cur_src = block.settings.image | image_url: width: 1200
+                  assign cur_alt = block.settings.image.alt | default: block.settings.image_alt | default: section.settings.heading | escape
+                else
+                  case forloop.index
+                    when 1
+                      if section.settings.image_main != blank
+                        assign cur_src = section.settings.image_main | image_url: width: 1200
+                      else
+                        assign cur_src = default_img_1
+                      endif
+                    when 2
+                      if section.settings.image_1 != blank
+                        assign cur_src = section.settings.image_1 | image_url: width: 1200
+                      else
+                        assign cur_src = default_img_2
+                      endif
+                    when 3
+                      if section.settings.image_2 != blank
+                        assign cur_src = section.settings.image_2 | image_url: width: 1200
+                      else
+                        assign cur_src = default_img_3
+                      endif
+                    when 4
+                      if section.settings.image_3 != blank
+                        assign cur_src = section.settings.image_3 | image_url: width: 1200
+                      else
+                        assign cur_src = default_img_4
+                      endif
+                    when 5
+                      if section.settings.image_4 != blank
+                        assign cur_src = section.settings.image_4 | image_url: width: 1200
+                      else
+                        assign cur_src = default_img_5
+                      endif
+                  endcase
+                  assign cur_alt = block.settings.image_alt | default: section.settings.heading | escape
+                endif
+
+                if forloop.first
+                  assign img_list = cur_src
+                  assign alt_list = cur_alt
+                else
+                  assign img_list = img_list | append: '|||' | append: cur_src
+                  assign alt_list = alt_list | append: '|||' | append: cur_alt
+                endif
+              endfor
+            elsif has_section_images
+              assign src_1 = default_img_1
+              if section.settings.image_main != blank
+                assign src_1 = section.settings.image_main | image_url: width: 1200
+              endif
+              assign src_2 = default_img_2
+              if section.settings.image_1 != blank
+                assign src_2 = section.settings.image_1 | image_url: width: 1200
+              endif
+              assign src_3 = default_img_3
+              if section.settings.image_2 != blank
+                assign src_3 = section.settings.image_2 | image_url: width: 1200
+              endif
+              assign src_4 = default_img_4
+              if section.settings.image_3 != blank
+                assign src_4 = section.settings.image_3 | image_url: width: 1200
+              endif
+              assign src_5 = default_img_5
+              if section.settings.image_4 != blank
+                assign src_5 = section.settings.image_4 | image_url: width: 1200
+              endif
+
+              assign img_list = src_1 | append: '|||' | append: src_2 | append: '|||' | append: src_3 | append: '|||' | append: src_4 | append: '|||' | append: src_5
+              assign alt_list = 'Primary Product View|||Product Back View|||Product Open View|||Product Front Angle View|||Product Hood & Collar Detail'
+            else
+              assign img_list = default_img_1 | append: '|||' | append: default_img_2 | append: '|||' | append: default_img_3 | append: '|||' | append: default_img_4 | append: '|||' | append: default_img_5
+              assign alt_list = 'Primary Product View|||Product Back View|||Product Open View|||Product Front Angle View|||Product Hood & Collar Detail'
+            endif
+
+            assign all_imgs = img_list | split: '|||'
+            assign all_alts = alt_list | split: '|||'
+            assign total_count = all_imgs.size
+          -%}
+
+          <div class="talon-product-showcase__carousel-view" data-carousel-view>
+            <!-- Large Main Featured Image Card -->
+            <div class="talon-product-showcase__main-card" data-gallery-main>
+              <div class="talon-product-showcase__media-box">
+                <img src="{{ all_imgs[0] }}"
+                     alt="{{ all_alts[0] }}"
+                     class="talon-product-showcase__image"
+                     data-main-display-image
+                     loading="{{ loading_strategy }}"
+                     width="800"
+                     height="700">
+              </div>
+
+              {%- if total_count > 1 -%}
+                <button type="button" class="talon-ps-nav talon-ps-nav--prev" data-nav-prev aria-label="Previous image">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button type="button" class="talon-ps-nav talon-ps-nav--next" data-nav-next aria-label="Next image">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              {%- endif -%}
+
+              <div class="talon-ps-counter-pill" data-gallery-counter>1/{{ total_count }}</div>
+
+              {%- if section.settings.enable_lightbox -%}
+                <button type="button" class="talon-product-showcase__zoom-btn" data-lightbox-trigger aria-label="Enlarge image">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </button>
+              {%- endif -%}
+            </div>
+
+            <!-- 5-Thumbnails Strip Directly Underneath -->
+            <div class="talon-product-showcase__thumbs-strip" data-thumbs-strip>
+              {%- for src in all_imgs -%}
+                <div class="talon-product-showcase__thumb-item {% if forloop.first %}is-active{% endif %}"
+                     data-thumb-index="{{ forloop.index0 }}"
+                     data-full-src="{{ src }}"
+                     data-alt="{{ all_alts[forloop.index0] }}"
+                     {% if forloop.first %}aria-current="true"{% endif %}
+                     tabindex="0"
+                     role="button"
+                     aria-label="Select view {{ forloop.index }}">
+                  <img src="{{ src }}"
+                       alt="{{ all_alts[forloop.index0] }}"
+                       loading="lazy"
+                       width="160"
+                       height="160">
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {%- comment -%} ==========================================
+          RIGHT COLUMN: Product Heading, Features, & Details
+          ========================================== {%- endcomment -%}
+      <div class="talon-product-showcase__info-col">
+        <div class="talon-product-showcase__info-content">
+
+          {%- comment -%} Optional Badges / Pills {%- endcomment -%}
+          {%- if badge_blocks.size > 0 -%}
+            <div class="talon-product-showcase__badges">
+              {%- for block in badge_blocks -%}
+                <span class="talon-product-showcase__badge talon-product-showcase__badge--{{ block.settings.style }}" {{ block.shopify_attributes }}>
+                  {{ block.settings.text | escape }}
+                </span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Eyebrow / Subheading {%- endcomment -%}
+          {%- if section.settings.subheading != blank -%}
+            <div class="talon-product-showcase__eyebrow">
+              <span class="talon-product-showcase__eyebrow-dot"></span>
+              <span>{{ section.settings.subheading | escape }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Main Product Heading {%- endcomment -%}
+          {%- if section.settings.heading != blank -%}
+            <{{ section.settings.heading_tag }} class="talon-product-showcase__heading talon-product-showcase__heading--{{ section.settings.heading_size }}">
+              {{ section.settings.heading | escape }}
+            </{{ section.settings.heading_tag }}>
+          {%- endif -%}
+
+          {%- liquid
+            assign wa_clean_phone = section.settings.whatsapp_phone | default: '8615976011860' | remove: ' ' | remove: '+' | remove: '-'
+            assign wa_default_msg = 'Hello TALON! I would like to request a custom quote for the ' | append: section.settings.heading | strip
+            assign wa_custom_msg = section.settings.whatsapp_message | default: wa_default_msg | url_encode
+            assign whatsapp_cta_url = 'https://wa.me/' | append: wa_clean_phone | append: '?text=' | append: wa_custom_msg
+          -%}
+
+          {%- if section.settings.show_divider -%}
+            <hr class="talon-product-showcase__divider">
+          {%- endif -%}
+
+          {%- comment -%} Key Product Features & Manufacturing Capabilities List {%- endcomment -%}
+          <ul class="talon-product-showcase__features {% if section.settings.feature_columns == '2' %}talon-product-showcase__features--grid{% endif %}">
+            {%- if feature_blocks.size > 0 -%}
+              {%- for block in feature_blocks -%}
+                <li class="talon-product-showcase__feature-item" {{ block.shopify_attributes }}>
+                  <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                    {%- case block.settings.icon -%}
+                      {%- when 'droplet' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                      {%- when 'waves' or 'wind' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 8c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                          <path d="M4 12c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                          <path d="M4 16c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                        </svg>
+                      {%- when 'pencil' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                        </svg>
+                      {%- when 'gear' or 'factory' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="3"></circle>
+                          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                      {%- when 'box' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                      {%- when 'palette' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 21a9 9 0 1 0-9-9c0 1.48.5 2.5 1.5 3 .6.3 1.5.5 1.5 1.5 0 .8-.7 1.5-1.5 1.5-.6 0-1 .4-1 1 0 1.1 3.1 2 8 2z"></path>
+                          <circle cx="7.5" cy="10.5" r="1.2" fill="currentColor"></circle>
+                          <circle cx="12" cy="7.5" r="1.2" fill="currentColor"></circle>
+                          <circle cx="16.5" cy="10.5" r="1.2" fill="currentColor"></circle>
+                        </svg>
+                      {%- when 'check' -%}
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="3.5 8.5 6.5 11.5 12.5 5"></polyline>
+                        </svg>
+                      {%- when 'shield' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                      {%- when 'star' -%}
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                      {%- else -%}
+                        <span class="talon-product-showcase__feature-dot"></span>
+                    {%- endcase -%}
+                  </span>
+                  <div class="talon-product-showcase__feature-content">
+                    <span class="talon-product-showcase__feature-title">{{ block.settings.title | escape }}</span>
+                    {%- if block.settings.description != blank -%}
+                      <p class="talon-product-showcase__feature-desc">{{ block.settings.description | escape }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endfor -%}
+
+            {%- else -%}
+              {%- comment -%} Default 6 features matching the reference mockup {%- endcomment -%}
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">Quick Dry Fabric</span>
+                </div>
+              </li>
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 8c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                    <path d="M4 12c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                    <path d="M4 16c2.5-2 5-2 7.5 0s5 2 7.5 0"></path>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">Breathable Material</span>
+                </div>
+              </li>
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">Custom Logo Accepted</span>
+                </div>
+              </li>
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">OEM &amp; ODM Supported</span>
+                </div>
+              </li>
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">Low MOQ Available</span>
+                </div>
+              </li>
+              <li class="talon-product-showcase__feature-item">
+                <span class="talon-product-showcase__feature-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21a9 9 0 1 0-9-9c0 1.48.5 2.5 1.5 3 .6.3 1.5.5 1.5 1.5 0 .8-.7 1.5-1.5 1.5-.6 0-1 .4-1 1 0 1.1 3.1 2 8 2z"></path>
+                    <circle cx="7.5" cy="10.5" r="1.2" fill="currentColor"></circle>
+                    <circle cx="12" cy="7.5" r="1.2" fill="currentColor"></circle>
+                    <circle cx="16.5" cy="10.5" r="1.2" fill="currentColor"></circle>
+                  </svg>
+                </span>
+                <div class="talon-product-showcase__feature-content">
+                  <span class="talon-product-showcase__feature-title">Custom Color Matching</span>
+                </div>
+              </li>
+            {%- endif -%}
+          </ul>
+
+          {%- comment -%} Short Description / Summary {%- endcomment -%}
+          {%- if section.settings.description != blank -%}
+            <div class="talon-product-showcase__description">
+              {{ section.settings.description }}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Action Buttons / CTA row (WhatsApp Redirect Enabled) {%- endcomment -%}
+          {%- if button_blocks.size > 0 -%}
+            <div class="talon-product-showcase__actions">
+              {%- for block in button_blocks -%}
+                {%- liquid
+                  assign btn_target_url = block.settings.button_link
+                  assign is_whatsapp_action = false
+
+                  if section.settings.redirect_cta_to_whatsapp or block.settings.button_style == 'whatsapp' or btn_target_url contains 'wa.me' or btn_target_url contains 'whatsapp'
+                    assign btn_target_url = whatsapp_cta_url
+                    assign is_whatsapp_action = true
+                  endif
+
+                  assign btn_class = 'talon-product-showcase__btn--' | append: block.settings.button_style
+                  if is_whatsapp_action or block.settings.button_style == 'whatsapp'
+                    assign btn_class = 'talon-product-showcase__btn--whatsapp'
+                  endif
+                -%}
+                <a href="{{ btn_target_url }}"
+                   class="talon-product-showcase__btn {{ btn_class }}"
+                   {% if is_whatsapp_action or block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
+                   {{ block.shopify_attributes }}>
+                  {%- if is_whatsapp_action or block.settings.button_style == 'whatsapp' -%}
+                    <svg class="talon-product-showcase__wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                  {%- endif -%}
+                  <span>{{ block.settings.button_label | escape }}</span>
+                  <svg class="talon-product-showcase__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- elsif section.settings.show_default_button -%}
+            <div class="talon-product-showcase__actions">
+              {%- liquid
+                assign final_cta_url = section.settings.default_button_link | default: '/pages/contact-us'
+                assign is_wa = false
+                if section.settings.redirect_cta_to_whatsapp
+                  assign final_cta_url = whatsapp_cta_url
+                  assign is_wa = true
+                endif
+              -%}
+              <a href="{{ final_cta_url }}"
+                 class="talon-product-showcase__btn {% if is_wa %}talon-product-showcase__btn--whatsapp{% else %}talon-product-showcase__btn--primary{% endif %}"
+                 {% if is_wa %}target="_blank" rel="noopener"{% endif %}>
+                {%- if is_wa -%}
+                  <svg class="talon-product-showcase__wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                {%- endif -%}
+                <span>{{ section.settings.default_button_label | default: 'Request Custom Quote on WhatsApp' | escape }}</span>
+                <svg class="talon-product-showcase__btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          {%- endif -%}
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ==========================================
+      Full-Screen Zoom Lightbox Modal
+      ========================================== {%- endcomment -%}
+  {%- if section.settings.enable_lightbox -%}
+    <div class="talon-ps-lightbox" id="TalonLightbox-{{ section.id }}" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="talon-ps-lightbox__container">
+        <button type="button" class="talon-ps-lightbox__close" data-lightbox-close aria-label="Close zoom modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <button type="button" class="talon-ps-lightbox__nav talon-ps-lightbox__nav--prev" data-lightbox-prev aria-label="Previous image">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <img src="" alt="" class="talon-ps-lightbox__img" data-lightbox-image>
+
+        <button type="button" class="talon-ps-lightbox__nav talon-ps-lightbox__nav--next" data-lightbox-next aria-label="Next image">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="talon-ps-lightbox__counter" data-lightbox-counter>1 / 5</div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  (function() {
+    function initTalonShowcase() {
+      const section = document.getElementById('TalonShowcase-{{ section.id }}');
+      if (!section) return;
+
+      const mainCard = section.querySelector('[data-gallery-main]');
+      const mainImg = section.querySelector('[data-main-display-image]');
+      const prevBtn = section.querySelector('[data-nav-prev]');
+      const nextBtn = section.querySelector('[data-nav-next]');
+      const counterPill = section.querySelector('[data-gallery-counter]');
+      const thumbItems = section.querySelectorAll('.talon-product-showcase__thumb-item');
+      const enableLightbox = {{ section.settings.enable_lightbox | json }};
+      const lightbox = document.getElementById('TalonLightbox-{{ section.id }}');
+
+      const images = [];
+      thumbItems.forEach(thumb => {
+        images.push({
+          src: thumb.getAttribute('data-full-src') || '',
+          alt: thumb.getAttribute('data-alt') || ''
+        });
+      });
+
+      if (images.length === 0 && mainImg) {
+        images.push({ src: mainImg.src, alt: mainImg.alt || '' });
+      }
+
+      const total = images.length;
+      let currentIndex = 0;
+
+      function goToIndex(newIndex) {
+        if (total === 0) return;
+        currentIndex = (newIndex + total) % total;
+
+        // Smooth image switch
+        if (mainImg && images[currentIndex]) {
+          mainImg.classList.add('talon-product-showcase__image--swapping');
+          setTimeout(() => {
+            mainImg.src = images[currentIndex].src;
+            mainImg.alt = images[currentIndex].alt;
+            mainImg.classList.remove('talon-product-showcase__image--swapping');
+          }, 120);
+        }
+
+        // Update counter pill (1/5)
+        if (counterPill) {
+          counterPill.textContent = (currentIndex + 1) + '/' + total;
+        }
+
+        // Update active thumbnail border
+        thumbItems.forEach((thumb, idx) => {
+          if (idx === currentIndex) {
+            thumb.classList.add('is-active');
+            thumb.setAttribute('aria-current', 'true');
+          } else {
+            thumb.classList.remove('is-active');
+            thumb.removeAttribute('aria-current');
+          }
+        });
+
+        // Sync lightbox if open
+        if (lightbox && lightbox.classList.contains('is-open')) {
+          const lbImg = lightbox.querySelector('[data-lightbox-image]');
+          const lbCounter = lightbox.querySelector('[data-lightbox-counter]');
+          if (lbImg) lbImg.src = images[currentIndex].src;
+          if (lbCounter) lbCounter.textContent = (currentIndex + 1) + ' / ' + total;
+        }
+      }
+
+      // Chevron buttons
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          goToIndex(currentIndex - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          goToIndex(currentIndex + 1);
+        });
+      }
+
+      // Thumbnails click and keyboard support
+      thumbItems.forEach((thumb, idx) => {
+        thumb.addEventListener('click', function() {
+          goToIndex(idx);
+        });
+        thumb.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            goToIndex(idx);
+          }
+        });
+      });
+
+      // Touch swipe gestures on mobile
+      if (mainCard) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        mainCard.addEventListener('touchstart', function(e) {
+          if (e.changedTouches && e.changedTouches[0]) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+          }
+        }, { passive: true });
+
+        mainCard.addEventListener('touchend', function(e) {
+          if (e.changedTouches && e.changedTouches[0]) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+              if (diffX < 0) {
+                goToIndex(currentIndex + 1); // Swiped left -> next
+              } else {
+                goToIndex(currentIndex - 1); // Swiped right -> prev
+              }
+            }
+          }
+        }, { passive: true });
+      }
+
+      // Lightbox Modal
+      if (enableLightbox && lightbox) {
+        const lbImg = lightbox.querySelector('[data-lightbox-image]');
+        const lbCounter = lightbox.querySelector('[data-lightbox-counter]');
+        const closeBtn = lightbox.querySelector('[data-lightbox-close]');
+        const lbPrevBtn = lightbox.querySelector('[data-lightbox-prev]');
+        const lbNextBtn = lightbox.querySelector('[data-lightbox-next]');
+        const zoomTrigger = section.querySelector('[data-lightbox-trigger]');
+
+        function openLightbox(index) {
+          goToIndex(index);
+          if (lbImg) lbImg.src = images[currentIndex].src;
+          if (lbCounter) lbCounter.textContent = (currentIndex + 1) + ' / ' + total;
+          lightbox.classList.add('is-open');
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove('is-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        if (zoomTrigger) {
+          zoomTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openLightbox(currentIndex);
+          });
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox) closeLightbox();
+        });
+
+        if (lbPrevBtn) {
+          lbPrevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            goToIndex(currentIndex - 1);
+          });
+        }
+
+        if (lbNextBtn) {
+          lbNextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            goToIndex(currentIndex + 1);
+          });
+        }
+
+        document.addEventListener('keydown', function(e) {
+          if (!lightbox.classList.contains('is-open')) return;
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') goToIndex(currentIndex - 1);
+          if (e.key === 'ArrowRight') goToIndex(currentIndex + 1);
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTalonShowcase);
+    } else {
+      initTalonShowcase();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        initTalonShowcase();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "TALON Product Showcase",
+  "tag": "section",
+  "class": "shopify-section--talon-product-showcase",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content & Typography"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading / Eyebrow",
+      "default": "PREMIUM TECHNICAL APPAREL"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Product Heading",
+      "default": "Soft Breathable | Windproof Water Repellent Multi-Functional Jacket"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" },
+        { "value": "xlarge", "label": "Extra Large" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading HTML Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show subtle divider line",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>An essential multi-season outer layer for every wardrobe.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Gallery Position (Desktop)",
+      "options": [
+        { "value": "gallery_left", "label": "Gallery Left, Info Right" },
+        { "value": "gallery_right", "label": "Info Left, Gallery Right" }
+      ],
+      "default": "gallery_left"
+    },
+    {
+      "type": "select",
+      "id": "desktop_split",
+      "label": "Desktop Column Split Ratio",
+      "options": [
+        { "value": "60-40", "label": "60% Gallery / 40% Info (Recommended)" },
+        { "value": "55-45", "label": "55% Gallery / 45% Info" },
+        { "value": "50-50", "label": "50% Gallery / 50% Info" },
+        { "value": "65-35", "label": "65% Gallery / 35% Info" }
+      ],
+      "default": "60-40"
+    },
+    {
+      "type": "select",
+      "id": "gallery_aspect_ratio",
+      "label": "Image Aspect Ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "natural", "label": "Natural" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "range",
+      "id": "gallery_gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Gallery Items Gap",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Card Border Radius",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "feature_columns",
+      "label": "Feature List Columns",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "Interactive Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_swap",
+      "label": "Click thumbnail to swap main image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lightbox",
+      "label": "Enable full-screen lightbox zoom",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Fallback Images (When no blocks added)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_main",
+      "label": "Main Featured Image (Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Supporting Image 1 (Top-Left of 2x2)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Supporting Image 2 (Top-Right of 2x2)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Supporting Image 3 (Bottom-Left of 2x2)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Supporting Image 4 (Bottom-Right of 2x2)"
+    },
+    {
+      "type": "header",
+      "content": "Default Action Button & WhatsApp"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_default_button",
+      "label": "Show Call To Action Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_button_label",
+      "label": "Button Label",
+      "default": "Request Custom Quote on WhatsApp"
+    },
+    {
+      "type": "checkbox",
+      "id": "redirect_cta_to_whatsapp",
+      "label": "Redirect CTA Button to WhatsApp",
+      "default": true,
+      "info": "When enabled, clicking the Request Quote button opens WhatsApp chat directly."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_phone",
+      "label": "WhatsApp Phone Number",
+      "default": "8615976011860",
+      "info": "Country code + number (e.g. 8615976011860 without + or spaces)"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_message",
+      "label": "Pre-filled WhatsApp Message",
+      "default": "Hello TALON! I would like to request a custom quote for the Soft Breathable Multi-Functional Jacket."
+    },
+    {
+      "type": "url",
+      "id": "default_button_link",
+      "label": "Custom Button Link (Used if WhatsApp disabled)"
+    },
+    {
+      "type": "header",
+      "content": "Colors & Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Theme Color Scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_bg",
+      "label": "Use custom background color",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Custom Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Image Card Background",
+      "default": "#f6f7f8"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Image Card Border Color",
+      "default": "rgba(0, 0, 0, 0.05)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0f172a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Feature Text Color",
+      "default": "#1e293b"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted Description Color",
+      "default": "#475569"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow / Subheading Color",
+      "default": "#64748b"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Checkmarks & Highlights)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background",
+      "default": "#262626"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "text",
+      "id": "container_max_width",
+      "label": "Container Max Width",
+      "default": "1440px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop Padding Bottom",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 32
+    },
+    {
+      "type": "checkbox",
+      "id": "separate_section_with_border",
+      "label": "Separate section with top border",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery Image",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Alt Text"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption Badge (e.g. Back View)",
+          "info": "Displays as a subtle badge on hover"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature / Capability",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Quick Dry Fabric"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Secondary Description (Optional)"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Marker Style / Icon",
+          "options": [
+            { "value": "droplet", "label": "Droplet (Quick Dry)" },
+            { "value": "waves", "label": "Airflow Waves (Breathable)" },
+            { "value": "pencil", "label": "Pencil (Custom Logo)" },
+            { "value": "gear", "label": "Gear (OEM & ODM)" },
+            { "value": "box", "label": "Package Box (Low MOQ)" },
+            { "value": "palette", "label": "Palette (Color Matching)" },
+            { "value": "check", "label": "Checkmark" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "star", "label": "Star" },
+            { "value": "dot", "label": "Minimal Bullet Dot" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "droplet"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Custom Button",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Request Custom Quote on WhatsApp"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button Style",
+          "options": [
+            { "value": "whatsapp", "label": "WhatsApp Green (Recommended)" },
+            { "value": "primary", "label": "Primary (Solid Dark)" },
+            { "value": "secondary", "label": "Secondary (Outline)" },
+            { "value": "link", "label": "Text Link with Underline" }
+          ],
+          "default": "whatsapp"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Spec / Category Badge",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge Text",
+          "default": "OEM & ODM AVAILABLE"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Badge Style",
+          "options": [
+            { "value": "accent", "label": "Solid Dark" },
+            { "value": "neutral", "label": "Subtle Gray" },
+            { "value": "outline", "label": "Clean Outline" }
+          ],
+          "default": "neutral"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TALON Product Showcase",
+      "category": "TALON",
+      "settings": {
+        "subheading": "PREMIUM TECHNICAL APPAREL",
+        "heading": "Soft Breathable | Windproof Water Repellent Multi-Functional Jacket",
+        "description": "<p>An essential multi-season outer layer for every wardrobe.</p>",
+        "desktop_split": "60-40",
+        "gallery_gap": 12,
+        "image_border_radius": 10
+      },
+      "blocks": [
+        {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Front View"
+          }
+        },
+        {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Back View"
+          }
+        },
+        {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Breathable Lining"
+          }
+        },
+        {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Front Angle"
+          }
+        },
+        {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Hood & Storm Collar"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Quick Dry Fabric",
+            "icon": "droplet"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Breathable Material",
+            "icon": "waves"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Custom Logo Accepted",
+            "icon": "pencil"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "OEM & ODM Supported",
+            "icon": "gear"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Low MOQ Available",
+            "icon": "box"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Custom Color Matching",
+            "icon": "palette"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "button_label": "Request Custom Quote",
+            "button_link": "/pages/contact-us",
+            "button_style": "primary"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

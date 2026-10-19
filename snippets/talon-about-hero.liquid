@@ -1,0 +1,14 @@
+{%- comment -%}
+  About Talon hero — full-resolution theme asset only (no CDN resize, no srcset).
+{%- endcomment -%}
+<div class="about-hero">
+  {%- render 'talon-oem-asset-image',
+    asset: 'Talon-about-hero-image.png',
+    alt: 'Talon sportswear showroom with custom team apparel and uniforms',
+    class: 'about-hero__img',
+    width: 1024,
+    height: 682,
+    loading: 'eager',
+    fetchpriority: 'high'
+  -%}
+</div>

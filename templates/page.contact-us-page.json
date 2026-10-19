@@ -1,0 +1,69 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".section-header {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "page_width": "xs"
+      }
+    },
+    "contact_us_page_j8tjmP": {
+      "type": "Contact-us-page",
+      "name": "Contact Us",
+      "settings": {
+        "page_title": "Contact Us",
+        "page_intro": "<p>We'd love to hear from you. Whether you have a question about our products, want to discuss a custom order, or just want to say hello — our team is ready to help.</p>",
+        "info_heading": "Get In Touch",
+        "info_intro": "<p>Reach out to us through any of the channels below and we will get back to you as soon as possible.</p>",
+        "address_label": "Address",
+        "address": "HK Office: Room 13B, 13/F, Hollywood Centre, 77-91 Queen's Road West, Sheung Wan, Hong Kong\n\n<br><br>\n\nFactory: 1/F, A3 District, No.5 Xinggong Road, Longxing Industrial Zone, Shaxi Town, Zhongshan City, Guangdong, China",
+        "email_label": "Email",
+        "email": "Dorali@talonglobal.com",
+        "phone_label": "Phone",
+        "phone": "+86 123 4567 8810",
+        "hours_label": "Customer Support",
+        "working_hours": "24/7",
+        "whatsapp": "",
+        "wechat": "",
+        "linkedin": "",
+        "form_heading": "Send Us A Message",
+        "label_name": "Full Name",
+        "placeholder_name": "Your full name",
+        "label_email": "Email Address",
+        "placeholder_email": "Your email address",
+        "label_phone": "Phone Number",
+        "placeholder_phone": "Your phone number",
+        "label_company": "Company Name",
+        "placeholder_company": "Your company name",
+        "label_subject": "Subject",
+        "placeholder_subject": "How can we help you?",
+        "label_message": "Message",
+        "placeholder_message": "Tell us about your requirements...",
+        "submit_label": "Send Message",
+        "map_overlay_text": "Our Factory Location",
+        "banner_title": "Ready To Work Together?",
+        "banner_subtitle": "Reach out today and let's build something great.",
+        "banner_cta_label": "Get A Quote",
+        "banner_cta_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contact_us_page_j8tjmP"
+  ]
+}

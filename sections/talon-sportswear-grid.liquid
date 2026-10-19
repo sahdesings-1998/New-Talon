@@ -1,0 +1,461 @@
+{{ 'talon-sportswear-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign loading_strategy = 'lazy'
+  if section.index <= 2
+    assign loading_strategy = 'eager'
+  endif
+
+  # Filter image card blocks
+  assign card_blocks = section.blocks | where: 'type', 'card'
+
+  # Fallback default assets matching the reference
+  assign default_img_1 = 'talon-category-sportswear-1.jpg' | asset_url
+  assign default_img_2 = 'talon-category-sportswear-2.jpg' | asset_url
+  assign default_img_3 = 'talon-category-sportswear-3.jpg' | asset_url
+  assign default_img_4 = 'talon-category-sportswear-4.jpg' | asset_url
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --talon-bento-max-w: {{ section.settings.container_max_width | default: '1440px' }};
+    --talon-bento-pt: {{ section.settings.padding_top | default: 24 }}px;
+    --talon-bento-pb: {{ section.settings.padding_bottom | default: 24 }}px;
+    --talon-bento-pt-mob: {{ section.settings.padding_top_mobile | default: 16 }}px;
+    --talon-bento-pb-mob: {{ section.settings.padding_bottom_mobile | default: 16 }}px;
+    --talon-bento-gap: {{ section.settings.grid_gap | default: 18 }}px;
+    --talon-bento-gap-tablet: {{ section.settings.grid_gap_tablet | default: 14 }}px;
+    --talon-bento-gap-mob: {{ section.settings.grid_gap_mobile | default: 10 }}px;
+    --talon-bento-radius: {{ section.settings.card_border_radius | default: 20 }}px;
+    --talon-bento-radius-mob: {{ section.settings.card_border_radius_mobile | default: 12 }}px;
+    --talon-bento-card-bg: {{ section.settings.card_background_color | default: '#f4f5f7' }};
+  }
+
+  #shopify-section-{{ section.id }} .talon-sportswear-grid {
+    padding-top: var(--talon-bento-pt-mob);
+    padding-bottom: var(--talon-bento-pb-mob);
+    background-color: {{ section.settings.background_color | default: '#ffffff' }} !important;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .talon-sportswear-grid {
+      padding-top: var(--talon-bento-pt);
+      padding-bottom: var(--talon-bento-pb);
+    }
+  }
+</style>
+
+<div class="talon-sportswear-grid {% if section.settings.separate_section_with_border %}bordered-section{% endif %}" id="TalonSportswearGrid-{{ section.id }}">
+  <div class="talon-sportswear-grid__container">
+    
+    <div class="talon-bento-grid">
+
+      {%- comment -%} ==========================================
+          LEFT COLUMN: Card 1 (Short 4:3) + Card 2 (Tall 1:1)
+          ========================================== {%- endcomment -%}
+      <div class="talon-bento-column talon-bento-column--left">
+        
+        {%- comment -%} Card 1: Top-Left (Short 4:3) - Zero crop {%- endcomment -%}
+        {%- liquid
+          assign b1 = card_blocks[0]
+          assign src_1 = default_img_1
+          assign alt_1 = 'Women Sportswear Tops & Shorts Set'
+          assign link_1 = ''
+          assign new_tab_1 = false
+
+          if b1 != blank
+            if b1.settings.image != blank
+              assign src_1 = b1.settings.image | image_url: width: 1200
+            endif
+            if b1.settings.image_alt != blank
+              assign alt_1 = b1.settings.image_alt | escape
+            elsif b1.settings.image.alt != blank
+              assign alt_1 = b1.settings.image.alt | escape
+            endif
+            assign link_1 = b1.settings.link
+            assign new_tab_1 = b1.settings.open_in_new_tab
+          endif
+        -%}
+        {%- if link_1 != blank -%}
+          <a href="{{ link_1 }}"
+             class="talon-bento-card talon-bento-card--short talon-bento-card--link"
+             {% if new_tab_1 %}target="_blank" rel="noopener"{% endif %}
+             aria-label="{{ alt_1 }}"
+             {% if b1 != blank %}{{ b1.shopify_attributes }}{% endif %}>
+            <img src="{{ src_1 }}"
+                 alt="{{ alt_1 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="675">
+          </a>
+        {%- else -%}
+          <div class="talon-bento-card talon-bento-card--short" {% if b1 != blank %}{{ b1.shopify_attributes }}{% endif %}>
+            <img src="{{ src_1 }}"
+                 alt="{{ alt_1 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="675">
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Card 2: Bottom-Left (Tall 1:1) - Zero crop {%- endcomment -%}
+        {%- liquid
+          assign b2 = card_blocks[1]
+          assign src_2 = default_img_2
+          assign alt_2 = 'Camo Sportswear Training Set'
+          assign link_2 = ''
+          assign new_tab_2 = false
+
+          if b2 != blank
+            if b2.settings.image != blank
+              assign src_2 = b2.settings.image | image_url: width: 1200
+            endif
+            if b2.settings.image_alt != blank
+              assign alt_2 = b2.settings.image_alt | escape
+            elsif b2.settings.image.alt != blank
+              assign alt_2 = b2.settings.image.alt | escape
+            endif
+            assign link_2 = b2.settings.link
+            assign new_tab_2 = b2.settings.open_in_new_tab
+          endif
+        -%}
+        {%- if link_2 != blank -%}
+          <a href="{{ link_2 }}"
+             class="talon-bento-card talon-bento-card--tall talon-bento-card--link"
+             {% if new_tab_2 %}target="_blank" rel="noopener"{% endif %}
+             aria-label="{{ alt_2 }}"
+             {% if b2 != blank %}{{ b2.shopify_attributes }}{% endif %}>
+            <img src="{{ src_2 }}"
+                 alt="{{ alt_2 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="900">
+          </a>
+        {%- else -%}
+          <div class="talon-bento-card talon-bento-card--tall" {% if b2 != blank %}{{ b2.shopify_attributes }}{% endif %}>
+            <img src="{{ src_2 }}"
+                 alt="{{ alt_2 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="900">
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      {%- comment -%} ==========================================
+          RIGHT COLUMN: Card 3 (Tall 1:1) + Card 4 (Short 4:3)
+          ========================================== {%- endcomment -%}
+      <div class="talon-bento-column talon-bento-column--right">
+        
+        {%- comment -%} Card 3: Top-Right (Tall 1:1) - Zero crop {%- endcomment -%}
+        {%- liquid
+          assign b3 = card_blocks[2]
+          assign src_3 = default_img_3
+          assign alt_3 = 'TALON Performance Tee Front and Back'
+          assign link_3 = ''
+          assign new_tab_3 = false
+
+          if b3 != blank
+            if b3.settings.image != blank
+              assign src_3 = b3.settings.image | image_url: width: 1200
+            endif
+            if b3.settings.image_alt != blank
+              assign alt_3 = b3.settings.image_alt | escape
+            elsif b3.settings.image.alt != blank
+              assign alt_3 = b3.settings.image.alt | escape
+            endif
+            assign link_3 = b3.settings.link
+            assign new_tab_3 = b3.settings.open_in_new_tab
+          endif
+        -%}
+        {%- if link_3 != blank -%}
+          <a href="{{ link_3 }}"
+             class="talon-bento-card talon-bento-card--tall talon-bento-card--link"
+             {% if new_tab_3 %}target="_blank" rel="noopener"{% endif %}
+             aria-label="{{ alt_3 }}"
+             {% if b3 != blank %}{{ b3.shopify_attributes }}{% endif %}>
+            <img src="{{ src_3 }}"
+                 alt="{{ alt_3 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="900">
+          </a>
+        {%- else -%}
+          <div class="talon-bento-card talon-bento-card--tall" {% if b3 != blank %}{{ b3.shopify_attributes }}{% endif %}>
+            <img src="{{ src_3 }}"
+                 alt="{{ alt_3 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="900">
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Card 4: Bottom-Right (Short 4:3) - Zero crop {%- endcomment -%}
+        {%- liquid
+          assign b4 = card_blocks[3]
+          assign src_4 = default_img_4
+          assign alt_4 = 'Yellow Athletic Tank and Shorts'
+          assign link_4 = ''
+          assign new_tab_4 = false
+
+          if b4 != blank
+            if b4.settings.image != blank
+              assign src_4 = b4.settings.image | image_url: width: 1200
+            endif
+            if b4.settings.image_alt != blank
+              assign alt_4 = b4.settings.image_alt | escape
+            elsif b4.settings.image.alt != blank
+              assign alt_4 = b4.settings.image.alt | escape
+            endif
+            assign link_4 = b4.settings.link
+            assign new_tab_4 = b4.settings.open_in_new_tab
+          endif
+        -%}
+        {%- if link_4 != blank -%}
+          <a href="{{ link_4 }}"
+             class="talon-bento-card talon-bento-card--short talon-bento-card--link"
+             {% if new_tab_4 %}target="_blank" rel="noopener"{% endif %}
+             aria-label="{{ alt_4 }}"
+             {% if b4 != blank %}{{ b4.shopify_attributes }}{% endif %}>
+            <img src="{{ src_4 }}"
+                 alt="{{ alt_4 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="675">
+          </a>
+        {%- else -%}
+          <div class="talon-bento-card talon-bento-card--short" {% if b4 != blank %}{{ b4.shopify_attributes }}{% endif %}>
+            <img src="{{ src_4 }}"
+                 alt="{{ alt_4 }}"
+                 class="talon-bento-card__image"
+                 loading="{{ loading_strategy }}"
+                 width="900"
+                 height="675">
+          </div>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TALON Sportswear Grid",
+  "tag": "section",
+  "class": "shopify-section--talon-sportswear-grid",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Container"
+    },
+    {
+      "type": "text",
+      "id": "container_max_width",
+      "label": "Container Max Width",
+      "default": "1440px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 8,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop Gap Between Images",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_tablet",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Tablet Gap",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Gap",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop Rounded Corners (Radius)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius_mobile",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Rounded Corners (Radius)",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Card & Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background Color",
+      "default": "#f4f5f7"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "separate_section_with_border",
+      "label": "Separate section with border",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop Padding Top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop Padding Bottom",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Image Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Sportswear Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Alt Text / Description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL (Optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TALON Sportswear Grid",
+      "category": "TALON",
+      "settings": {
+        "container_max_width": "1440px",
+        "card_background_color": "#f4f5f7",
+        "background_color": "#ffffff",
+        "grid_gap": 18,
+        "grid_gap_tablet": 14,
+        "grid_gap_mobile": 10,
+        "card_border_radius": 20,
+        "card_border_radius_mobile": 12,
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16
+      },
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "image_alt": "Women Sportswear Tops & Shorts Set"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "image_alt": "Camo Sportswear Training Set"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "image_alt": "TALON Performance Tee Front and Back"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "image_alt": "Yellow Athletic Tank and Shorts"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

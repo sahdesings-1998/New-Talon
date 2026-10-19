@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".section-header {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "page_width": "xs"
+      }
+    },
+    "blog_post_NbECxy": {
+      "type": "Blog-post",
+      "name": "Exhibitions & Events",
+      "settings": {
+        "page_title": "Blog",
+        "exhibitions_heading": "Exhibitions & Events",
+        "hero_image": "shopify://shop_images/talon-global-apparel-exhibition-pavilion-exterior_89d97e08-c6ea-4ac3-a65a-b1f11f32fe2c.png",
+        "hero_image_alt": "Exhibition",
+        "secondary_image": "shopify://shop_images/talon-global-exhibition-booth-apparel-trade-show_31531874-6ecf-4c5b-ae2e-b6a720e9ebed.png",
+        "secondary_image_alt": "Exhibition Event",
+        "fashion_heading": "Fashion Trends",
+        "trend_image_1": "shopify://shop_images/womens-corset-zip-jacket-black.jpg",
+        "trend_label_1": "",
+        "trend_image_2": "shopify://shop_images/high-fashion-runway-streetwear-trends-collage.png",
+        "trend_label_2": "",
+        "trend_image_3": "shopify://shop_images/Talon-black-contour-leggings-gold-emblem.jpg",
+        "trend_label_3": "",
+        "supp_image_1": "shopify://shop_images/textile-waste-recycling-process-display.jpg",
+        "supp_label_1": "",
+        "supp_image_2": "shopify://shop_images/Regeneration_Garments.jpg",
+        "supp_label_2": ""
+      }
+    },
+    "blog_posts_6WeiEF": {
+      "type": "blog-posts",
+      "custom_css": [
+        "h2 {font-size: clamp(18px, 3.5vw, 30px); word-spacing: clamp(1px, 0.3vw, 2px); font-weight: bold; color: black; text-transform: uppercase; text-align: center; margin: 0 0 clamp(1rem, 2vw, 1.5rem); line-height: 1.3;}",
+        "@media (max-width: 480px) {h2 {font-size: 20px; word-spacing: 1px; }}",
+        ".section-spacing {padding: var(--ee-pad-y-top) var(--ee-pad-x) var(--ee-pad-y-bot);}"
+      ],
+      "name": "t:sections.blog_posts.presets.blog_posts.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "blog": "post",
+        "posts_count": 4,
+        "stack_on_mobile": true,
+        "show_category": false,
+        "show_date": false,
+        "show_excerpt": true,
+        "show_read_more": true,
+        "subheading": "",
+        "title": "Posts",
+        "content": "",
+        "button_link": "",
+        "button_text": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "blog_post_NbECxy",
+    "blog_posts_6WeiEF"
+  ]
+}

@@ -1,0 +1,262 @@
+{%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+
+<section class="oem-page talon-faq-section">
+  <div class="oem-wrap talon-faq-wrap">
+    <div class="talon-stats-bar">
+      <div class="talon-stat-item">
+        <span class="talon-stat-title">{{ section.settings.stat1_title }}</span>
+        <span class="talon-stat-sub">{{ section.settings.stat1_sub }}</span>
+      </div>
+
+      <div class="talon-stat-divider"></div>
+
+      <div class="talon-stat-item">
+        <span class="talon-stat-title">{{ section.settings.stat2_title }}</span>
+        <span class="talon-stat-sub">{{ section.settings.stat2_sub }}</span>
+      </div>
+
+      <div class="talon-stat-divider"></div>
+
+      <div class="talon-stat-item">
+        <span class="talon-stat-title">{{ section.settings.stat3_title }}</span>
+        <span class="talon-stat-sub">{{ section.settings.stat3_sub }}</span>
+      </div>
+    </div>
+
+    <h2 class="talon-faq-heading " id="faq">{{ section.settings.faq_heading }}</h2>
+
+    <div class="oem-faq talon-faq-list">
+      {%- for block in faq_blocks -%}
+        <details
+          {% if block.settings.open_by_default %}
+            open
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <summary>{{ block.settings.question }}</summary>
+          <div class="oem-faq-answer rte">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+
+      {%- if section.settings.faq_support_text != blank -%}
+        <p class="oem-faq__support">{{ section.settings.faq_support_text }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  
+.talon-faq-list .oem-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+
+  transition:
+    max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+
+  will-change: max-height;
+}
+
+.talon-faq-list details[open] .oem-faq-answer {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const details = document.querySelectorAll('.talon-faq-list details');
+
+  details.forEach(item => {
+    const summary = item.querySelector('summary');
+
+    summary.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const isOpen = item.hasAttribute('open');
+
+      details.forEach(other => {
+        other.removeAttribute('open');
+      });
+
+      if (!isOpen) {
+        item.setAttribute('open', '');
+      }
+    });
+  });
+});
+</script>
+
+{%- render 'talon-oem-faq-schema' -%}
+
+{% schema %}
+{
+  "name": "Talon OEM FAQ",
+  "class": "shopify-section--talon-oem-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "stat1_title",
+      "label": "Stat 1 title",
+      "default": "Sample Time"
+    },
+    {
+      "type": "text",
+      "id": "stat1_sub",
+      "label": "Stat 1 subtitle",
+      "default": "10-20 Days"
+    },
+    {
+      "type": "text",
+      "id": "stat2_title",
+      "label": "Stat 2 title",
+      "default": "Bulk Order Time"
+    },
+    {
+      "type": "text",
+      "id": "stat2_sub",
+      "label": "Stat 2 subtitle",
+      "default": "20-30 Days"
+    },
+    {
+      "type": "text",
+      "id": "stat3_title",
+      "label": "Stat 3 title",
+      "default": "24/7 Live Support"
+    },
+    {
+      "type": "text",
+      "id": "stat3_sub",
+      "label": "Stat 3 subtitle",
+      "default": "Call, message, or email us anytime, anywhere"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_support_text",
+      "label": "Support text (optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon OEM FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "1. Q:How to get a sample?",
+            "answer": "<p>A: We have own factory with more than 20 years of experience, experienced designer, low MOQ, excellent quality, reasonable price, good service, and fast delivery.</p>",
+            "open_by_default": true
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "2. Q:How to get a sample?",
+            "answer": "<p>A: Sample order is welcome. Please contact us and make sure what sample you need. It usually takes 10-20 days to finish your sample according to the design.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "3. Q:Can we print our own brand or logo on your products",
+            "answer": "<p>A: Yes, of course. Please provide digital file and size of your logo/label/tag. It is our pleasure to be one of your good OEM manufacturers in China.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "4.Q:Why do some goods have difference between website picture and practical items?",
+            "answer": "<p>A: Different batches of fabric or different light and browser may cause the difference between the picture and practical goods.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "5.Q:Do you provide free sample ?",
+            "answer": "<p>A: Sample fee is charged per design. For sportswear made of woven fabric, Sample fee will be fully refunded once the bulk order quantities meet 300 pieces /design. For knit wear, Sample fee will be fully refunded once the bulk order meet 100 pieces per design.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "6.Q:What is your minimum order quantities (MOQ) ?",
+            "answer": "<p>A: As a direct sports wear factory, our MOQ of custom designs is 100 pieces per design per color and mixed 4 size for fabric made goods. For our available stock goods, our MOQ is 1 pieces.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "7.Q:Can I have my private label on the sports wear ?",
+            "answer": "<p>A: Yes, you can. It is OK for us to custom made your own logo and attach on your design products. We also can make sample development according to your own design because we offer both OEM and ODM service.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "8.Q: Can I get a sample before pacing order ?",
+            "answer": "<p>A: Yes, you can. we can develop and send samples for your quality approval firstly.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "9.Q: How long is your sample lead time and production lead time ?",
+            "answer": "<p>A: Our sample lead time for custom made style is 10-20days and 25-35days for production. For our available styles, our sample lead time is7 days and 20~30 days for bulk.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "10.Q: How about the shipping cost ?",
+            "answer": "<p>A: Shipping cost depends on the order quantity, package size and shipping way like Express DHL, FEDEX, UPS ect. By air or by sea shipment cost ,pls contact us for detail information and we will offer different options for your selection</p>",
+            "open_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

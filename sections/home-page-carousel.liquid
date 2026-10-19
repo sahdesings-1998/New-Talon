@@ -1,0 +1,681 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════
+    HERO CAROUSEL SECTION
+    Fully responsive infinite carousel with:
+    - Slide 1: Split layout (text left + image right)
+    - Slides 2–4: Full-width image slides
+    - Auto-slide, nav buttons, dots, touch swipe
+  ═══════════════════════════════════════════════════════
+{% endcomment %}
+
+<section class="hc-section" id="hero-carousel-{{ section.id }}">
+
+  <div class="hc-carousel" id="hc-carousel-{{ section.id }}">
+
+    <div class="hc-track" id="hc-track-{{ section.id }}">
+
+      {%- comment -%} ── SLIDE 1 : SPLIT LAYOUT ── {%- endcomment -%}
+      <div class="hc-slide hc-slide--split">
+
+        <div class="hc-split-content">
+          <div class="hc-tags">
+            {%- if section.settings.tag_1 != blank -%}
+              <span class="hc-tag">{{ section.settings.tag_1 }}</span>
+            {%- endif -%}
+            {%- if section.settings.tag_2 != blank -%}
+              <span class="hc-tag">{{ section.settings.tag_2 }}</span>
+            {%- endif -%}
+            {%- if section.settings.tag_3 != blank -%}
+              <span class="hc-tag">{{ section.settings.tag_3 }}</span>
+            {%- endif -%}
+            {%- if section.settings.tag_4 != blank -%}
+              <span class="hc-tag">{{ section.settings.tag_4 }}</span>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.slide1_heading != blank -%}
+            <h1 class="hc-heading">{{ section.settings.slide1_heading }}</h1>
+          {%- endif -%}
+
+          {%- if section.settings.slide1_subtext != blank -%}
+            <p class="hc-subtext">{{ section.settings.slide1_subtext }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="hc-split-image">
+          {%- if section.settings.slide1_image != blank -%}
+            <img
+              src="{{ section.settings.slide1_image | image_url: width: 1400 }}"
+              alt="{{ section.settings.slide1_image_alt | default: 'Slide 1' }}"
+              loading="eager"
+              width="1400"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'hero-apparel-2.jpg' | asset_url }}"
+              alt="Sportswear Manufacturing"
+              loading="eager"
+            >
+          {%- endif -%}
+        </div>
+
+      </div>
+
+      {%- comment -%} ── SLIDE 2 : FULL IMAGE ── {%- endcomment -%}
+      {%- if section.settings.slide2_image != blank or section.settings.show_slide2 -%}
+      <div class="hc-slide">
+        {%- if section.settings.slide2_image != blank -%}
+          <img
+            src="{{ section.settings.slide2_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.slide2_image_alt | default: 'Slide 2' }}"
+            loading="lazy"
+            width="1600"
+          >
+        {%- else -%}
+          <img src="{{ 'hero-apparel-2.jpg' | asset_url }}" alt="Slide 2" loading="lazy">
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+
+      {%- comment -%} ── SLIDE 3 : FULL IMAGE + OVERLAY BUTTON ── {%- endcomment -%}
+      {%- if section.settings.slide3_image != blank or section.settings.show_slide3 -%}
+      <div class="hc-slide">
+        {%- if section.settings.slide3_image != blank -%}
+          <img
+            src="{{ section.settings.slide3_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.slide3_image_alt | default: 'Slide 3' }}"
+            loading="lazy"
+            width="1600"
+          >
+        {%- else -%}
+          <img src="{{ 'hero-apparel-3.jpg' | asset_url }}" alt="Slide 3" loading="lazy">
+        {%- endif -%}
+
+        {%- if section.settings.slide3_btn_text != blank -%}
+          <div class="hc-overlay hc-overlay--bottom-right">
+            <a
+              href="{{ section.settings.slide3_btn_url | default: '#' }}"
+              class="hc-overlay-btn"
+            >
+              {{ section.settings.slide3_btn_text }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+
+      {%- comment -%} ── SLIDE 4 : FULL IMAGE ── {%- endcomment -%}
+      {%- if section.settings.slide4_image != blank or section.settings.show_slide4 -%}
+      <div class="hc-slide">
+        {%- if section.settings.slide4_image != blank -%}
+          <img
+            src="{{ section.settings.slide4_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.slide4_image_alt | default: 'Slide 4' }}"
+            loading="lazy"
+            width="1600"
+          >
+        {%- else -%}
+          <img src="{{ 'hero-apparel-4.jpg' | asset_url }}" alt="Slide 4" loading="lazy">
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+
+    </div><!-- /.hc-track -->
+
+    <button class="hc-nav hc-nav--prev" id="hc-prev-{{ section.id }}" aria-label="Previous slide">&#10094;</button>
+    <button class="hc-nav hc-nav--next" id="hc-next-{{ section.id }}" aria-label="Next slide">&#10095;</button>
+
+    <div class="hc-dots" id="hc-dots-{{ section.id }}"></div>
+
+  </div><!-- /.hc-carousel -->
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     STYLES
+═══════════════════════════════════════════════════════ -->
+<style>
+
+    
+
+/* ────────────────────────────────────────
+   RESET & BASE
+──────────────────────────────────────── */
+#hero-carousel-{{ section.id }} *,
+#hero-carousel-{{ section.id }} *::before,
+#hero-carousel-{{ section.id }} *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ────────────────────────────────────────
+   CAROUSEL WRAPPER
+──────────────────────────────────────── */
+.hc-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+/* ────────────────────────────────────────
+   TRACK
+──────────────────────────────────────── */
+.hc-track {
+  display: flex;
+  will-change: transform;
+  transition: transform 0.6s ease;
+}
+
+/* ────────────────────────────────────────
+   SLIDES — fluid height via clamp()
+   No vh hacks, no per-breakpoint height overrides
+──────────────────────────────────────── */
+.hc-slide {
+  min-width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: clamp(220px, 52vw, 680px);
+}
+
+.hc-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ────────────────────────────────────────
+   SLIDE 1 — SPLIT (text + image)
+   Mobile: stacked (image top, text bottom)
+   Tablet+: side by side
+──────────────────────────────────────── */
+.hc-slide--split {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: clamp(320px, 52vw, 680px);
+  background: linear-gradient(
+    355deg,
+    rgba(0,0,0,1) 0%,
+    rgba(10,23,15,1) 6%,
+    rgba(0,0,0,1) 17%,
+    rgba(19,38,92,1) 100%
+  );
+}
+
+.hc-split-content {
+  width: 40%;
+  padding: clamp(1rem, 3vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: left;
+}
+
+.hc-split-image {
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hc-split-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hc-tags {
+  justify-content: flex-start;
+}
+
+/* Tablet+ : side by side */
+@media (min-width: 600px) {
+  .hc-slide--split {
+    flex-direction: row;
+    height: clamp(220px, 52vw, 680px);
+  }
+
+  .hc-split-content {
+    order: 1;
+    width: 38%;
+    text-align: left;
+  }
+
+  .hc-split-image {
+    order: 2;
+    width: 62%;
+    height: 100%;
+  }
+
+  .hc-tags {
+    justify-content: flex-start;
+  }
+}
+
+/* ────────────────────────────────────────
+   TAGS
+──────────────────────────────────────── */
+.hc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  justify-content: center;         /* centred on mobile */
+  margin-bottom: clamp(0.6rem, 1.5vw, 1.2rem);
+}
+
+.hc-tag {
+  display: inline-block;
+  font-size: clamp(0.55rem, 1.4vw, 0.9rem);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #c7a66a;
+  font-weight: 600;
+  border: 1px solid rgba(199, 166, 106, 0.35);
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ────────────────────────────────────────
+   HEADING & SUBTEXT
+──────────────────────────────────────── */
+.hc-heading {
+  font-size: clamp(1rem, 3.2vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.2rem);
+}
+
+.hc-subtext {
+  font-size: clamp(0.65rem, 1.6vw, 1.1rem);
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+}
+
+/* ────────────────────────────────────────
+   OVERLAY (used on slide 3)
+──────────────────────────────────────── */
+.hc-overlay {
+  position: absolute;
+  z-index: 3;
+}
+
+.hc-overlay--bottom-right {
+  right: clamp(0.75rem, 3vw, 3rem);
+  bottom: clamp(0.75rem, 3vw, 3rem);
+}
+
+.hc-overlay-btn {
+  display: inline-block;
+  padding: clamp(0.4rem, 1vw, 0.65rem) clamp(0.8rem, 2vw, 1.4rem);
+  font-size: clamp(0.6rem, 1.4vw, 0.9rem);
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.hc-overlay-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ────────────────────────────────────────
+   NAV BUTTONS
+──────────────────────────────────────── */
+.hc-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(28px, 4vw, 40px);
+  height: clamp(28px, 4vw, 40px);
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: clamp(0.75rem, 2vw, 1.2rem);
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.hc-nav:hover {
+  background: #fff;
+  color: #000;
+}
+
+.hc-nav--prev { left: clamp(0.5rem, 1.5vw, 1rem); }
+.hc-nav--next { right: clamp(0.5rem, 1.5vw, 1rem); }
+
+/* ────────────────────────────────────────
+   DOTS
+──────────────────────────────────────── */
+.hc-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.hc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
+}
+
+.hc-dot.is-active {
+  width: 28px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+</style>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT  (scoped to this section via section.id)
+═══════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  /* ── selectors ── */
+  var sectionId  = '{{ section.id }}';
+  var track      = document.getElementById('hc-track-'  + sectionId);
+  var dotsWrap   = document.getElementById('hc-dots-'   + sectionId);
+  var prevBtn    = document.getElementById('hc-prev-'   + sectionId);
+  var nextBtn    = document.getElementById('hc-next-'   + sectionId);
+  var carousel   = document.getElementById('hc-carousel-' + sectionId);
+
+  if (!track) return;
+
+  var slides     = track.querySelectorAll('.hc-slide');
+  var totalSlides = slides.length;
+  var cur        = 1;         /* starts at 1 because of the prepended clone */
+  var autoTimer;
+
+  /* ── clone first & last for infinite loop ── */
+  var firstClone = slides[0].cloneNode(true);
+  var lastClone  = slides[totalSlides - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, slides[0]);
+
+  var allSlides = track.querySelectorAll('.hc-slide');
+
+  /* ── set starting position instantly ── */
+  setTranslate(false);
+
+  /* ── build dots ── */
+  for (var i = 0; i < totalSlides; i++) {
+    (function (idx) {
+      var dot = document.createElement('button');
+      dot.className = 'hc-dot' + (idx === 0 ? ' is-active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+      dot.addEventListener('click', function () { goTo(idx + 1); });
+      dotsWrap.appendChild(dot);
+    })(i);
+  }
+
+  /* ── helpers ── */
+  function setTranslate(animate) {
+    track.style.transition = animate ? 'transform 0.6s ease' : 'none';
+    track.style.transform  = 'translateX(-' + (cur * 100) + '%)';
+  }
+
+  function updateDots() {
+    var dots = dotsWrap.querySelectorAll('.hc-dot');
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === cur - 1);
+    });
+  }
+
+  function goTo(index, animate) {
+    if (animate === undefined) animate = true;
+    cur = index;
+    setTranslate(animate);
+    if (animate) updateDots();
+  }
+
+  /* ── infinite loop reset ── */
+  track.addEventListener('transitionend', function () {
+    if (allSlides[cur].isSameNode(firstClone)) {
+      goTo(1, false);
+      updateDots();
+    }
+    if (allSlides[cur].isSameNode(lastClone)) {
+      goTo(totalSlides, false);
+      updateDots();
+    }
+  });
+
+  /* ── nav buttons ── */
+  nextBtn.addEventListener('click', function () {
+    if (cur < allSlides.length - 1) goTo(cur + 1);
+  });
+
+  prevBtn.addEventListener('click', function () {
+    if (cur > 0) goTo(cur - 1);
+  });
+
+  /* ── auto-slide ── */
+  function startAuto() {
+    autoTimer = setInterval(function () {
+      if (cur < allSlides.length - 1) goTo(cur + 1);
+    }, {{ section.settings.autoplay_speed | default: 5000 }});
+  }
+
+  function stopAuto() {
+    clearInterval(autoTimer);
+  }
+
+  startAuto();
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  /* ── touch / swipe ── */
+  var touchStartX = 0;
+  track.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+    stopAuto();
+  }, { passive: true });
+
+  track.addEventListener('touchend', function (e) {
+    var dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) {
+      if (dx > 0 && cur < allSlides.length - 1) goTo(cur + 1);
+      else if (dx < 0 && cur > 0)               goTo(cur - 1);
+    }
+    startAuto();
+  }, { passive: true });
+
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SCHEMA
+═══════════════════════════════════════════════════════ -->
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "tag": "section",
+  "class": "hc-section",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "⚙️ Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Auto-slide speed (ms)",
+      "min": 2000,
+      "max": 9000,
+      "step": 500,
+      "default": 5000
+    },
+
+    {
+      "type": "header",
+      "content": "── Slide 1 — Split Layout ──"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide1_image",
+      "label": "Slide 1 — Image (right panel)"
+    },
+    {
+      "type": "text",
+      "id": "slide1_image_alt",
+      "label": "Slide 1 — Image alt text",
+      "default": "Sportswear Manufacturing"
+    },
+    {
+      "type": "text",
+      "id": "slide1_heading",
+      "label": "Slide 1 — Heading",
+      "default": "20 years focus on producing sports wear manufactures"
+    },
+    {
+      "type": "text",
+      "id": "slide1_subtext",
+      "label": "Slide 1 — Subtext",
+      "default": "From Concept To Completion, We Transform Your Ideas Into Reality."
+    },
+    {
+      "type": "text",
+      "id": "tag_1",
+      "label": "Tag 1",
+      "default": "Custom Design"
+    },
+    {
+      "type": "text",
+      "id": "tag_2",
+      "label": "Tag 2",
+      "default": "Custom Logo / Pattern"
+    },
+    {
+      "type": "text",
+      "id": "tag_3",
+      "label": "Tag 3",
+      "default": "Custom Color / Label"
+    },
+    {
+      "type": "text",
+      "id": "tag_4",
+      "label": "Tag 4",
+      "default": "No Minimum Order"
+    },
+
+    {
+      "type": "header",
+      "content": "── Slide 2 — Full Image ──"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slide2",
+      "label": "Show Slide 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide2_image",
+      "label": "Slide 2 — Image"
+    },
+    {
+      "type": "text",
+      "id": "slide2_image_alt",
+      "label": "Slide 2 — Image alt text",
+      "default": "Slide 2"
+    },
+
+    {
+      "type": "header",
+      "content": "── Slide 3 — Full Image + Button ──"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slide3",
+      "label": "Show Slide 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide3_image",
+      "label": "Slide 3 — Image"
+    },
+    {
+      "type": "text",
+      "id": "slide3_image_alt",
+      "label": "Slide 3 — Image alt text",
+      "default": "Slide 3"
+    },
+    {
+      "type": "text",
+      "id": "slide3_btn_text",
+      "label": "Slide 3 — Button label",
+      "default": "Explore More"
+    },
+    {
+      "type": "url",
+      "id": "slide3_btn_url",
+      "label": "Slide 3 — Button link"
+    },
+
+    {
+      "type": "header",
+      "content": "── Slide 4 — Full Image ──"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slide4",
+      "label": "Show Slide 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide4_image",
+      "label": "Slide 4 — Image"
+    },
+    {
+      "type": "text",
+      "id": "slide4_image_alt",
+      "label": "Slide 4 — Image alt text",
+      "default": "Slide 4"
+    }
+
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel"
+    }
+  ]
+}
+{% endschema %}

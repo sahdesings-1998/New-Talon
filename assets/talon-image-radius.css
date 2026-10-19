@@ -1,0 +1,100 @@
+/**
+ * TALON — Global content image radius
+ * Token: --image-radius (snippets/css-variables.liquid)
+ */
+
+/* ── Apply: content image wrappers ── */
+.product-card__figure,
+.horizontal-product-card__figure,
+.collection-card .content-over-media,
+.blog-post-card > :is(a, div).overflow-hidden,
+.article__image,
+.multi-column__item > :is(a, div).overflow-hidden,
+.product-gallery__media,
+.media-grid__item,
+.multiple-media-with-text__media-wrapper > *,
+.image-with-text:not(.image-with-text-block--parallax) > :is(picture, img),
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item,
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure,
+.shopify-section--about-us-page .cp-factory-img,
+.shopify-section--about-us-page .cp-gallery-item,
+.shopify-section--about-us-page .cp-commit-img-col,
+.shopify-section--about-us-page .cp-cert-item,
+.shopify-section--custom-liquid .slider-container .image-box,
+.template-page .grid .image-box {
+  border-radius: var(--image-radius);
+  overflow: hidden;
+}
+
+.home-page-section{
+padding:0px !important;
+}
+
+/* ── Explicit exclusions (heroes, chrome, logos, icons) ── */
+.hero-carousel,
+.hero-carousel .carousel-slide,
+.hero-carousel .slide-image,
+.shopify-section--slideshow,
+.shopify-section--slideshow .slideshow,
+.shopify-section--slideshow .slideshow__slide,
+.collection-banner,
+.collection-banner .content-over-media,
+.oem-page .oem-hero,
+.about-hero,
+.about-hero__img,
+.shopify-section--custom-liquid .about-hero,
+.shopify-section--announcement-bar,
+.shopify-section--header,
+.shopify-section--footer-group,
+.shopify-section--footer,
+.logo-list__item,
+.image-with-text-block--parallax,
+.image-with-text-block--parallax > :is(picture, img, svg),
+.shopify-section--about-us-page .cp-bottom-banner,
+.promo-image-container,
+.header .header__logo-image,
+.footer__logo,
+.footer__payment-icons img {
+  border-radius: 0;
+}
+
+/* Override page-level hero radius tokens */
+.oem-page .oem-hero {
+  border-radius: 0 !important;
+}
+
+/* OEM stacked cards: outer <article> owns radius; inner media/img stay square */
+.oem-page .oem-workflow-card .oem-workflow-card__media,
+.oem-page .oem-craft-card .oem-craft-card__media,
+.oem-page .oem-workflow-card__media img,
+.oem-page .oem-craft-card__img {
+  border-radius: 0;
+}
+
+/* OEM capability split-layout: media wrapper + img own radius (not the full grid card) */
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media {
+  border-radius: var(--image-radius);
+  overflow: hidden;
+}
+
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media :is(img, picture) {
+  border-radius: var(--image-radius);
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media picture img {
+  border-radius: var(--image-radius);
+}
+
+/* OEM & ODM page — logistics / payment wrappers match --image-radius */
+.shopify-section--talon-oem-main .talon-logistics-media,
+.shopify-section--talon-oem-main .talon-payment-box {
+  border-radius: var(--image-radius);
+  overflow: hidden;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-list details {
+  border-radius: var(--image-radius);
+}

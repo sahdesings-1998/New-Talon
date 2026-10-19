@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://ipsports.uk/cdn/shop/files/IP_logo_Final_cbc5524e-0cd6-454e-a8af-6e2ba28c38cf.png?v=1742732678&width=140">
+    <title>Bespoke Design - Ipsports</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Barlow", sans-serif;
+            line-height: 1.6;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Typography */
+        h2 {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .heading-text {
+            font-size: 20px;
+            letter-spacing: 5px;
+        }
+        
+        .text-heading-h2 {
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .col {
+            flex: 1;
+            padding: 0 15px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            height: 60vh;
+            background-image: url("https://cdn.shopify.com/s/files/1/0899/3813/3363/files/BS-banners.png?v=1744104991");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        
+        /* Grid Layouts */
+        .new-grid-layout {
+            width: 85%;
+            margin: 0 auto;
+        }
+        
+        .grid-layout {
+            width: 70%;
+            margin: 0 auto;
+        }
+        
+        .colr-grid-layout {
+            width: 40%;
+            margin: 0 auto;
+        }
+        
+        /* Forms */
+        .form-bg {
+            width: 100%;
+            background-color: #ddd;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .form-bg-clr {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+        
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #b7b7b7;
+            margin-bottom: 15px;
+            transition: border-color 0.15s ease-in-out;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+        }
+        
+        /* Buttons */
+        .cst-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #00b3ca;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        
+        .cst-btn:hover {
+            background-color: #525252;
+            color: white;
+        }
+        
+        /* Spacing */
+        .mt-5 {
+            margin-top: 50px;
+        }
+        
+        .mb-5 {
+            margin-bottom: 50px;
+        }
+        
+        .p-5 {
+            padding: 50px;
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .new-grid-layout,
+            .grid-layout {
+                width: 95%;
+            }
+            
+            .colr-grid-layout {
+                width: 100%;
+            }
+            
+            .cst-btn {
+                font-size: 18px;
+            }
+            
+            .p-5 {
+                padding: 20px;
+            }
+            
+            .form-control {
+                font-size: 16px;
+            }
+            
+            .hero {
+                height: 40vh;
+            }
+        }
+        
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .form-full-width {
+            grid-column: 1 / -1;
+        }
+        
+        @media screen and (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="hero"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="new-grid-layout">
+        <div class="row">
+            <div class="col mt-5">
+                <div>
+                    <h2>BESPOKE DESIGN</h2>
+                    <p>Transform your teamwear with our custom design service. Our performance design experts will collaborate with you to create distinctive, cutting-edge uniforms that perfectly reflect your brand. Whether you need design consultation, color guidance, or a creative solution, we'll bring your vision to life.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-layout mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div>
+                        <div class="form-bg p-5 mb-5">
+                            <h3 class="mt-5">DESIGN BRIEF</h3>
+                            <p>LET US HELP YOU BRING YOUR TEAM UNIFORM VISION TO LIFE</p>
+                            <form class="form-bg-clr mt-5" id="google-sheet-form" method="POST" onsubmit="sendEmail(event)">
+                                <div class="form-grid">
+                                    <input type="text" class="form-control" name="Contact Name" id="contact-number" placeholder="Contact Name" required>
+                                    
+                                    <input type="text" class="form-control" name="Club/Association/Business Name" id="business-name" placeholder="Club/Association/Business Name">
+                                    
+                                    <input type="number" class="form-control" name="Number of Units Required" id="units-required" placeholder="Contact Number">
+                                    
+                                    <input type="email" class="form-control" name="Email" id="email" placeholder="Email Address">
+                                    
+                                    <input type="text" class="form-control" name="State" id="state" placeholder="Which State Is Your Team Based IN ?" required>
+                                    
+                                    <input type="text" class="form-control" name="Delivery Date" id="delivery-date" placeholder="Required Delivery Date" required>
+                                    
+                                    <textarea class="form-control form-full-width" name="Size Range" rows="3" placeholder="Quality & Size Range Required"></textarea>
+                                    
+                                    <textarea class="form-control form-full-width" name="Budget" rows="3" placeholder="Budget"></textarea>
+                                    
+                                    <textarea class="form-control form-full-width" name="Logo Requirements" rows="3" placeholder="Logo & Brand Requirements ( Including Colours, Logos, etc)"></textarea>
+                                    
+                                    <textarea class="form-control form-full-width" name="Apparel Types" rows="3" placeholder="Apparel Types/Styles & Requirements"></textarea>
+                                    
+                                    <textarea class="form-control form-full-width" name="Scope" rows="3" placeholder="Scope (Details list of everything this range / design requires)"></textarea>
+                                    
+                                    <textarea class="form-control form-full-width" name="Not in Scope" rows="3" placeholder="Not in Scope (Additional elements that are nice to include)"></textarea>
+                                    
+                                    <button type="submit" class="cst-btn form-full-width">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init({
+                publicKey: "G9Y9_dqKaA1W0B3oI",
+            });
+        })();
+        
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const formData = {
+                first_name: document.getElementById("contact-number").value,
+                business_name: document.getElementById("business-name").value,
+                contact_number: document.getElementById("units-required").value,
+                email: document.getElementById("email").value,
+                state: document.getElementById("state").value,
+                delivery_date: document.getElementById("delivery-date").value
+            };
+            
+            emailjs.send("service_jf5rjik", "template_25t68tk", formData)
+                .then(
+                    function(response) {
+                        alert("Email sent successfully!");
+                        console.log("Email sent:", response);
+                    },
+                    function(error) {
+                        alert("Failed to send email. Please try again.");
+                        console.error("Email failed:", error);
+                    }
+                );
+        }
+    </script>
+</body>
+</html>

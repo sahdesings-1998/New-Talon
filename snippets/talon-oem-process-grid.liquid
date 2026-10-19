@@ -1,0 +1,33 @@
+{%- comment -%} 6-step OEM / ODM production timeline {%- endcomment -%}
+<ol class="oem-timeline">
+  {%- render 'talon-oem-process-step',
+    step_index: 1,
+    icon: 'inquiry',
+    title: 'Send Inquiry & Check Your Design'
+  -%}
+  {%- render 'talon-oem-process-step',
+    step_index: 2,
+    icon: 'fabric',
+    title: 'Material Communication'
+  -%}
+  {%- render 'talon-oem-process-step',
+    step_index: 3,
+    icon: 'sample',
+    title: 'Sample Development'
+  -%}
+  {%- render 'talon-oem-process-step',
+    step_index: 4,
+    icon: 'production',
+    title: 'Bulk Production'
+  -%}
+  {%- render 'talon-oem-process-step',
+    step_index: 5,
+    icon: 'qc',
+    title: 'Quality Control'
+  -%}
+  {%- render 'talon-oem-process-step',
+    step_index: 6,
+    icon: 'shipping',
+    title: 'Packing & Shipping'
+  -%}
+</ol>

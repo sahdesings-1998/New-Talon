@@ -1,0 +1,94 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        ".section-header {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "page_width": "xs"
+      }
+    },
+    "custom_liquid_NWUjb6": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.presets.custom_liquid.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<style>\n    .partner-container {\n      max-width: 850px;\n      margin: 0 auto;\n    }\n\n    .partner-hero h1 {\n      font-size: 24px;\n      font-weight: 500;\nmargin-bottom:10px;\n      color: #111;\ntext-transform: uppercase;\n      letter-spacing: 1px;\n    }\n\n    .partner-hero p {\n      font-size: 16px;\n      line-height: 1.6;\n      color: #333;\n      opacity: 0.85;\n    }\n\n    /* Responsive */\n    @media (max-width: 768px) {\n      .partner-hero {\n        padding: 20px 10px;\n      }\n\n      .partner-hero h1 {\n        font-size: 24px;\n      }\n\n      .partner-hero p {\n        font-size: 14px;\n      }\n    }\n  </style>\n\n\n  <section class=\"partner-hero\">\n    <div class=\"partner-container\">\n      <h1>Partner with Talon</h1>\n      <p>\n        We partner with retailers and businesses looking to offer high-quality Talon products \n        to their customers. If you're interested in stocking our collection, fill out the \n        form below and our team will get in touch with you shortly.\n      </p>\n    </div>\n  </section>",
+        "text_alignment": "center"
+      }
+    },
+    "rich_text_KQfNYN": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_49XGyc": {
+          "type": "heading",
+          "settings": {
+            "text": "Partner with Talon",
+            "heading_tag": "h1"
+          }
+        },
+        "richtext_iCLRbi": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>We partner with retailers and businesses looking to offer high-quality Talon products to their customers. If you're interested in stocking our collection, fill out the form below and our team will get in touch with you shortly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_49XGyc",
+        "richtext_iCLRbi"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich_text.presets.rich_text.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "content_width": "sm",
+        "text_position": "center",
+        "remove_vertical_spacing": false
+      }
+    },
+    "1777273702e78c8104": {
+      "type": "apps",
+      "blocks": {
+        "clay_b2b_wholesale_clay_registration_form_XR4d94": {
+          "type": "shopify://apps/clay-b2b-wholesale/blocks/clay-registration-form/e89e496b-328b-4767-a3bb-2ff0d4065819",
+          "settings": {
+            "registration_form_id": "a78cd32c-cbe8-4839-869c-259aa3a38c35"
+          }
+        }
+      },
+      "block_order": [
+        "clay_b2b_wholesale_clay_registration_form_XR4d94"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_NWUjb6",
+    "rich_text_KQfNYN",
+    "1777273702e78c8104"
+  ]
+}

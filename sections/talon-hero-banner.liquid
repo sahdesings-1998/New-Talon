@@ -1,0 +1,736 @@
+{{ 'talon-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #talon-hero-banner-{{ section.id }} {
+    --talon-hb-aspect-desktop: {{ section.settings.aspect_ratio_desktop | default: '21 / 9' }};
+    --talon-hb-aspect-mobile: {{ section.settings.aspect_ratio_mobile | default: '3 / 4' }};
+    --talon-hb-radius: {{ section.settings.banner_border_radius | default: 0 }}px;
+    --talon-hb-btn-bg: {{ section.settings.button_bg_color | default: '#000000' }};
+    --talon-hb-btn-text: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --talon-hb-btn-border-color: {{ section.settings.button_border_color | default: section.settings.button_bg_color | default: '#000000' }};
+    --talon-hb-btn-hover-bg: {{ section.settings.button_hover_bg_color | default: '#1a1a1a' }};
+    --talon-hb-btn-hover-text: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
+    --talon-hb-btn-hover-border: {{ section.settings.button_hover_border_color | default: section.settings.button_hover_bg_color | default: '#1a1a1a' }};
+    --talon-hb-btn-radius: {{ section.settings.button_border_radius | default: 8 }}px;
+    --talon-hb-offset-x: {{ section.settings.button_offset_x | default: 36 }}px;
+    --talon-hb-offset-y: {{ section.settings.button_offset_y | default: 36 }}px;
+    --talon-hb-offset-x-mob: {{ section.settings.button_offset_x_mobile | default: 20 }}px;
+    --talon-hb-offset-y-mob: {{ section.settings.button_offset_y_mobile | default: 20 }}px;
+    padding-top: {{ section.settings.padding_top | default: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign has_blocks = false
+  if section.blocks.size > 0
+    assign has_blocks = true
+  endif
+
+  assign default_images = 'Long Sleeve Sportswear Banner.png,Lightweight England Football Jersey Collection.png,Custom Sportswear Collection Showcase.png,custom-jackets-custom-brand.png' | split: ','
+-%}
+
+<div id="talon-hero-banner-{{ section.id }}" class="talon-hero-banner talon-hero-banner--{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="talon-hero-banner__frame{% unless section.settings.full_width %} talon-hero-banner__frame--boxed{% endunless %}">
+    <div class="talon-hero-banner__media">
+      <div
+        class="talon-hero-banner__slider"
+        data-autoplay="{{ section.settings.autoplay | default: true }}"
+        data-interval="{{ section.settings.autoplay_speed | default: 5000 }}"
+        data-loop="true"
+      >
+        <div class="talon-hero-banner__track">
+          {%- if has_blocks -%}
+            {% comment %} Prepend clone of last block for infinite loop {% endcomment %}
+            {%- assign last_block = section.blocks.last -%}
+            <div class="talon-hero-banner__slide is-clone" data-clone="last" aria-hidden="true">
+              <picture class="talon-hero-banner__picture">
+                {%- if last_block.settings.image_mobile != blank -%}
+                  <source media="(max-width: 767px)" srcset="{{ last_block.settings.image_mobile | image_url: width: 1100 }}">
+                {%- endif -%}
+                {%- if last_block.settings.image_desktop != blank -%}
+                  {{ last_block.settings.image_desktop | image_url: width: 2880 | image_tag: class: 'talon-hero-banner__image', alt: last_block.settings.image_alt | default: 'Slide' }}
+                {%- else -%}
+                  <img src="{{ default_images[3] | asset_url }}" alt="Slide" class="talon-hero-banner__image" width="2560" height="1097">
+                {%- endif -%}
+              </picture>
+            </div>
+
+            {% comment %} Actual slide blocks {% endcomment %}
+            {%- for block in section.blocks -%}
+              {%- assign default_img = default_images[forloop.index0] | default: default_images[0] -%}
+              <div
+                class="talon-hero-banner__slide"
+                data-slide-index="{{ forloop.index0 }}"
+                data-button-text="{{ block.settings.button_text | default: section.settings.button_text | escape }}"
+                data-button-link="{{ block.settings.button_link | default: section.settings.button_link | default: '/collections/all' }}"
+                {{ block.shopify_attributes }}
+              >
+                <picture class="talon-hero-banner__picture">
+                  {%- if block.settings.image_mobile != blank -%}
+                    <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 1100 }}">
+                  {%- else -%}
+                    <source media="(max-width: 767px)" srcset="{{ default_img | asset_url }}">
+                  {%- endif -%}
+
+                  {%- if block.settings.image_desktop != blank -%}
+                    {{ block.settings.image_desktop | image_url: width: 2880 | image_tag:
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      class: 'talon-hero-banner__image',
+                      alt: block.settings.image_alt | default: 'Slide'
+                    }}
+                  {%- else -%}
+                    <img
+                      src="{{ default_img | asset_url }}"
+                      alt="{{ block.settings.image_alt | default: 'TALON Sportswear Banner' }}"
+                      class="talon-hero-banner__image"
+                      loading="eager"
+                      width="2560"
+                      height="1097"
+                    >
+                  {%- endif -%}
+                </picture>
+              </div>
+            {%- endfor -%}
+
+            {% comment %} Append clone of first block for infinite loop {% endcomment %}
+            {%- assign first_block = section.blocks.first -%}
+            <div class="talon-hero-banner__slide is-clone" data-clone="first" aria-hidden="true">
+              <picture class="talon-hero-banner__picture">
+                {%- if first_block.settings.image_mobile != blank -%}
+                  <source media="(max-width: 767px)" srcset="{{ first_block.settings.image_mobile | image_url: width: 1100 }}">
+                {%- endif -%}
+                {%- if first_block.settings.image_desktop != blank -%}
+                  {{ first_block.settings.image_desktop | image_url: width: 2880 | image_tag: class: 'talon-hero-banner__image', alt: first_block.settings.image_alt | default: 'Slide' }}
+                {%- else -%}
+                  <img src="{{ default_images[0] | asset_url }}" alt="Slide" class="talon-hero-banner__image" width="2560" height="1097">
+                {%- endif -%}
+              </picture>
+            </div>
+
+          {%- else -%}
+            {% comment %} Default 4 images requested by the user {% endcomment %}
+            {% comment %} Prepend clone of image 4 {% endcomment %}
+            <div class="talon-hero-banner__slide is-clone" data-clone="last" aria-hidden="true">
+              <picture class="talon-hero-banner__picture">
+                <img src="{{ default_images[3] | asset_url }}" alt="Slide 4" class="talon-hero-banner__image" width="2560" height="1097">
+              </picture>
+            </div>
+
+            {%- for img_name in default_images -%}
+              <div
+                class="talon-hero-banner__slide"
+                data-slide-index="{{ forloop.index0 }}"
+                data-button-text="{{ section.settings.button_text | default: 'Explore Collection' | escape }}"
+                data-button-link="{{ section.settings.button_link | default: '/collections/all' }}"
+              >
+                <picture class="talon-hero-banner__picture">
+                  <source media="(max-width: 767px)" srcset="{{ img_name | asset_url }}">
+                  <img
+                    src="{{ img_name | asset_url }}"
+                    alt="TALON Hero Banner {{ forloop.index }}"
+                    class="talon-hero-banner__image"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    width="2560"
+                    height="1097"
+                  >
+                </picture>
+              </div>
+            {%- endfor -%}
+
+            {% comment %} Append clone of image 1 {% endcomment %}
+            <div class="talon-hero-banner__slide is-clone" data-clone="first" aria-hidden="true">
+              <picture class="talon-hero-banner__picture">
+                <img src="{{ default_images[0] | asset_url }}" alt="Slide 1" class="talon-hero-banner__image" width="2560" height="1097">
+              </picture>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.enable_overlay -%}
+          <div class="talon-hero-banner__overlay" aria-hidden="true"></div>
+        {%- endif -%}
+
+        {% comment %} Arrow Navigation {% endcomment %}
+        {%- if section.settings.show_arrows -%}
+          <button type="button" class="talon-hero-banner__arrow talon-hero-banner__arrow--prev" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="talon-hero-banner__arrow talon-hero-banner__arrow--next" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        {%- endif -%}
+
+        {% comment %} Pagination Dots {% endcomment %}
+        {%- if section.settings.show_dots -%}
+          {%- assign total_count = 4 -%}
+          {%- if has_blocks -%}
+            {%- assign total_count = section.blocks.size -%}
+          {%- endif -%}
+          <div class="talon-hero-banner__dots" role="tablist" aria-label="Slider navigation dots">
+            {%- for i in (1..total_count) -%}
+              <button
+                type="button"
+                class="talon-hero-banner__dot{% if forloop.first %} is-active{% endif %}"
+                data-dot-index="{{ forloop.index0 }}"
+                aria-label="Go to slide {{ forloop.index }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {% comment %} Single Bottom-Right CTA Button {% endcomment %}
+        {%- if section.settings.button_text != blank -%}
+          <div class="talon-hero-banner__cta-wrapper talon-hero-banner__cta-wrapper--{{ section.settings.button_position | default: 'bottom-right' }}">
+            <a
+              id="talon-hb-btn-{{ section.id }}"
+              href="{{ section.settings.button_link | default: '/collections/all' }}"
+              class="talon-hero-banner__btn talon-hero-banner__btn--{{ section.settings.button_style | default: 'solid' }}"
+              {% if section.settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+              aria-label="{{ section.settings.button_text | escape }}"
+            >
+              <span id="talon-hb-btn-text-{{ section.id }}">{{ section.settings.button_text | escape }}</span>
+              <svg class="talon-hero-banner__btn-arrow" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4.167 10h11.666M10.833 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initHeroSlider(section) {
+      if (!section) return;
+      const slider = section.querySelector('.talon-hero-banner__slider');
+      if (!slider) return;
+
+      const track = slider.querySelector('.talon-hero-banner__track');
+      const slides = slider.querySelectorAll('.talon-hero-banner__slide');
+      const dots = slider.querySelectorAll('.talon-hero-banner__dot');
+      const prevBtn = slider.querySelector('.talon-hero-banner__arrow--prev');
+      const nextBtn = slider.querySelector('.talon-hero-banner__arrow--next');
+      const ctaBtn = section.querySelector('#talon-hb-btn-' + section.dataset.sectionId);
+      const ctaBtnText = section.querySelector('#talon-hb-btn-text-' + section.dataset.sectionId);
+
+      const totalSlides = slider.querySelectorAll('.talon-hero-banner__slide:not(.is-clone)').length;
+      if (totalSlides < 2) return;
+
+      let currentIndex = 1; // 1 represents the first real slide (0 is the prepended clone)
+      let isTransitioning = false;
+      let autoplayTimer = null;
+      const autoplayEnabled = slider.dataset.autoplay === 'true';
+      const autoplayInterval = parseInt(slider.dataset.interval, 10) || 5000;
+
+      // Position track at first real slide
+      track.classList.add('is-instant');
+      track.style.transform = 'translateX(-100%)';
+      void track.offsetHeight; // Force reflow
+      track.classList.remove('is-instant');
+
+      function updateActiveUI() {
+        const realIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        dots.forEach((dot, idx) => {
+          const isActive = idx === realIndex;
+          dot.classList.toggle('is-active', isActive);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Update CTA link if slide has specific override
+        const activeSlide = slider.querySelector(`.talon-hero-banner__slide[data-slide-index="${realIndex}"]`);
+        if (activeSlide && ctaBtn) {
+          const customLink = activeSlide.dataset.buttonLink;
+          const customText = activeSlide.dataset.buttonText;
+          if (customLink) ctaBtn.href = customLink;
+          if (customText && ctaBtnText) ctaBtnText.textContent = customText;
+        }
+      }
+
+      function goToSlide(index, instant) {
+        if (isTransitioning && !instant) return;
+        isTransitioning = !instant;
+        currentIndex = index;
+
+        if (instant) {
+          track.classList.add('is-instant');
+        } else {
+          track.classList.remove('is-instant');
+        }
+
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateActiveUI();
+      }
+
+      function nextSlide() {
+        if (isTransitioning) return;
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        if (isTransitioning) return;
+        goToSlide(currentIndex - 1);
+      }
+
+      // Seamless infinite loop wrap on transitionend
+      track.addEventListener('transitionend', function() {
+        isTransitioning = false;
+        if (currentIndex >= totalSlides + 1) {
+          // Wrapped past the last slide to the first-clone -> jump instantly to first real slide
+          goToSlide(1, true);
+          void track.offsetHeight;
+          track.classList.remove('is-instant');
+        } else if (currentIndex <= 0) {
+          // Wrapped before first slide to last-clone -> jump instantly to last real slide
+          goToSlide(totalSlides, true);
+          void track.offsetHeight;
+          track.classList.remove('is-instant');
+        }
+      });
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextSlide();
+          resetAutoplay();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          prevSlide();
+          resetAutoplay();
+        });
+      }
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetIndex = parseInt(this.dataset.dotIndex, 10);
+          goToSlide(targetIndex + 1);
+          resetAutoplay();
+        });
+      });
+
+      // Autoplay
+      function startAutoplay() {
+        if (!autoplayEnabled) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(nextSlide, autoplayInterval);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      slider.addEventListener('mouseenter', stopAutoplay);
+      slider.addEventListener('mouseleave', startAutoplay);
+
+      // Touch / Swipe
+      let touchStartX = 0;
+      let touchDeltaX = 0;
+
+      slider.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        stopAutoplay();
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', function(e) {
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', function() {
+        if (Math.abs(touchDeltaX) > 40) {
+          if (touchDeltaX < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+        startAutoplay();
+      });
+
+      startAutoplay();
+    }
+
+    function initAllSliders() {
+      document.querySelectorAll('.talon-hero-banner').forEach(initHeroSlider);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllSliders);
+    } else {
+      initAllSliders();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.target.matches('.talon-hero-banner-section') || e.target.querySelector('.talon-hero-banner')) {
+        initHeroSlider(e.target.querySelector('.talon-hero-banner') || e.target);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Talon Hero Banner",
+  "tag": "section",
+  "class": "section talon-hero-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Change slides every",
+      "default": 4500
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width layout",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_desktop",
+      "label": "Desktop aspect ratio",
+      "options": [
+        {
+          "value": "21 / 9",
+          "label": "21:9 (Ultrawide Hero)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "16:9 (Standard Widescreen)"
+        },
+        {
+          "value": "2.35 / 1",
+          "label": "2.35:1 (Cinematic)"
+        }
+      ],
+      "default": "21 / 9"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Mobile aspect ratio",
+      "options": [
+        {
+          "value": "3 / 4",
+          "label": "3:4 (Portrait - Recommended)"
+        },
+        {
+          "value": "4 / 5",
+          "label": "4:5 (Standard Mobile)"
+        },
+        {
+          "value": "1 / 1",
+          "label": "1:1 (Square)"
+        }
+      ],
+      "default": "3 / 4"
+    },
+    {
+      "type": "range",
+      "id": "banner_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Banner corner radius",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_overlay",
+      "label": "Subtle bottom gradient overlay",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_position",
+      "label": "Button position",
+      "options": [
+        {
+          "value": "bottom-right",
+          "label": "Bottom right (Default)"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "bottom-right"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style variant",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid color"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "blur",
+          "label": "Frosted glass blur"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button corner radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_offset_x",
+      "min": 12,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop horizontal offset",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "button_offset_y",
+      "min": 12,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop vertical offset",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "button_offset_x_mobile",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile horizontal offset",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_offset_y_mobile",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile vertical offset",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop image (21:9)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image (3:4)"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "default": "TALON Sportswear Banner"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text override"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link override"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon Hero Banner",
+      "settings": {
+        "full_width": true,
+        "autoplay": true,
+        "autoplay_speed": 4500,
+        "show_arrows": true,
+        "show_dots": true,
+        "aspect_ratio_desktop": "21 / 9",
+        "aspect_ratio_mobile": "3 / 4",
+        "button_text": "Explore Collection",
+        "button_position": "bottom-right",
+        "button_style": "solid"
+      },
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "image_alt": "Long Sleeve Sportswear Banner"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "image_alt": "Lightweight England Football Jersey Collection"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "image_alt": "Custom Sportswear Collection Showcase"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "image_alt": "Custom Jackets Custom Brand"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

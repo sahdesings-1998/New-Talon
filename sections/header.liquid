@@ -1,0 +1,926 @@
+<style>
+  /* Navigation display rules:
+     - 1024px and above: show inline links (HOME & SHOP), hide hamburger button.
+     - Below 1024px (tablet & mobile): hide inline links, show hamburger button.
+  */
+  @media screen and (min-width: 1024px) {
+    .header__primary-nav button[aria-controls="sidebar-menu"] {
+      display: none !important;
+    }
+    .header__primary-nav .header__primary-nav-list {
+      display: contents !important;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .header__primary-nav button[aria-controls="sidebar-menu"] {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+    .header__primary-nav .header__primary-nav-list {
+      display: none !important;
+    }
+  }
+
+
+
+  /*  */
+
+
+
+
+  
+  :root {
+    --header-is-sticky: {% if section.settings.enable_sticky %}1{% else %}0{% endif %};
+  }
+
+  #shopify-section-{{ section.id }} {
+    --header-grid: "primary-nav logo secondary-nav" / minmax(0, 1fr) auto minmax(0, 1fr);
+    --header-padding-block: 1rem;
+    --header-transparent-header-text-color: {{ section.settings.transparent_header_text_color.rgb }};
+    --header-separation-border-color: {% if section.settings.show_separation_border %}{{ section.settings.color_scheme.settings.text_color.rgb }} / 0.15{% else %}0 0 0 / 0{% endif %};
+
+    position: relative;
+    z-index: 4;
+  }
+
+  /* nav active bold */
+/* nav active bold */
+.header__primary-nav-item.nav-item--active .header__nav-label,
+.header__primary-nav-item.nav-item--active summary.header__nav-label {
+  font-weight: bold !important;
+}
+
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} {
+      --header-padding-block: {% if section.settings.reduce_padding %}1.2rem{% else %}1.6rem{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      {%- case section.settings.layout -%}
+        {%- when 'logo_left_navigation_inline' -%}
+          --header-grid: "logo primary-nav secondary-nav" / auto minmax(0, 1fr) auto;
+
+        {%- when 'logo_left_navigation_center' -%}
+          --header-grid: "logo primary-nav secondary-nav" / minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+
+        {%- when 'logo_center_navigation_inline' -%}
+          --header-grid: "primary-nav logo secondary-nav" / minmax(0, 1fr) auto minmax(0, 1fr);
+
+        {%- when 'logo_center_navigation_below' -%}
+          --header-grid: ". logo secondary-nav" "primary-nav primary-nav primary-nav" / minmax(0, 1fr) auto minmax(0, 1fr);
+      {%- endcase -%}
+    }
+
+    #shopify-section-{{ section.id }} .header__logo {
+      justify-self: center;
+    }
+
+    #shopify-section-{{ section.id }} .header__primary-nav {
+      justify-self: start;
+      justify-content: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .header__secondary-nav {
+      justify-self: end;
+    }
+  }
+
+  {%- if section.settings.enable_sticky -%}
+    #shopify-section-{{ section.id }} {
+      position: sticky;
+      top: 0;
+    }
+
+    .shopify-section--announcement-bar ~ #shopify-section-{{ section.id }} {
+      top: calc(var(--announcement-bar-is-sticky, 0) * var(--announcement-bar-height, 0px));
+    }
+  {%- endif -%}
+
+  {%- if section.settings.logo != blank -%}
+    #shopify-section-{{ section.id }} {
+      --header-logo-width: {{ section.settings.logo_mobile_max_width }}px;
+    }
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-{{ section.id }} {
+        --header-logo-width: {{ section.settings.logo_max_width }}px;
+      }
+    }
+  {%- endif -%}
+</style>
+
+{{- 'talon-shop-mega-menu.css' | asset_url | stylesheet_tag -}}
+
+<height-observer variable="header">
+  <x-header {% if section.settings.hide_on_scroll and section.settings.enable_sticky %}hide-on-scroll{% endif %} class="header color-scheme color-scheme--{{ section.settings.color_scheme.id }}{% if section.settings.layout == 'logo_center_navigation_inline' %} header--brand-centered{% endif %}">
+    {%- comment -%}
+    --------------------------------------------------------------------------------------------------------------------
+    LOGO AREA
+    --------------------------------------------------------------------------------------------------------------------
+    {%- endcomment -%}
+
+    {%- capture logo_content -%}
+      {%- if section.settings.logo -%}
+        {%- capture sizes -%}{{ section.settings.logo_max_width }}px{%- endcapture -%}
+        {%- capture widths -%}{{ section.settings.logo_max_width | times: 2 | at_most: section.settings.logo.width }}, {{ section.settings.logo_max_width | times: 3 | at_most: section.settings.logo.width }}{%- endcapture -%}
+
+        <span class="sr-only">{{ shop.name }}</span>
+        {{- section.settings.logo | image_url: width: section.settings.logo.width | image_tag: sizes: sizes, widths: widths, class: 'header__logo-image' -}}
+
+        {%- if section.settings.transparent_logo -%}
+          {{- section.settings.transparent_logo | image_url: width: section.settings.transparent_logo.width | image_tag: sizes: sizes, widths: widths, class: 'header__logo-image header__logo-image--transparent' -}}
+        {%- endif -%}
+      {%- else -%}
+        <span class="header__logo-text h5">{{ shop.name }}</span>
+      {%- endif -%}
+    {%- endcapture -%}
+
+    <a href="{{ routes.root_url }}" class="header__logo">{{ logo_content }}</a>
+
+    {%- comment -%}
+    --------------------------------------------------------------------------------------------------------------------
+    PRIMARY NAVIGATION AREA
+    --------------------------------------------------------------------------------------------------------------------
+    {%- endcomment -%}
+
+    {%- assign menu = section.settings.menu -%}
+    {%- assign sidebar_menu = section.settings.sidebar_menu -%}
+    {%- assign oem_odm_title_downcase = 'oem & odm' -%}
+    {%- assign oem_odm_url = '/pages/oem-odm' -%}
+    {%- if pages['oem-odm'] != blank -%}
+      {%- assign oem_odm_url = pages['oem-odm'].url -%}
+    {%- endif -%}
+    {%- assign about_base_url = '/pages/about-us-page' -%}
+    {%- if pages['about-us-page'] != blank -%}
+      {%- assign about_base_url = pages['about-us-page'].url -%}
+    {%- endif -%}
+    {%- assign brands_az_url = '/pages/brandpageatoz' -%}
+    {%- if pages['brandpageatoz'] != blank -%}
+      {%- assign brands_az_url = pages['brandpageatoz'].url -%}
+    {%- endif -%}
+    {%- assign catalogue_url = '/pages/catalouge' -%}
+    {%- if pages['catalouge'] != blank -%}
+      {%- assign catalogue_url = pages['catalouge'].url -%}
+    {%- endif -%}
+    {%- assign all_products_url = routes.all_products_collection_url -%}
+    {%- if collections['all'] != blank -%}
+      {%- assign all_products_url = collections['all'].url -%}
+    {%- endif -%}
+    {%- assign wholesale_application_url = '/pages/wholesale-application' -%}
+    {%- if pages['wholesale-application'] != blank -%}
+      {%- assign wholesale_application_url = pages['wholesale-application'].url -%}
+    {%- endif -%}
+    {%- assign blog_root_url = '/pages/blog-posts' -%}
+    {%- if blogs['blog-posts'] != blank -%}
+      {%- assign blog_root_url = blogs['blog-posts'].url -%}
+    {%- endif -%}
+    {%- assign oem_overview_url = oem_odm_url | append: '#oem-overview' -%}
+    {%- assign oem_customization_url = oem_odm_url | append: '#customization-capabilities' -%}
+    {%- assign oem_details_url = oem_odm_url | append: '#oem-details' -%}
+    {%- assign oem_printing_url = oem_odm_url | append: '#customization-capabilities' -%}
+    {%- assign oem_services_url = oem_odm_url | append: '#why-work-talon' -%}
+    {%- assign oem_rfq_url = oem_odm_url | append: '#oem-rfq' -%}
+    {%- assign oem_faq_url = oem_odm_url | append: '#faq' -%}
+    {%- assign oem_production_process_url = oem_odm_url | append: '#production-process' -%}
+    {%- assign oem_qc_url = oem_odm_url | append: '#why-choose-talon' -%}
+    {%- assign oem_card_image_teamwear = 'talon-oem-teamwear-manufacturing.webp' | asset_url -%}
+    {%- assign oem_card_image_private_label = 'talon-hd-real-private-label-branding.webp' | asset_url -%}
+    {%- assign oem_card_image_sublimation = 'talon-hd-chinese-sublimation-printing-production.png' | asset_url -%}
+    {%- assign oem_card_image_sublimation_process = 'talon-hd-chinese-sublimation-printing-production.png' | asset_url -%}
+    {%- assign oem_card_image_embroidery = 'talon-hd-embroidery-production.webp' | asset_url -%}
+    {%- comment -%} Resolve Shopify menu links into fixed primary-nav slots (always 6 items). {%- endcomment -%}
+    {%- assign nav_link_home = blank -%}
+    {%- assign nav_link_shop = blank -%}
+    {%- assign nav_link_oem = blank -%}
+    {%- assign nav_link_about = blank -%}
+    {%- assign nav_link_blog = blank -%}
+    {%- assign nav_link_contact = blank -%}
+
+    {%- for nav_link in menu.links -%}
+      {%- assign nav_link_title_downcase = nav_link.title | strip | downcase -%}
+
+      {%- if nav_link.url == routes.root_url or nav_link_title_downcase == 'home' -%}
+        {%- if nav_link_home == blank -%}
+          {%- assign nav_link_home = nav_link -%}
+        {%- endif -%}
+      {%- elsif nav_link_title_downcase == 'custom sportswear' or nav_link_title_downcase == 'custom sport wear' or nav_link_title_downcase == 'shop' or nav_link.url contains '/collections/all' -%}
+        {%- if nav_link_shop == blank -%}
+          {%- assign nav_link_shop = nav_link -%}
+        {%- endif -%}
+      {%- elsif nav_link_title_downcase == oem_odm_title_downcase or nav_link.url contains '/pages/oem-odm' or nav_link.url contains 'oem-odm' or nav_link_title_downcase contains 'oem' and nav_link_title_downcase contains 'odm' -%}
+        {%- if nav_link_oem == blank -%}
+          {%- assign nav_link_oem = nav_link -%}
+        {%- endif -%}
+      {%- elsif nav_link_title_downcase contains 'about' -%}
+        {%- if nav_link_about == blank -%}
+          {%- assign nav_link_about = nav_link -%}
+        {%- endif -%}
+      {% comment %} {%- elsif nav_link_title_downcase contains 'blog' or nav_link.url contains '/blogs/' -%} {% endcomment %}
+       {%- elsif nav_link_title_downcase contains 'blog'
+   or nav_link.url contains '/blogs/'
+   or nav_link.url contains '/pages/blog-posts' -%}
+        {%- if nav_link_blog == blank -%}
+          {%- assign nav_link_blog = nav_link -%}
+        {%- endif -%}
+      {%- elsif nav_link_title_downcase contains 'contact' -%}
+        {%- if nav_link_contact == blank -%}
+          {%- assign nav_link_contact = nav_link -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if menu.links.size > 0 or sidebar_menu.links.size > 0 -%}
+      <nav class="header__primary-nav {% if section.settings.layout == 'logo_center_navigation_below' or section.settings.layout == 'logo_left_navigation_center' %}header__primary-nav--center{% endif %}" aria-label="{{ 'header.general.primary_navigation' | t | escape }}">
+        <button type="button" aria-controls="sidebar-menu">
+          <span class="sr-only">{{ 'header.general.menu' | t }}</span>
+          {%- render 'icon' with 'hamburger', class: 'header__nav-icon' -%}
+        </button>
+
+        {%- if section.settings.layout != 'drawer' -%}
+          <ul class="header__primary-nav-list contents unstyled-list">
+            <li class="header__primary-nav-item" data-nav-slot="home">
+              <a href="{{ routes.root_url }}" class="header__nav-label block {% if section.settings.menu_text_font == 'heading' %}h6{% endif %}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>HOME</a>
+            </li>
+            <li class="header__primary-nav-item" data-nav-slot="shop">
+              <a href="/collections/all" class="header__nav-label block {% if section.settings.menu_text_font == 'heading' %}h6{% endif %}" {% if request.path == '/collections/all' or request.page_type == 'collection' %}aria-current="page"{% endif %}>SHOP</a>
+            </li>
+          </ul>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+
+
+<script>
+  (() => {
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+
+    const urlMap = {
+      home: '/',
+      shop: '/collections',
+      oem: '/pages/oem-odm',
+      about: '/pages/about-us-page',
+      blog: '/pages/blog-posts',
+      contact: '/pages/contact-us',
+    };
+
+    document.querySelectorAll('.header__primary-nav-item').forEach((item) => {
+      const slot = item.getAttribute('data-nav-slot');
+      const linkPath = urlMap[slot];
+      if (!linkPath) return;
+
+      const isActive =
+        linkPath === '/'
+          ? currentPath === '/'
+          : currentPath === linkPath || currentPath.startsWith(linkPath + '/');
+
+      if (isActive) item.classList.add('nav-item--active');
+    });
+  })();
+</script>
+
+
+    {%- comment -%}
+    --------------------------------------------------------------------------------------------------------------------
+    SECONDARY NAVIGATION AREA
+    --------------------------------------------------------------------------------------------------------------------
+    {%- endcomment -%}
+
+    <nav class="header__secondary-nav header__utilities" aria-label="{{ 'header.general.secondary_navigation' | t | escape }}">
+      {%- liquid
+        if section.settings.show_country_selector and localization.available_countries.size > 1
+          assign show_country_selector = true
+        endif
+
+        if section.settings.show_locale_selector and localization.available_languages.size > 1
+          assign show_locale_selector = true
+        endif
+      -%}
+
+      <ul class="contents unstyled-list">
+        {%- if show_country_selector or show_locale_selector -%}
+          <li class="localization-selectors md-max:hidden">
+            {%- if show_country_selector -%}
+              {%- render 'localization-selector', type: 'country', placement: 'bottom-end', show_country_name: section.settings.show_country_name, show_country_flag: section.settings.show_country_flag, id_prefix: 'header-nav' -%}
+            {%- endif -%}
+
+            {%- if show_locale_selector -%}
+              {%- render 'localization-selector', type: 'locale', placement: 'bottom-end', id_prefix: 'header-nav' -%}
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+
+        {% comment %} b2b button {% endcomment %}
+   {% unless customer and customer.tags contains 'wholesale' %}
+  <li class="header__b2b-link sm-max:hidden">
+    <a href="{{ wholesale_application_url }}" class="button header__utility-b2b">
+      <span class="sr-only">B2B Signup</span>
+      <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} b2b-text header__utility-label">
+        B2B SIGNUP
+      </span>
+    </a>
+  </li>
+{% endunless %}
+
+  {% comment %} <li class="header__b2b-link sm-max:hidden">
+  <a href="https://taloneshop.com/pages/wholesale-application" class="button">
+    
+    <span class="sr-only">B2B Signup</span>
+
+    {%- if section.settings.show_icons -%}
+      {%- render 'icon' with 'lock', class: 'header__nav-icon' -%}
+    {%- endif -%}
+
+    <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} b2b-text">
+     B2B Signup
+    </span>
+
+  </a>
+</li> {% endcomment %}
+{% comment %} b2b button end {% endcomment %}
+
+        {%- comment -%}Offer a hook for apps to integrate into the header to add their own icon, for instance{%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == '@app' -%}
+            <li>
+              {%- render block -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+
+        <li class="header__wishlist-link">
+  <a href="/pages/wishlist">
+    <span class="sr-only">WISHLIST</span>
+
+    {%- if section.settings.show_icons -%}
+      {%- render 'icon' with 'heart', class: 'header__nav-icon header__utility-icon' -%}
+      <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">WISHLIST</span>
+    {%- else -%}
+      <span class="header__utility-icon header__utility-icon--compact-only md:hidden">{%- render 'icon' with 'heart', class: 'header__nav-icon' -%}</span>
+      <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">WISHLIST</span>
+    {%- endif -%}
+  </a>
+</li>
+
+        {%- if section.settings.enable_search -%}
+          <li class="header__search-link">
+            <a href="{{ routes.search_url }}" aria-controls="header-search-{{ section.id }}">
+              <span class="sr-only">{{ 'header.general.search' | t }}</span>
+
+              {%- if section.settings.show_icons -%}
+                {%- render 'icon' with 'search', class: 'header__nav-icon header__utility-icon' -%}
+                <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">SEARCH</span>
+              {%- else -%}
+                <span class="header__utility-icon header__utility-icon--compact-only md:hidden">{%- render 'icon' with 'search', class: 'header__nav-icon' -%}</span>
+                <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">SEARCH</span>
+              {%- endif -%}
+            </a>
+          </li>
+        {%- endif -%}
+
+        <li class="header__account-link">
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url | default: '/account/login' }}{% endif %}">
+            <span class="sr-only">{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
+
+            {%- if section.settings.show_icons -%}
+              {%- render 'icon' with 'account', class: 'header__nav-icon header__utility-icon' -%}
+              <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">{% if customer %}ACCOUNT{% else %}LOGIN{% endif %}</span>
+            {%- else -%}
+              <span class="header__utility-icon header__utility-icon--compact-only md:hidden">{%- render 'icon' with 'account', class: 'header__nav-icon' -%}</span>
+              <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label" aria-hidden="true">{% if customer %}ACCOUNT{% else %}LOGIN{% endif %}</span>
+            {%- endif -%}
+          </a>
+        </li>
+
+        <li class="relative header__cart-link">
+          <a href="{{ routes.cart_url }}" {% if settings.cart_type != 'page' and request.page_type != 'cart' %}aria-controls="cart-drawer"{% endif %} data-no-instant>
+            <span class="sr-only">{{ 'header.general.cart' | t }}</span>
+
+            {%- if section.settings.show_icons -%}
+              {%- render 'icon' with 'cart', class: 'header__nav-icon header__utility-icon' -%}
+              <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label">CART (<cart-count>{{ cart.item_count }}</cart-count>)</span>
+            {%- else -%}
+              <span class="header__utility-icon header__utility-icon--compact-only md:hidden">{%- render 'icon' with 'cart', class: 'header__nav-icon' -%}</span>
+              <span class="{% if section.settings.menu_text_font == 'heading' %}h6{% endif %} link-faded md-max:hidden header__utility-label">CART (<cart-count>{{ cart.item_count }}</cart-count>)</span>
+            {%- endif -%}
+
+            <span class="header__cart-count-badge{% unless cart.empty? %} is-visible{% endunless %}" data-cart-count-badge aria-hidden="true">
+              <cart-count>{{ cart.item_count }}</cart-count>
+            </span>
+            <cart-dot class="header__cart-dot header__utility-cart-dot sr-only{% unless cart.empty? %} is-visible{% endunless %}"></cart-dot>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    {%- if section.settings.enable_search -%}
+      {%- render 'header-search' -%}
+    {%- endif -%}
+
+    <template id="header-sidebar-template">
+      <div part="base">
+        <div part="overlay"></div>
+
+        <div part="content">
+          <header part="header">
+            <dialog-close-button class="contents">
+              <button type="button" part="close-button tap-area" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+                {%- render 'icon' with 'close', width: 16 -%}
+              </button>
+            </dialog-close-button>
+          </header>
+
+          <div part="panel-list">
+            <slot name="main-panel"></slot>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <header-sidebar id="sidebar-menu" class="header-sidebar drawer drawer--sm color-scheme color-scheme--{{ section.settings.sidebar_color_scheme.id }}" template="header-sidebar-template" open-from="left">
+      <div class="header-sidebar__main-panel" slot="main-panel">
+        <div class="header-sidebar__scroller">
+          <ul class="header-sidebar__linklist {% if section.settings.sidebar_show_dividers %}divide-y{% endif %} unstyled-list header-text" role="list">
+            <li>
+              <a href="{{ routes.root_url }}" class="header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>HOME</a>
+            </li>
+            <li>
+              <a href="/collections/all" class="header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}" {% if request.path == '/collections/all' or request.page_type == 'collection' %}aria-current="page"{% endif %}>SHOP</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header-sidebar>
+  </x-header>
+</height-observer>
+
+<script>
+  document.documentElement.style.setProperty('--header-height', `${document.getElementById('shopify-section-{{ section.id }}').clientHeight.toFixed(2)}px`);
+
+  document.addEventListener('cart:change', (event) => {
+    const count = event.detail?.cart?.item_count ?? 0;
+    document.querySelectorAll('[data-cart-count-badge]').forEach((badge) => {
+      badge.classList.toggle('is-visible', count > 0);
+    });
+  });
+</script>
+
+<script>
+  (() => {
+    const navItems = Array.from(document.querySelectorAll('.ip-shop-nav-item'));
+    if (!navItems.length) return;
+
+    const hoverNoneMedia = window.matchMedia('(hover: none)');
+
+    const getFocusable = (container) => {
+      const nodes = container.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      return Array.from(nodes).filter((el) => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
+    };
+
+    const closeItem = (navItem, returnFocus = false) => {
+      navItem.classList.remove('is-active');
+      const trigger = navItem.querySelector('.ip-shop-trigger');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+        if (returnFocus) trigger.focus();
+      }
+    };
+
+    const openItem = (navItem) => {
+      navItem.classList.add('is-active');
+      const trigger = navItem.querySelector('.ip-shop-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    navItems.forEach((navItem) => {
+      const trigger = navItem.querySelector('.ip-shop-trigger');
+      const menu = navItem.querySelector('.ip-shop-mega-menu');
+      if (!trigger || !menu) return;
+      let closeTimer;
+
+      const clearCloseTimer = () => {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+      };
+
+      const onFocusIn = () => {
+        if (!hoverNoneMedia.matches) openItem(navItem);
+      };
+
+      const onFocusOut = (event) => {
+        if (!hoverNoneMedia.matches && !navItem.contains(event.relatedTarget)) {
+          closeItem(navItem);
+        }
+      };
+
+      const onMouseEnter = () => {
+        if (!hoverNoneMedia.matches) {
+          clearCloseTimer();
+          openItem(navItem);
+        }
+      };
+
+      const onMouseLeave = () => {
+        if (!hoverNoneMedia.matches) {
+          clearCloseTimer();
+          closeTimer = setTimeout(() => closeItem(navItem), 180);
+        }
+      };
+
+      trigger.addEventListener('click', (event) => {
+        if (!hoverNoneMedia.matches) return;
+
+        event.preventDefault();
+        const isActive = navItem.classList.contains('is-active');
+        if (isActive) {
+          closeItem(navItem);
+        } else {
+          openItem(navItem);
+        }
+      });
+
+      navItem.addEventListener('mouseenter', onMouseEnter);
+      navItem.addEventListener('mouseleave', onMouseLeave);
+      menu.addEventListener('mouseenter', clearCloseTimer);
+      menu.addEventListener('mouseleave', onMouseLeave);
+      navItem.addEventListener('focusin', onFocusIn);
+      navItem.addEventListener('focusout', onFocusOut);
+
+      navItem.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeItem(navItem, true);
+          return;
+        }
+
+        if (event.key !== 'Tab' || !navItem.classList.contains('is-active')) return;
+
+        const focusable = [trigger, ...getFocusable(menu)].filter(Boolean);
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const current = document.activeElement;
+
+        if (event.shiftKey && current === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && current === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      navItems.forEach((navItem) => {
+        if (navItem.classList.contains('is-active') && !navItem.contains(event.target)) {
+          closeItem(navItem);
+        }
+      });
+    });
+  })();
+</script>
+
+<!-- {% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "shopify-section--header",
+  "tag": "header", 
+  "settings": [
+    
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "t:sections.header.enable_sticky_header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll",
+      "label": "t:sections.header.hide_on_scroll",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separation_border",
+      "label": "t:sections.header.show_separation_border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "reduce_padding",
+      "label": "t:sections.header.reduce_padding",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.logo_category"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:global.image.image",
+      "info": "t:sections.header.logo_size_recommendation"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 20,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "t:global.image.width",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "logo_mobile_max_width",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "t:global.image.mobile_width",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.navigation_category"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:sections.header.menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "sidebar_menu",
+      "label": "t:sections.header.mobile_menu"
+    },
+    {
+      "type": "select",
+      "id": "menu_open_trigger",
+      "label": "t:sections.header.menu_open_trigger",
+      "info": "t:sections.header.menu_open_trigger_info",
+      "options": [
+        {
+          "value": "hover",
+          "label": "t:sections.header.menu_open_trigger_options.hover"
+        },
+        {
+          "value": "click",
+          "label": "t:sections.header.menu_open_trigger_options.click"
+        }
+      ],
+      "default": "hover"
+    },
+    {
+      "type": "select",
+      "id": "menu_text_font",
+      "label": "t:sections.header.menu_text_font",
+      "options": [
+        {
+          "value": "heading",
+          "label": "t:sections.header.menu_text_font_options.heading"
+        },
+        {
+          "value": "body",
+          "label": "t:sections.header.menu_text_font_options.body"
+        }
+      ],
+      "default": "heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_search",
+      "label": "t:sections.header.enable_search",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.sidebar_navigation_category"
+    },
+    {
+      "type": "color_scheme",
+      "id": "sidebar_color_scheme",
+      "label": "t:global.colors.scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "select",
+      "id": "sidebar_text_font",
+      "label": "t:sections.header.sidebar_text_font",
+      "options": [
+        {
+          "value": "heading",
+          "label": "t:sections.header.sidebar_text_font_options.heading"
+        },
+        {
+          "value": "body",
+          "label": "t:sections.header.sidebar_text_font_options.body"
+        }
+      ],
+      "default": "heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "sidebar_show_dividers",
+      "label": "t:sections.header.sidebar_show_dividers",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sidebar_open_second_level_menus",
+      "label": "t:sections.header.sidebar_open_second_level_menus",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.desktop_category"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.header.layout",
+      "options": [
+        {
+          "value": "logo_left_navigation_inline",
+          "label": "t:sections.header.layout_options.logo_left_navigation_inline"
+        },
+        {
+          "value": "logo_left_navigation_center",
+          "label": "t:sections.header.layout_options.logo_left_navigation_center"
+        },
+        {
+          "value": "logo_center_navigation_inline",
+          "label": "t:sections.header.layout_options.logo_center_navigation_inline"
+        },
+        {
+          "value": "logo_center_navigation_below",
+          "label": "t:sections.header.layout_options.logo_center_navigation_below"
+        },
+        {
+          "value": "drawer",
+          "label": "t:sections.header.layout_options.drawer"
+        }
+      ],
+      "default": "logo_left_navigation_inline"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons",
+      "label": "t:sections.header.show_icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:global.localization.country_region_selector_category",
+      "info": "t:global.localization.country_region_selector_category_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "t:global.localization.show_country_region_selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_name",
+      "label": "t:global.localization.show_country_name",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_flag",
+      "label": "t:global.localization.show_country_flag",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:global.localization.language_selector_category",
+      "info": "t:global.localization.language_selector_category_info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "t:global.localization.show_locale_selector",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.transparent_header_category"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.header.transparent_header_info"
+    },
+    {
+      "type": "color",
+      "id": "transparent_header_text_color",
+      "label": "t:global.colors.text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "transparent_logo",
+      "label": "t:sections.header.transparent_header_logo_image",
+      "info": "t:sections.header.transparent_header_logo_size_recommendation"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_menu",
+      "name": "t:sections.header.blocks.mega_menu.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "t:sections.header.blocks.mega_menu.menu_item",
+          "info": "t:sections.header.blocks.mega_menu.menu_item_info"
+        },
+        {
+          "type": "select",
+          "id": "images_position",
+          "label": "t:sections.header.blocks.mega_menu.images_position",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:global.position.left"
+            },
+            {
+              "value": "right",
+              "label": "t:global.position.right"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.image_1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "t:global.image.image",
+          "info": "t:sections.header.blocks.mega_menu.image_size_recommendation"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "image_1_heading",
+          "label": "t:global.text.heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "image_1_text",
+          "label": "t:global.text.text"
+        },
+        {
+          "type": "url",
+          "id": "image_1_link",
+          "label": "t:global.text.link"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.image_2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "t:global.image.image",
+          "info": "t:sections.header.blocks.mega_menu.image_size_recommendation"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "image_2_heading",
+          "label": "t:global.text.heading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "image_2_text",
+          "label": "t:global.text.text"
+        },
+        {
+          "type": "url",
+          "id": "image_2_link",
+          "label": "t:global.text.link"
+        }
+        
+      ]
+    }
+  ]
+  
+}
+{% endschema %} -->

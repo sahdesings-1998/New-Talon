@@ -1,0 +1,17 @@
+{%- comment -%}
+  OEM timeline SVG glyph. Accepts: icon (inquiry | fabric | sample | production | qc | shipping)
+{%- endcomment -%}
+{%- case icon -%}
+  {%- when 'inquiry' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3.5h6l1.5 1.5V20.5H7.5V5L9 3.5z"/><path d="M9 3.5v3.5h6V3.5"/><path d="M9.5 12h5"/><path d="M9.5 15.5h3.5"/></svg>
+  {%- when 'fabric' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7.5l8 4.5 8-4.5-8-4.5z"/><path d="M4 12l8 4.5L20 12"/><path d="M4 16l8 4.5L20 16"/></svg>
+  {%- when 'sample' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 4.5 14.5 6.5h-5L7.5 4.5 4.5 7.5v12h15V7.5l-3-3z"/><path d="M9.5 9.5h5"/><path d="M10 13h4"/></svg>
+  {%- when 'production' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5h18"/><path d="M4.5 20.5V9.5l4.5-2v13"/><path d="M12 20.5V11.5l4.5-2v11"/><path d="M7.5 14.5h1.5"/><path d="M15 13.5h1.5"/><path d="M7.5 17.5h1.5"/></svg>
+  {%- when 'qc' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.25 19.25 6.75v5.75c0 4.55-3.35 7.35-7.25 9.25-3.9-1.9-7.25-4.7-7.25-9.25V6.75L12 3.25z"/><path d="M9.25 12 11 13.75 15.25 9.5"/></svg>
+  {%- when 'shipping' -%}
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 4.5 8v8.5L12 21l7.5-4.5V8L12 3.5z"/><path d="M12 12 19.5 8"/><path d="M12 12 4.5 8"/><path d="M12 12v9"/></svg>
+{%- endcase -%}

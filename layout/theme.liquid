@@ -1,0 +1,387 @@
+<!doctype html>
+
+<html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0">
+
+    <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif %}{% endif %}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+    {%- endif -%}
+
+    {%- comment -%}Few prefetch to increase performance on commonly used third-parties{%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+    {%- unless settings.heading_font.system? -%}
+      <link rel="preload" href="{{ settings.heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- unless settings.text_font.system? -%}
+      <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- render 'social-meta-tags' -%}
+    {%- render 'microdata-schema' -%}
+    {%- render 'css-variables' -%}
+    {%- render 'js-variables' -%}
+
+    {%- if request.page_type == 'gift_card' -%}
+      <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+
+
+    <style>
+
+
+      .shopify-section:not(:first-child) .bordered-section {
+  border-block-start-width: 0px !important;
+}
+.color-scheme {
+    background-color: rgb(255 255 255) !important; }
+      /*  */
+      .footer__social-title {
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333; /* or any color that fits your footer background */
+}
+
+    </style>
+    {%- endif -%}
+
+    <script type="importmap">
+      {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+
+    {{ content_for_header }}
+
+    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'talon-image-radius.css' | asset_url | stylesheet_tag -}}
+    {{- 'talon-section-spacing.css' | asset_url | stylesheet_tag -}}
+    {{- 'talon-legacy-marketing-spacing.css' | asset_url | stylesheet_tag -}}
+    {%- if template.name == 'index' -%}
+      {{- 'talon-oem-layout.css' | asset_url | stylesheet_tag -}}
+    {%- endif -%}
+    {%- if template.name == 'page' and page.handle == 'about-talon' -%}
+      {{- 'talon-about-talon-page.css' | asset_url | stylesheet_tag -}}
+    {%- endif -%}
+    {%- if template.name == 'page' and page.handle == 'oem-odm' -%}
+      {{- 'talon-oem-page-rhythm.css' | asset_url | stylesheet_tag -}}
+    {%- endif -%}
+  </head>
+
+  {% liquid
+    assign features_class = ''
+  
+    if settings.show_button_transition
+      assign features_class = features_class | append: 'features--button-transition '
+    endif
+  
+    if settings.show_image_zoom_on_hover
+      assign features_class = features_class | append: 'features--zoom-image '
+    endif
+  %}
+
+  <body class="template-{{ template.name }} {{ features_class }} color-scheme color-scheme--{{ settings.default_color_scheme.id }}">
+    {%- render 'shadow-dom-templates' -%}
+
+    <loading-bar class="loading-bar" aria-hidden="true"></loading-bar>
+    <a href="#main" allow-hash-change class="skip-to-content sr-only">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <span id="header-scroll-tracker" style="position: absolute; width: 1px; height: 1px; top: var(--header-scroll-tracker-offset, 10px); left: 0;">
+      {%- comment -%}
+        This allows our theme to track when the user has scrolled a given amount of pixels, without relying on a global scroll listener. This helps
+        to improve performance and reduce reflows.
+      {%- endcomment -%}
+    </span>
+
+    {%- if request.page_type != 'password' -%}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+    {%- endif -%}
+
+    <main id="main" class="anchor">
+      {{ content_for_layout }}
+
+      {%- if template.name == 'index' -%}
+        {{- 'talon-homepage-rhythm.css' | asset_url | stylesheet_tag -}}
+      {%- endif -%}
+
+      {%- comment -%}
+      IMPLEMENTATION NOTE: For best semantics, having the footer group outside the main would be slightly better, but
+        moving it inside the main allows to have all the sections (including sections inside the footer group) to be
+        consecutive, and hence having a cleaner margin collapsing management.
+      {%- endcomment -%}
+      {%- if request.page_type != 'password' -%}
+        {%- sections 'footer-group' -%}
+      {%- endif -%}
+    </main>
+
+
+  <!-- WhatsApp Premium Popup -->
+
+<!-- Trigger Button -->
+<div class="wa-trigger" onclick="toggleWA()" aria-label="Open WhatsApp Chat">
+  <svg viewBox="0 0 32 32">
+    <path fill="white" d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.4 2 7.7L.3 31.7l8.2-2.1c2.2 1.2 4.7 1.8 7.3 1.8 8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.4c-2.4 0-4.7-.6-6.8-1.7l-.5-.3-4.9 1.2 1.3-4.8-.3-.5c-1.2-2.1-1.8-4.5-1.8-6.9 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.2-9.7c-.4-.2-2.3-1.1-2.7-1.2-.4-.2-.7-.2-1 .2-.3.4-1.1 1.2-1.3 1.4-.2.2-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.2-1.3-1.2-2.2-2.7-2.5-3.1-.3-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.7.1-.3 0-.6 0-.8 0-.2-1-2.4-1.4-3.3-.4-.9-.8-.8-1.1-.8h-.9c-.3 0-.8.1-1.2.6s-1.6 1.6-1.6 3.9 1.6 4.6 1.8 4.9c.2.3 3.2 4.9 7.8 6.7 1.1.5 2 .8 2.7 1 .9.3 1.8.3 2.5.2.8-.1 2.3-.9 2.7-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.7-.5z"/>
+  </svg>
+</div>
+
+<!-- Popup -->
+<div class="wa-popup" id="waBox">
+
+  <!-- Header -->
+  <div class="wa-top">
+    <div class="wa-brand">
+      <div class="wa-logo">
+        <img src="https://cdn.shopify.com/s/files/1/0631/4472/2477/files/Asset_6_300x_e127d7ee-0c1a-48c4-87f8-7bd48f737187.png?v=1715912070" alt="logo">
+      </div>
+      <div class="wa-text">
+        <div class="line1">taloneshop.com</div>
+        <div class="line2">Typically replies within minutes</div>
+      </div>
+    </div>
+    <span class="wa-close" onclick="toggleWA()">✕</span>
+  </div>
+
+  <!-- Chat Area -->
+  <div class="wa-chat-area">
+    <div class="wa-message">
+      Have questions about our products?
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="wa-bottom">
+    <a href="https://wa.me/8615976011860" target="_blank" class="wa-start-btn">
+      <strong>Start Chat on WhatsApp</strong>
+    </a>
+
+    <div class="wa-status">
+      <span class="dot"></span> Online | Privacy policy
+    </div>
+  </div>
+
+</div>
+
+<style>
+
+/* Base */
+.wa-popup {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Trigger */
+.wa-trigger {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.wa-trigger:hover {
+  transform: scale(1.1);
+}
+
+.wa-trigger svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Popup */
+.wa-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 260px;
+  z-index:999;
+  background: #f0f0f0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Header */
+.wa-top {
+  background: #075E54;
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wa-brand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.wa-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding: 4px;
+}
+
+/* TEXT FIX */
+.wa-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 36px;
+  line-height: 1;
+}
+
+.line1 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.line2 {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.wa-close {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Chat */
+.wa-chat-area {
+  background-color: #efeae2;
+  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+  background-size: 250px;
+  padding: 20px;
+  padding-bottom: 50px;
+}
+
+.wa-message {
+  background: #dcf8c6;
+  padding: 12px;
+  border-radius: 10px;
+  max-width: 80%;
+  font-size: 14px;
+}
+
+/* Bottom */
+.wa-bottom {
+  padding: 15px;
+  background: #fff;
+}
+
+.wa-start-btn {
+  display: block;
+  background: #25D366;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.wa-status {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+  color: #555;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background: #25D366;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .wa-popup {
+    width: 62%;
+    right: 4%;
+  }
+}
+
+</style>
+
+<script>
+function toggleWA() {
+  var box = document.getElementById("waBox");
+  box.style.display = (box.style.display === "block") ? "none" : "block";
+}
+</script>
+
+<script>
+new MutationObserver(() => {
+  const chatHost = document.querySelector('#ShopifyChat');
+
+  if (!chatHost?.shadowRoot) return;
+
+  const style = document.createElement('style');
+
+  style.textContent = `
+    [data-spec="toggle-button"] {
+      display: none !important;
+    }
+  `;
+
+  if (!chatHost.shadowRoot.querySelector('#hideInboxLauncher')) {
+    style.id = 'hideInboxLauncher';
+    chatHost.shadowRoot.appendChild(style);
+  }
+}).observe(document.documentElement, {
+  childList: true,
+  subtree: true
+});
+</script>
+
+  </body>
+</html>

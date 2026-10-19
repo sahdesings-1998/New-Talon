@@ -1,0 +1,123 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_showcase": {
+      "type": "talon-product-showcase",
+      "settings": {
+        "subheading": "PREMIUM TECHNICAL APPAREL",
+        "heading": "Soft Breathable | Windproof Water Repellent Multi-Functional Jacket",
+        "description": "<p>An essential multi-season outer layer for every wardrobe.</p>",
+        "desktop_split": "60-40",
+        "gallery_gap": 12,
+        "image_border_radius": 10
+      },
+      "blocks": {
+        "img_1": {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Front View"
+          }
+        },
+        "img_2": {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Back View"
+          }
+        },
+        "img_3": {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Breathable Lining"
+          }
+        },
+        "img_4": {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Front Angle"
+          }
+        },
+        "img_5": {
+          "type": "gallery_image",
+          "settings": {
+            "caption": "Hood & Storm Collar"
+          }
+        },
+        "feat_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Quick Dry Fabric",
+            "icon": "dot"
+          }
+        },
+        "feat_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Breathable Material",
+            "icon": "dot"
+          }
+        },
+        "feat_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Custom Logo Accepted",
+            "icon": "dot"
+          }
+        },
+        "feat_4": {
+          "type": "feature",
+          "settings": {
+            "title": "OEM & ODM Supported",
+            "icon": "dot"
+          }
+        },
+        "feat_5": {
+          "type": "feature",
+          "settings": {
+            "title": "Low MOQ Available",
+            "icon": "dot"
+          }
+        },
+        "feat_6": {
+          "type": "feature",
+          "settings": {
+            "title": "Custom Color Matching",
+            "icon": "dot"
+          }
+        },
+        "btn_1": {
+          "type": "button",
+          "settings": {
+            "button_label": "Request Custom Quote",
+            "button_link": "/pages/contact-us",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "img_1",
+        "img_2",
+        "img_3",
+        "img_4",
+        "img_5",
+        "feat_1",
+        "feat_2",
+        "feat_3",
+        "feat_4",
+        "feat_5",
+        "feat_6",
+        "btn_1"
+      ]
+    }
+  },
+  "order": [
+    "product_showcase"
+  ]
+}

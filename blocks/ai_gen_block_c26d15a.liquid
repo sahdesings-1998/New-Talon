@@ -1,0 +1,58 @@
+{% doc %}
+  @prompt
+    generate a section left side image and right side content big as like the right image section , need only the heading text and size can be adjustable , need only the heading text and size can be adjustable and image, heading text can be made as capitalized, add text uppercase option , make it right image left content, change the head text only based on the image 
+{% enddoc %}
+{% doc %}
+  @prompt
+    Image on the right and heading content on the left; heading copy should be selected to suit the chosen image.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% style %}
+  .ai-image-heading-{{ ai_gen_id }} { display: block; width: {{ block.settings.desktop_width_percent }}%; max-width: 100%; margin-inline: auto; }
+  .ai-image-heading__layout-{{ ai_gen_id }} { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 520px; }
+  .ai-image-heading__content-{{ ai_gen_id }} { display: flex; align-items: center; padding: clamp(28px, 6vw, 88px); background: {{ block.settings.background_color }}; color: {{ block.settings.text_color }}; }
+  .ai-image-heading__title-{{ ai_gen_id }} { margin: 0; color: inherit; font-size: {{ block.settings.heading_size }}px; line-height: 1.08; font-weight: 500; text-transform: {{ block.settings.heading_case }}; }
+  .ai-image-heading__media-{{ ai_gen_id }} { min-height: 520px; overflow: hidden; background: #f1f1f1; }
+  .ai-image-heading__media-{{ ai_gen_id }} img, .ai-image-heading__placeholder-{{ ai_gen_id }} svg { display: block; width: 100%; height: 100%; min-height: 520px; object-fit: cover; }
+  .ai-image-heading__placeholder-{{ ai_gen_id }} { position: relative; height: 100%; }
+  .ai-image-heading__empty-{{ ai_gen_id }} { position: absolute; right: 16px; bottom: 16px; left: 16px; color: #333; text-align: center; font-size: 14px; }
+  @media screen and (max-width: 749px) {
+    .ai-image-heading-{{ ai_gen_id }} { width: 100%; }
+    .ai-image-heading__layout-{{ ai_gen_id }} { grid-template-columns: 1fr; min-height: 0; }
+    .ai-image-heading__content-{{ ai_gen_id }} { grid-row: 2; min-height: 220px; padding: 32px 24px; }
+    .ai-image-heading__media-{{ ai_gen_id }} { grid-row: 1; min-height: 0; aspect-ratio: 4 / 3; }
+    .ai-image-heading__media-{{ ai_gen_id }} img, .ai-image-heading__placeholder-{{ ai_gen_id }} svg { min-height: 0; height: 100%; }
+    .ai-image-heading__title-{{ ai_gen_id }} { font-size: min({{ block.settings.heading_size }}px, 12vw); }
+  }
+{% endstyle %}
+<div class="ai-image-heading-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-image-heading__layout-{{ ai_gen_id }}">
+    <div class="ai-image-heading__content-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}<h2 class="ai-image-heading__title-{{ ai_gen_id }}">{{ block.settings.heading | escape }}</h2>{% endif %}
+    </div>
+    <div class="ai-image-heading__media-{{ ai_gen_id }}">
+      {% if block.settings.image != blank %}
+        <img src="{{ block.settings.image | image_url: width: 1600 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+      {% else %}
+        <div class="ai-image-heading__placeholder-{{ ai_gen_id }}">{{ 'image' | placeholder_svg_tag }}<div class="ai-image-heading__empty-{{ ai_gen_id }}">Choose an image to display on the right</div></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Image and heading",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Move with confidence" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 32, "max": 72, "step": 4, "unit": "px", "default": 56 },
+    { "type": "select", "id": "heading_case", "label": "Heading text case", "options": [{ "value": "none", "label": "As entered" }, { "value": "capitalize", "label": "Capitalize words" }, { "value": "uppercase", "label": "Uppercase" }], "default": "capitalize" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Desktop width", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "color", "id": "background_color", "label": "Content background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#1c1c1c" }
+  ],
+  "presets": [{ "name": "Image and heading" }],
+  "tag": null,
+  "class": "image-heading-split"
+}
+{% endschema %}

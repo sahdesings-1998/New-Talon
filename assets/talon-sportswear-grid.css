@@ -1,0 +1,155 @@
+/**
+ * TALON Sportswear Bento Grid Section
+ * Displays ONLY the images in an asymmetrical 2-column Bento Grid
+ * Pure white background, matching TALON Mosaic Gallery container width & padding
+ */
+
+.talon-sportswear-grid {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff !important;
+  box-sizing: border-box;
+}
+
+.talon-sportswear-grid *,
+.talon-sportswear-grid *::before,
+.talon-sportswear-grid *::after {
+  box-sizing: border-box;
+}
+
+/* Container - Exactly matching TALON Mosaic Gallery width & gutters */
+.talon-sportswear-grid__container {
+  width: 100%;
+  max-width: var(--talon-bento-max-w, 1440px);
+  margin: 0 auto;
+  padding-left: var(--talon-bento-gutter, clamp(16px, 3.5vw, 40px));
+  padding-right: var(--talon-bento-gutter, clamp(16px, 3.5vw, 40px));
+}
+
+/* Bento Grid: 2 Asymmetrical Staggered Columns */
+.talon-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--talon-bento-gap, clamp(14px, 2vw, 24px));
+  width: 100%;
+  margin: 0 auto;
+  align-items: start;
+  height: auto;
+}
+
+/* Columns */
+.talon-bento-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--talon-bento-gap, clamp(14px, 2vw, 24px));
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
+
+/* Card Container: displays ONLY the image directly */
+.talon-bento-card {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  border-radius: var(--talon-bento-radius, 20px);
+  overflow: hidden;
+  background-color: var(--talon-bento-card-bg, #f4f5f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  user-select: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Exact Natural Aspect Ratio Proportions:
+ * Left Column: Top Card is 4:3 (Short), Bottom Card is 1:1 (Tall/Square) -> Total ratio = 0.75 + 1.0 = 1.75
+ * Right Column: Top Card is 1:1 (Tall/Square), Bottom Card is 4:3 (Short) -> Total ratio = 1.0 + 0.75 = 1.75
+ * Both columns match height exactly with zero cropping!
+ */
+.talon-bento-card--short {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+
+.talon-bento-card--tall {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+/* Image fills the card with zero cropping */
+.talon-bento-card__image {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  margin: 0 auto !important;
+  transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Interactive link cards */
+.talon-bento-card--link {
+  cursor: pointer;
+}
+
+.talon-bento-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+}
+
+.talon-bento-card--link:hover .talon-bento-card__image {
+  transform: scale(1.03);
+}
+
+.talon-bento-card--link:focus-visible {
+  outline: 2px solid #0b1528;
+  outline-offset: 3px;
+}
+
+/* Tablet (768px - 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .talon-bento-grid {
+    gap: var(--talon-bento-gap-tablet, 14px);
+  }
+  .talon-bento-column {
+    gap: var(--talon-bento-gap-tablet, 14px);
+  }
+  .talon-bento-card {
+    border-radius: clamp(12px, 2vw, 18px);
+  }
+}
+
+/* Mobile (< 768px down to 320px) */
+@media screen and (max-width: 767px) {
+  .talon-bento-grid {
+    gap: var(--talon-bento-gap-mob, 10px);
+  }
+  .talon-bento-column {
+    gap: var(--talon-bento-gap-mob, 10px);
+  }
+  .talon-bento-card {
+    border-radius: var(--talon-bento-radius-mob, 12px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Extra small mobile (<= 360px) */
+@media screen and (max-width: 360px) {
+  .talon-bento-grid {
+    gap: 8px;
+  }
+  .talon-bento-column {
+    gap: 8px;
+  }
+  .talon-bento-card {
+    border-radius: 10px;
+  }
+}

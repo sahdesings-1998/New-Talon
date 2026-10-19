@@ -1,0 +1,16 @@
+{%- comment -%}
+  OEM capability item (static). Params: block, icon_color
+{%- endcomment -%}
+<li class="talon-oem-showcase__cap-item" {{ block.shopify_attributes }}>
+  <span
+    class="talon-oem-showcase__cap-icon"
+    {%- if icon_color != blank %} style="{% render 'surface', text_color: icon_color %}"{% endif -%}
+    aria-hidden="true"
+  >
+    {%- render 'icon' with block.settings.icon, width: 36, stroke_width: 1.75 -%}
+  </span>
+
+  {%- if block.settings.title != blank -%}
+    <p class="talon-oem-showcase__cap-title">{{ block.settings.title | escape }}</p>
+  {%- endif -%}
+</li>

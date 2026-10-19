@@ -1,0 +1,41 @@
+{%- comment -%}
+  Why Choose Us — unified grid wrapper (cards rendered via why-pillar snippet).
+{%- endcomment -%}
+<div class="talon-oem-showcase__why-unified" role="region" aria-label="Why choose TALON manufacturing">
+  <div class="talon-oem-showcase__why-grid">
+    {%- render 'talon-oem-showcase-why-pillar',
+      pillar_icon: 'picto-box',
+      title: 'One-Stop Solution',
+      point_1: 'Customized designs',
+      point_2: 'Sample and bulk production',
+      point_3: 'Custom labels and packaging',
+      point_4: 'Logistics and customs clearance'
+    -%}
+
+    {%- render 'talon-oem-showcase-why-pillar',
+      pillar_icon: 'picto-timer',
+      title: 'Timely Delivery & Production Support',
+      point_1: 'Sample order: 10-20 days',
+      point_2: 'Bulk order: 20-30 days',
+      point_3: '24/7 customer support'
+    -%}
+
+    {%- render 'talon-oem-showcase-why-pillar',
+      pillar_icon: 'picto-percent',
+      title: 'Low MOQ',
+      point_1: 'MOQ: 100 pieces per style',
+      point_2: 'Mix of 4 customized sizes',
+      point_3: 'One design per color',
+      point_4: 'Cost-effective solutions'
+    -%}
+
+    {%- render 'talon-oem-showcase-why-pillar',
+      pillar_icon: 'picto-shield',
+      title: 'Premium Quality Products',
+      point_1: 'High-quality yarn and fabrics',
+      point_2: 'Standardized production processes',
+      point_3: 'Five-stage quality inspection',
+      point_4: 'Refund policy for defective products'
+    -%}
+  </div>
+</div>

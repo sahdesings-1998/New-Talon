@@ -1,0 +1,537 @@
+<section class="oem-page talon-faq-section">
+
+
+
+  <!-- FAQ -->
+  <div class="oem-wrap talon-faq-wrap">
+
+  <!-- Stats Bar -->
+  <div class="talon-stats-bar">
+    <div class="talon-stat-item">
+      <span class="talon-stat-title">{{ section.settings.stat1_title }}</span>
+      <span class="talon-stat-sub">{{ section.settings.stat1_sub }}</span>
+    </div>
+    <div class="talon-stat-divider"></div>
+    <div class="talon-stat-item">
+      <span class="talon-stat-title">{{ section.settings.stat2_title }}</span>
+      <span class="talon-stat-sub">{{ section.settings.stat2_sub }}</span>
+    </div>
+    <div class="talon-stat-divider"></div>
+    <div class="talon-stat-item">
+      <span class="talon-stat-title">{{ section.settings.stat3_title }}</span>
+      <span class="talon-stat-sub">{{ section.settings.stat3_sub }}</span>
+    </div>
+  </div>
+
+    <h2 class="talon-faq-heading test">{{ section.settings.faq_heading }}</h2>
+
+    <div class="oem-faq talon-faq-list">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <details {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.question }}</summary>
+            <p>{{ block.settings.answer }}</p>
+          </details>
+        {% endif %}
+      {% endfor %}
+
+      {% if section.settings.faq_support_text != blank %}
+        <p class="oem-faq__support">
+          {{ section.settings.faq_support_text }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+</section>
+
+<style>
+
+  {% comment %} Breadcrumb style {% endcomment %}
+   .breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(0.3rem, 1vw, 0.5rem);
+  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
+  line-height: 1.5;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  color: rgba(var(--text-color), 0.7);
+  word-break: break-word;
+}
+
+.breadcrumb a,
+.breadcrumb-current {
+  white-space: nowrap;
+}
+
+.breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: rgb(var(--button-background));
+}
+
+.breadcrumb-current {
+  color: rgb(var(--text-color));
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  opacity: 0.6;
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+  .breadcrumb {
+    gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb a,
+  .breadcrumb-current {
+    white-space: normal;
+  }
+}
+{% comment %} bread crumb style ends {% endcomment %}
+
+
+/* ─── Page tokens ─── */
+.talon-faq-section {
+  --oem-radius-card: 0.9rem;
+  background: rgb(var(--background, 255 255 255));
+  color: rgb(var(--text-color, 17 17 17));
+}
+
+/* ─── Stats Bar ─── */
+.talon-stats-bar {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid rgb(var(--border-color, 220 220 220));
+  border-bottom: 1px solid rgb(var(--border-color, 220 220 220));
+  background: rgb(var(--background, 255 255 255));
+}
+
+.talon-stat-item {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(0.85rem, 1.75vw, 1.35rem) clamp(1rem, 2vw, 1.65rem);
+  gap: 0.3rem;
+}
+
+.talon-stat-divider {
+  width: 1px;
+  background: rgb(var(--border-color, 220 220 220));
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+.talon-stat-title {
+  display: block;
+  font-size: clamp(1rem, 1.85vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: rgb(var(--text-color, 17 17 17));
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.talon-stat-sub {
+  display: block;
+  font-size: clamp(0.72rem, 1.05vw, 0.84rem);
+  line-height: 1.45;
+  color: rgb(var(--text-color, 17 17 17) / .62);
+  max-width: 22ch;
+}
+
+/* ─── FAQ wrap ─── */
+.talon-faq-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--section-gap-half) clamp(1.25rem, 3vw, 2.5rem) var(--section-gap-half);
+}
+
+/* ─── FAQ heading ─── */
+.talon-faq-heading {
+  {% comment %} margin: 0 0 clamp(1.25rem, 2vw, 1.75rem); {% endcomment %}
+  margin-top: 0;
+  margin-bottom: clamp(1.15rem, 1.85vw, 1.5rem);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: rgb(var(--text-color, 17 17 17));
+}
+
+/* ─── FAQ list — extends oem-faq ─── */
+.talon-faq-list {
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.talon-faq-list details {
+  border: 1px solid rgb(var(--border-color, 220 220 220));
+  border-radius: 0.5rem;
+  padding: 0.7rem 0.85rem;
+  background: rgb(var(--background, 255 255 255));
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+.talon-faq-list details + details {
+  margin-top: 0.5rem;
+}
+
+.talon-faq-list details[open] {
+  border-color: rgb(var(--button-background, 0 0 0) / .35);
+  background: rgb(var(--button-background, 0 0 0) / .03);
+}
+
+.talon-faq-list summary {
+  {% comment %} cursor: pointer;
+  font-weight: 600;
+  font-size: clamp(0.86rem, 1.1vw, 0.92rem);
+  line-height: 1.45;
+  padding-left: 1.4rem;
+  padding-right: 0.5rem;
+  position: relative;
+  list-style: none;
+  color: rgb(var(--text-color, 17 17 17)); {% endcomment %}
+  cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1;
+    padding-left: 1.75rem;
+    padding-right: 0.5rem;
+    position: relative;
+    word-spacing: 2px;
+    list-style: none;
+    color: rgb(var(--text-color, 17 17 17));
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.talon-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ">" closed, "∨" open — matches image exactly */
+{% comment %} .talon-faq-list summary::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgb(var(--text-color, 17 17 17) / .55);
+  transition: transform .2s ease, color .2s ease;
+  display: inline-block;
+}
+
+.talon-faq-list details[open] > summary::before {
+  content: "∨";
+  color: rgb(var(--button-background, 0 0 0));
+  transform: none;
+} {% endcomment %}
+
+/* ─── Summary layout ─── */
+.talon-faq-list summary {
+  {% comment %} cursor: pointer;
+  font-weight: 600;
+  font-size: clamp(0.86rem, 1.1vw, 0.92rem);
+  line-height: 1.45;
+  padding-left: 1.75rem;
+  padding-right: 0.5rem;
+  position: relative;
+  list-style: none;
+  color: rgb(var(--text-color, 17 17 17));
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; {% endcomment %}
+  cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1;
+    padding-left: 1.75rem;
+    padding-right: 0.5rem;
+    position: relative;
+    word-spacing: 2px;
+    list-style: none;
+    color: rgb(var(--text-color, 17 17 17));
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.talon-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron right — closed state */
+.talon-faq-list summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  background-color: rgb(var(--text-color, 17 17 17) / .45);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: transform 0.25s ease, background-color 0.2s ease;
+}
+
+/* Chevron down — open state */
+.talon-faq-list details[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+  background-color: rgb(var(--button-background, 0 0 0));
+}
+
+.talon-faq-list details p {
+  margin: 0.55rem 0 0.2rem;
+  font-size: clamp(0.84rem, 1.05vw, 0.9rem);
+  line-height: 1.65;
+  color: rgb(var(--text-color, 17 17 17) / .76);
+  padding-left: 1.4rem;
+}
+
+/* ─── Support line ─── */
+.oem-faq__support {
+  margin-top: 0.85rem;
+  border-top: 1px dashed rgb(var(--border-color, 220 220 220));
+  padding-top: 0.7rem;
+  font-size: 0.84rem;
+  color: rgb(var(--text-color, 17 17 17) / .72);
+}
+
+.oem-faq__support a {
+  color: rgb(var(--button-background, 0 0 0));
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ─── Tablet ─── */
+@media screen and (max-width: 768px) {
+  .talon-stat-title {
+    font-size: clamp(0.88rem, 3vw, 1.1rem);
+  }
+
+  .talon-stat-sub {
+    font-size: 0.72rem;
+  }
+
+  .talon-stat-item {
+    padding: 0.75rem 0.65rem;
+  }
+}
+
+/* ─── Mobile ─── */
+@media screen and (max-width: 480px) {
+  .talon-stats-bar {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .talon-stat-divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .talon-stat-item {
+    padding: 0.85rem 1rem;
+  }
+
+  .talon-stat-sub {
+    max-width: none;
+  }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "FAQ with Stats",
+  "settings": [
+    {
+      "type": "text",
+      "id": "stat1_title",
+      "label": "Stat 1 Title",
+      "default": "Samp Time"
+    },
+    {
+      "type": "text",
+      "id": "stat1_sub",
+      "label": "Stat 1 Subtitle",
+      "default": "10-20 Days"
+    },
+    {
+      "type": "text",
+      "id": "stat2_title",
+      "label": "Stat 2 Title",
+      "default": "Bulk Order Time"
+    },
+    {
+      "type": "text",
+      "id": "stat2_sub",
+      "label": "Stat 2 Subtitle",
+      "default": "20-30 Days"
+    },
+    {
+      "type": "text",
+      "id": "stat3_title",
+      "label": "Stat 3 Title",
+      "default": "24/7 Live Support"
+    },
+    {
+      "type": "text",
+      "id": "stat3_sub",
+      "label": "Stat 3 Subtitle",
+      "default": "Call, message, or email us anytime, anywhere"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_support_text",
+      "label": "Support Text (optional, shown below FAQs)",
+      "default": "Still have questions? Contact us anytime."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "1. Q: How to get a sample?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We have our own factory with more than 20 years of experience."
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ with Stats",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "1. Q:How to get a sample?",
+            "answer": "We have own factory with more than 20 years of experience, experienced designer, low MOQ, excellent quality, reasonable price, good service, and fast delivery.",
+            "open_by_default": true
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "2. Q:How to get a sample?",
+            "answer": "Sample order is welcome. Please contact us and make sure what sample you need. It usually takes 10-20 days to finish your sample according to the design.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "3. Q:Can we print our own brand or logo on your products",
+            "answer": "Yes, of course. Please provide digital file and size of your logo/label/tag. It is our pleasure to be one of your good OEM manufacturers in China.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "4. Q:Why do some goods have difference between website picture and practical items?",
+            "answer": "Different batches of fabric or different light and browser may cause the difference between the picture and practical goods.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "5. Q:Do you provide free sample?",
+            "answer": "Sample fee is charged per design. For sportswear made of woven fabric, Sample fee will be fully refunded once the bulk order quantities meet 300 pieces /design. For knit wear, Sample fee will be fully refunded once the bulk order meet 100 pieces per design.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "6. Q:What is your minimum order quantities (MOQ)?",
+            "answer": "As a direct sports wear factory, our MOQ of custom designs is 100 pieces per design per color and mixed 4 size for fabric made goods. For our available stock goods, our MOQ is 1 pieces.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "7. Q:Can I have my private label on the sports wear?",
+            "answer": "Yes, you can. It is OK for us to custom made your own logo and attach on your design products. We also can make sample development according to your own design because we offer both OEM and ODM service.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "8. Q: Can I get a sample before pacing order?",
+            "answer": "Yes, you can. we can develop and send samples for your quality approval firstly.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "9. Q: How long is your sample lead time and production lead time?",
+            "answer": "Our sample lead time for custom made style is 10-20days and 25-35days for production. For our available styles, our sample lead time is 7 days and 20~30 days for bulk.",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "10. Q: How about the shipping cost?",
+            "answer": "Shipping cost depends on the order quantity, package size and shipping way like Express DHL, FEDEX, UPS ect. By air or by sea shipment cost, please contact us for detail information and we will offer different options for your selection.",
+            "open_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

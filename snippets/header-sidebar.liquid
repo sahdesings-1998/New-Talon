@@ -1,0 +1,49 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+HEADER SIDEBAR COMPONENT - HOME & SHOP ONLY
+----------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+{%- assign sidebar_button_class = 'header-sidebar__linklist-button' -%}
+{%- if section.settings.sidebar_text_font == 'heading' -%}
+  {%- assign sidebar_button_class = sidebar_button_class | append: ' h6' -%}
+{%- endif -%}
+
+<template id="header-sidebar-template">
+  <div part="base">
+    <div part="overlay"></div>
+
+    <div part="content">
+      <header part="header">
+        <dialog-close-button class="contents">
+          <button type="button" part="close-button tap-area" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+            {%- render 'icon' with 'close', width: 16 -%}
+          </button>
+        </dialog-close-button>
+      </header>
+
+      <div part="panel-list">
+        <slot name="main-panel"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<header-sidebar id="sidebar-menu" class="header-sidebar drawer drawer--sm color-scheme color-scheme--{{ color_scheme.id }}" template="header-sidebar-template" open-from="left">
+  <div class="header-sidebar__main-panel" slot="main-panel">
+    <div class="header-sidebar__scroller">
+      <ul class="header-sidebar__linklist {% if show_dividers %}divide-y{% endif %} unstyled-list header-text" role="list">
+        <li>
+          <a href="{{ routes.root_url }}" class="{{ sidebar_button_class }}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>
+            HOME
+          </a>
+        </li>
+        <li>
+          <a href="/collections/all" class="{{ sidebar_button_class }}" {% if request.path == '/collections/all' or request.page_type == 'collection' %}aria-current="page"{% endif %}>
+            SHOP
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header-sidebar>

@@ -1,0 +1,22 @@
+{%- comment -%}
+  OEM showcase gallery — full-resolution source, no CDN resize srcset.
+  Params: image, asset, alt, class, loading
+{%- endcomment -%}
+{%- if image != blank -%}
+  <img
+    {% if class != blank %}class="{{ class }}"{% endif %}
+    src="{{ image | image_url: width: image.width }}"
+    alt="{{ alt | escape }}"
+    loading="{{ loading | default: 'lazy' }}"
+    decoding="async"
+    {% if image.width != blank %}width="{{ image.width }}"{% endif %}
+    {% if image.height != blank %}height="{{ image.height }}"{% endif %}
+  >
+{%- elsif asset != blank -%}
+  {%- render 'talon-oem-asset-image',
+    asset: asset,
+    alt: alt,
+    class: class,
+    loading: loading
+  -%}
+{%- endif -%}

@@ -1,0 +1,373 @@
+<section class="oem-page talon-logistics-payment">
+
+     
+
+  <div class="oem-wrap">
+     <nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">Home</a>
+  <span class="breadcrumb-separator">/</span>
+  <span class="breadcrumb-current">Payment Logistics</span>
+</nav>
+
+    <!-- Logistics -->
+    <div class="oem-section oem-section-logistics">
+      <h2 class="oem-section-title">{{ section.settings.logistics_heading }}</h2>
+
+      <div class="talon-logistics-wrapper">
+
+        <div class="talon-logistics-left">
+          {% if section.settings.logistics_image != blank %}
+            <img
+              src="{{ section.settings.logistics_image | image_url: width: 900 }}"
+              alt="Logistics"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+
+        {% comment %} <div class="talon-logistics-right">
+          {% if section.settings.logistics_brands_image != blank %}
+            <img
+              src="{{ section.settings.logistics_brands_image | image_url: width: 500 }}"
+              alt="Shipping Brands"
+              loading="lazy"
+            >
+          {% endif %}
+        </div> {% endcomment %}
+
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div class="oem-section oem-section-payment">
+      <h2 class="oem-section-title">{{ section.settings.payment_heading }}</h2>
+
+      <div class="talon-payment-box payment-box-image">
+        {% if section.settings.payment_image != blank %}
+          <img
+            src="{{ section.settings.payment_image | image_url: width: 1200 }}"
+            alt="Payment Options"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+    <!-- Sample -->
+    <div class="talon-content-box talon-content-box-sample-order">
+      <h3>{{ section.settings.sample_title }}</h3>
+      <p>{{ section.settings.sample_text }}</p>
+    </div>
+
+    <!-- Bulk -->
+    <div class="talon-content-box">
+      <h3>{{ section.settings.bulk_title }}</h3>
+      <div class="talon-richtext oem-richtext">
+        {{ section.settings.bulk_text }}
+      </div>
+    </div>
+
+    <!-- Shipping -->
+    <div class="talon-content-box">
+      <h3>{{ section.settings.shipping_title }}</h3>
+      <p>{{ section.settings.shipping_text }}</p>
+    </div>
+
+  {% comment %} </div> {% endcomment %}
+</section>
+
+<style>
+
+
+    /* ─── OEM token overrides scoped to this section ─── */
+.talon-logistics-payment {
+  --oem-space-section: clamp(2rem, 4vw, 3rem);
+  --oem-space-section-pad: clamp(0.35rem, 0.85vw, 0.75rem);
+  --oem-radius-hero: 0.85rem;
+  --oem-radius-card: 0.9rem;
+  --oem-bp-md: 48.0625rem;
+  background: rgb(var(--background, 255 255 255));
+  color: rgb(var(--text-color, 17 17 17));
+  padding-bottom: var(--section-gap-half);
+}
+
+/* ─── Wrap ─── */
+.talon-logistics-payment .oem-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--section-gap-half) clamp(1.25rem, 3vw, 2.5rem) var(--section-gap-half);
+}
+
+/* ─── Section blocks ─── */
+.oem-section-logistics,
+.oem-section-payment {
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+/* ─── Section title — matches oem-section-title ─── */
+.talon-logistics-payment .oem-section-title {
+  {% comment %} margin: 0 0 clamp(0.9rem, 1.5vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.3;
+  color: rgb(var(--text-color, 17 17 17)); {% endcomment %}
+
+   margin: 0 0 clamp(0.9rem, 1.5vw, 1.25rem);
+    font-size: 30px;
+    word-spacing: 2px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(var(--text-color, 17 17 17));
+
+}
+
+/* ─── Logistics: two-column image layout ─── */
+.talon-logistics-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  border: 1px solid rgb(var(--border-color, 220 220 220));
+  border-radius: var(--oem-radius-card);
+  overflow: hidden;
+}
+
+.talon-logistics-left,
+.talon-logistics-right {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.talon-logistics-left img,
+.talon-logistics-right img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ─── Payment: full-width image panel ─── */
+.talon-payment-box {
+  width: 100%;
+  border-radius: var(--oem-radius-card);
+  overflow: hidden;
+  border: 1px solid rgb(var(--border-color, 220 220 220));
+  box-shadow:
+    0 1px 0 rgb(var(--text-color, 17 17 17) / .04),
+    0 4px 14px rgb(var(--text-color, 17 17 17) / .05);
+}
+
+.talon-payment-box img {
+  width: 100%;
+  display: block;
+}
+
+/* ─── Divider — matches oem-why border styling ─── */
+.talon-divider {
+  height: 5px;
+  background: rgb(var(--text-color, 17 17 17));
+  margin: clamp(3rem, 5vw, 4.5rem) 0;
+  opacity: 0.12;
+}
+
+/* ─── Bottom content wrap ─── */
+.talon-bottom-content {
+  padding-top: 0;
+}
+
+/* ─── Content box — matches oem-process-item pattern ─── */
+.talon-content-box {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+.talon-content-box-sample-order{
+    padding-top:24px !important;
+  }
+
+.talon-content-box h3 {
+  {% comment %} font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgb(var(--text-color, 17 17 17));
+  margin: 0 0 clamp(0.75rem, 1.25vw, 1rem);
+  line-height: 1.3; {% endcomment %}
+  font-size: 25px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgb(var(--text-color, 17 17 17));
+    margin: 0 0 clamp(0.75rem, 1.25vw, 1rem);
+    line-height: 27px;
+    word-spacing: 2px;
+}
+
+.talon-content-box p,
+.talon-richtext {
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
+  line-height: 1.9;
+  color: rgb(var(--text-color, 17 17 17) / .74);
+  max-width: 72ch;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.talon-richtext ul {
+  {% comment %} padding-left: 1.15rem; {% endcomment %}
+  margin-top: 0.65rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.talon-richtext li {
+  {% comment %} font-size: clamp(0.92rem, 1.1vw, 1rem);
+  line-height: 1.75;
+  color: rgb(var(--text-color, 17 17 17) / .74);
+  list-style:none; {% endcomment %}
+   font-size: 18px;
+    word-spacing: 2px;
+    line-height: 27px;
+    /* color: rgb(var(--text-color, 17 17 17) / .74); */
+    list-style: none;
+}
+
+/* ─── Tablet ─── */
+@media screen and (max-width: 991px) {
+
+  .talon-logistics-wrapper {
+    gap: 0;
+  }
+
+  .talon-content-box h3 {
+    font-size: 1rem;
+  }
+
+  .talon-content-box p,
+  .talon-richtext {
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+}
+
+/* ─── Mobile ─── */
+@media screen and (max-width: 767px) {
+
+  .talon-logistics-wrapper {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .talon-logistics-left,
+  .talon-logistics-right {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .talon-logistics-left img,
+  .talon-logistics-right img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .talon-content-box h3 {
+    font-size: clamp(0.95rem, 3.5vw, 1rem);
+    letter-spacing: .08em;
+  }
+
+  .talon-content-box p,
+  .talon-richtext {
+    font-size: clamp(0.84rem, 3.4vw, 0.9rem);
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  .talon-divider {
+    margin: clamp(2rem, 4vw, 3rem) 0;
+  }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "Logistics Payment",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logistics_heading",
+      "label": "Logistics Heading",
+      "default": "Logistics Service"
+    },
+    {
+      "type": "image_picker",
+      "id": "logistics_image",
+      "label": "Logistics Left Image (Transport)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logistics_brands_image",
+      "label": "Logistics Right Image (Shipping Brand Logos)"
+    },
+    {
+      "type": "text",
+      "id": "payment_heading",
+      "label": "Payment Heading",
+      "default": "Logistics Service"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_image",
+      "label": "Payment Options Image (Full Banner)"
+    },
+    {
+      "type": "text",
+      "id": "sample_title",
+      "label": "Sample Title",
+      "default": "Sample order"
+    },
+    {
+      "type": "textarea",
+      "id": "sample_text",
+      "label": "Sample Text",
+      "default": "For the samples, we usually send it directly to you by DHL/UPS/Fedex express, and the transportation time is 5-7 days"
+    },
+    {
+      "type": "text",
+      "id": "bulk_title",
+      "label": "Bulk Title",
+      "default": "Bulk order"
+    },
+    {
+      "type": "richtext",
+      "id": "bulk_text",
+      "label": "Bulk Text",
+      "default": "<p>For bulk order, We have 4 different kinds of logistics options:</p><ul><li>1. The DHL/UPS/Fedex Express（5-7 days.）</li><li>2. The air freight for Freight forwarder（12-15 days, All taxes included）</li><li>3. By Truck and Air freight for Freight forwarder（30-35 days to EU, All taxes included）</li><li>4. The sea freight for Freight forwarder（45-60 days to EU , All taxes included）</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "shipping_title",
+      "label": "Shipping Title",
+      "default": "Changes of Shipping"
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "Any changes that you make regarding shipping once the item is shipped, including but not limited to changing the address, putting an order on hold, or updating shipping settings/preferences may delay your receipt of the products and replacement products and/or refunds. If you have any modification, you must do so prior to your order being shipped."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Logistics Payment"
+    }
+  ]
+}
+{% endschema %}

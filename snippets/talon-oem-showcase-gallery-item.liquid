@@ -1,0 +1,32 @@
+{%- comment -%}
+  OEM manufacturing gallery cell. Params: image, asset, alt, loading
+{%- endcomment -%}
+{% comment %}
+  <figure class="talon-oem-showcase__gallery-item">
+    <div class="talon-oem-showcase__gallery-media">
+      {%- render 'talon-oem-showcase-gallery-image',
+        image: image,
+        asset: asset,
+        alt: alt,
+        class: 'talon-oem-showcase__gallery-image',
+        loading: loading
+      -%}
+    </div>
+  </figure>
+{% endcomment %}
+
+<figure class="talon-oem-showcase__gallery-item">
+  <div class="talon-oem-showcase__gallery-media">
+    <a href="#" class="talon-gallery-trigger">
+      {%- render 'talon-oem-showcase-gallery-image',
+        image: image,
+        asset: asset,
+        alt: alt,
+        class: 'talon-oem-showcase__gallery-image',
+        loading: loading
+      -%}
+    </a>
+  </div>
+</figure>
+
+

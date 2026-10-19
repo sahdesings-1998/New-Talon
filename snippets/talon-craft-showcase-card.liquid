@@ -1,0 +1,28 @@
+{%- comment -%}
+  Craft & Materials catalog tile.
+  Params: label, image, alt (optional), title (optional), description (optional), tag (optional)
+{%- endcomment -%}
+{%- liquid
+  assign craft_alt = alt | default: label
+  assign craft_title = title | default: craft_alt
+-%}
+<article class="oem-craft-card oem-craft-card--catalog">
+  <div class="oem-craft-card__media">
+    {%- render 'talon-oem-asset-image',
+      asset: image,
+      alt: craft_alt,
+      title: craft_title,
+      class: 'oem-craft-card__img',
+      loading: 'lazy'
+    -%}
+    {%- if tag != blank -%}
+      <span class="oem-craft-card__tag">{{ tag }}</span>
+    {%- endif -%}
+  </div>
+  <div class="oem-craft-card__body">
+    <h3 class="oem-craft-card__title">{{ label }}</h3>
+    {%- if description != blank -%}
+      <p class="oem-craft-card__text">{{ description }}</p>
+    {%- endif -%}
+  </div>
+</article>

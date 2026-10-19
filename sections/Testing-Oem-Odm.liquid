@@ -1,0 +1,2987 @@
+<style>
+  /* ════════════════════════════════════════════════════════
+     OEM PAGE — BASE TOKENS & RESET
+  ════════════════════════════════════════════════════════ */
+  .oem-page {
+    --oem-space-section: 3.5rem;
+    --oem-space-section-pad: clamp(0.35rem, 0.85vw, 0.75rem);
+    --oem-space-flow-tight: clamp(0.7rem, 1.35vw, 1rem);
+    --oem-space-flow-medium: clamp(1rem, 1.75vw, 1.4rem);
+    --oem-space-title-after: clamp(1.15rem, 1.85vw, 1.5rem);
+    --oem-space-faq-extra: clamp(0.65rem, 1.25vw, 1rem);
+    --oem-radius-hero: 0.85rem;
+    --oem-radius-card: var(--image-radius, 8px);
+    --oem-capability-gap: clamp(1.2rem, 2.5vw, 1.65rem);
+    --oem-card-body-pad-x: clamp(1.25rem, 2vw, 1.25rem);
+    --oem-card-body-pad-y-top: clamp(0.625rem, 1vw, 0.625rem);
+    --oem-card-body-pad-y-bottom: clamp(0.625rem, 1vw, 0.625rem);
+    --oem-card-title-gap: 0.7rem;
+    --oem-bp-md: 48.0625rem;
+    --oem-bp-timeline-lg: 62.5rem;
+    --oem-timeline-gap: clamp(1rem, 2vw, 1.35rem);
+    --oem-timeline-icon-size: 3.65rem;
+    --oem-timeline-copy-max: 11rem;
+    --oem-workflow-gap: clamp(1rem, 1.75vw, 1.45rem);
+    --oem-workflow-media-aspect: 16 / 10;
+    --oem-bp-workflow-lg: 68.75rem;
+    --oem-step-badge-bg: rgba(255, 255, 255, 0.95);
+    --oem-step-badge-color: #111111;
+    --oem-step-badge-border: rgba(0, 0, 0, 0.08);
+    --oem-step-badge-shadow: 0 2px 10px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+    --oem-step-badge-size: 1.35rem;
+    --oem-step-badge-gap: 0.35rem;
+    --oem-timeline-marker-height: calc(var(--oem-step-badge-size) + var(--oem-step-badge-gap) + var(--oem-timeline-icon-size));
+    --oem-timeline-icon-axis: calc(var(--oem-step-badge-size) + var(--oem-step-badge-gap) + (var(--oem-timeline-icon-size) / 2));
+    --oem-timeline-badge-top: calc(var(--oem-timeline-icon-axis) - (var(--oem-timeline-icon-size) / 2) - var(--oem-step-badge-gap) - var(--oem-step-badge-size));
+    --oem-craft-gap: clamp(1.15rem, 2.1vw, 1.65rem);
+    --oem-craft-gap-lg: clamp(1.5rem, 2.75vw, 2rem);
+    --oem-craft-radius: var(--image-radius, 8px);
+    --oem-craft-accent: rgb(var(--button-background));
+    --oem-craft-accent-soft: rgb(var(--button-background) / 0.14);
+    --oem-craft-border: rgb(var(--text-color) / 0.1);
+    --oem-craft-shadow: 0 4px 14px rgb(var(--text-color) / 0.05);
+    --oem-craft-shadow-hover: 0 8px 20px rgb(var(--text-color) / 0.08);
+    --oem-craft-grid-cols: 4;
+    --oem-craft-card-bg: #fff;
+    --oem-craft-body-pad: clamp(0.85rem, 1.25vw, 1rem);
+    --oem-craft-body-pad-top: clamp(0.95rem, 1.45vw, 1.15rem);
+    --oem-craft-body-pad-bottom: clamp(0.9rem, 1.35vw, 1.08rem);
+    --oem-rfq-gap: clamp(1.35rem, 3vw, 2.35rem);
+    --oem-rfq-pad: clamp(1.25rem, 2.25vw, 1.65rem);
+    --cp-pad-x: clamp(1.25rem, 3vw, 2.5rem);
+    --cp-pad-y-top: clamp(3rem, 4.5vw, 3.5rem);
+    --cp-pad-y-bot: clamp(3rem, 4.5vw, 3.5rem);
+    background: rgb(var(--background));
+    color: rgb(var(--text-color));
+  }
+
+  :root {
+  /* Typography */
+  --cp-heading-lg: clamp(1.375rem, 2.2vw, 1.875rem);   /* 22px → 30px */
+  --cp-heading-md: clamp(1.125rem, 1.9vw, 1.5625rem);  /* 18px → 25px */
+  --cp-body: clamp(0.9375rem, 1.25vw, 1.125rem);       /* 15px → 18px */
+  --cp-small: clamp(0.875rem, 1vw, 1rem);             /* 14px → 16px */
+
+  /* Spacing */
+  --cp-gap: clamp(0.875rem, 2vw, 1.25rem);            /* 14px → 20px */
+
+  /* Image heights */
+  --cp-img-lg: clamp(220px, 32vw, 340px);
+  --cp-img-md: clamp(120px, 18vw, 180px);
+  --cp-img-tall: clamp(240px, 35vw, 368px);
+}
+
+  /* ════════════════════════════════════════════════════════
+     SHARED UTILITIES
+  ════════════════════════════════════════════════════════ */
+  .oem-wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-block: 0;
+    padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .oem-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgb(var(--button-background) / 0.15);
+    color: rgb(var(--button-background));
+    font-weight: 700;
+    margin-bottom: 0.55rem;
+  }
+
+  .oem-icon svg {
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .oem-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .oem-btn--primary { color: inherit; }
+  .oem-btn--ghost   { color: inherit; }
+
+  /* ════════════════════════════════════════════════════════
+     SECTION TITLES & INTRO
+  ════════════════════════════════════════════════════════ */
+  .oem-section-title {
+    margin: 0 0 20px;
+    font-size: var(--cp-heading-lg);
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 27px;
+    word-spacing: 2px;
+  }
+
+  .oem-section-title-Cs {
+    font-size: 25px !important;
+  }
+
+  .oem-section-intro {
+    margin: 0 0 var(--oem-capability-gap);
+    max-width: 68ch;
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    line-height: 1.62;
+    color: rgb(var(--text-color) / 0.74);
+  }
+
+  .oem-section {
+    margin-top: 0;
+    padding-block: 0;
+  }
+
+  .oem-section-Custom-Service {
+    margin-top: 0;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     BREADCRUMB
+  ════════════════════════════════════════════════════════ */
+  .breadcrumb {
+    padding-top: 56px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(0.3rem, 1vw, 0.5rem);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    color: rgb(var(--text-color) / 0.7);
+    word-break: break-word;
+  }
+
+  .breadcrumb a,
+  .breadcrumb-current {
+    white-space: nowrap;
+  }
+
+  .breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: rgb(var(--button-background));
+  }
+
+  .breadcrumb-current {
+    color: rgb(var(--text-color));
+    font-weight: 500;
+  }
+
+  .breadcrumb-separator {
+    opacity: 0.6;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     PAGE HEADING
+  ════════════════════════════════════════════════════════ */
+  .oem-page-heading {
+    font-size: var(--cp-heading-lg);
+    font-weight: bold;
+    word-spacing: 2px;
+    line-height: 27px;
+    padding: 10px 0 12px;
+    margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
+    color: rgb(var(--text-color));
+  }
+
+  /* ════════════════════════════════════════════════════════
+     HERO
+  ════════════════════════════════════════════════════════ */
+  .oem-hero {
+    position: relative;
+    border-radius: var(--oem-radius-hero);
+    overflow: hidden;
+    min-height: clamp(460px, 52vh, 540px);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .oem-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .oem-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.82) 0%,
+      rgb(0 0 0 / 0.52) 38%,
+      rgb(0 0 0 / 0.22) 62%,
+      rgb(0 0 0 / 0.38) 100%
+    );
+  }
+
+  .oem-hero__content {
+    position: relative;
+    z-index: 1;
+    color: rgb(var(--background));
+    max-width: min(880px, 92%);
+    padding: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .oem-hero__content h1 {
+    margin: 0 0 0.7rem;
+    font-size: clamp(2rem, 4.2vw, 3.35rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: rgb(var(--background));
+  }
+
+  .oem-hero__sub {
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: clamp(0.72rem, 1.1vw, 0.82rem);
+    font-weight: 600;
+    color: rgb(var(--background) / 0.88);
+  }
+
+  .oem-hero__support {
+    margin: 0 0 1.4rem;
+    color: rgb(var(--background) / 0.94);
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    line-height: 1.55;
+    max-width: 52ch;
+  }
+
+  .oem-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .oem-hero__trust {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .oem-hero__trust li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgb(var(--background) / 0.35);
+    background: rgb(var(--background) / 0.08);
+    color: rgb(var(--background) / 0.96);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     GRIDS
+  ════════════════════════════════════════════════════════ */
+  .oem-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .oem-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .oem-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     CUSTOMIZATION ZONE
+  ════════════════════════════════════════════════════════ */
+  #customization-capabilities,
+  #oem-details,
+  #oem-rfq,
+  #faq,
+  #our-factory,
+  #production-process,
+  #certifications,
+  #sustainability {
+    scroll-margin-top: calc(var(--header-height, 0px) + 16px);
+  }
+
+  #customization-capabilities {
+    min-width: 0;
+    padding-block-end: 0;
+  }
+
+  #customization-capabilities .oem-section-title {
+    margin-bottom: clamp(0.35rem, 0.7vw, 0.5rem);
+  }
+
+  .oem-zone--customization {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-top: 0 !important;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     CAPABILITY SECTION (media cards)
+  ════════════════════════════════════════════════════════ */
+  .oem-capability-section .oem-media-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    background: #fff;
+    overflow: visible;
+    gap: 30px;
+    padding-bottom: 35px;
+  }
+
+  .oem-capability-section--reverse .oem-media-card__media { order: 1; }
+  .oem-capability-section--reverse .oem-media-card__body  { order: 2; }
+  .oem-capability-section:not(.oem-capability-section--reverse) .oem-media-card__media { order: 2; }
+  .oem-capability-section:not(.oem-capability-section--reverse) .oem-media-card__body  { order: 1; }
+
+  .oem-capability-section .oem-media-card__media {
+    width: 100%;
+    min-width: 0;
+    border-radius: var(--image-radius, 8px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .oem-capability-section .oem-media-card__media :is(img, picture) {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--image-radius, 8px);
+  }
+
+  .oem-media-card {
+    padding: 0;
+  }
+
+  .oem-media-card__body {
+    padding: 10px 0;
+  }
+
+  .oem-media-card__body h3 {
+    font-size:var(--cp-heading-md);
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    margin: 0 0 20px;
+    color: #111;
+    line-height: 1.3;
+  }
+
+  .oem-media-card__body p {
+    font-size: var(--cp-body);
+    line-height: 27px;
+    word-spacing: 2px;
+    color: #333;
+    margin: 0;
+  }
+
+  .oem-icon-card h3,
+  .oem-media-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     LEAD CARD
+  ════════════════════════════════════════════════════════ */
+  .oem-lead-card {
+    margin: 0 auto;
+    max-width: min(56rem, 100%);
+    padding: clamp(1rem, 1.65vw, 1.35rem) clamp(1.15rem, 2.5vw, 2rem);
+    text-align: center;
+  }
+
+  .oem-lead-card__title {
+    margin: 0 0 clamp(0.7rem, 1.35vw, 0.9rem);
+    font-size: var(--cp-body);
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.28;
+    color: rgb(var(--text-color));
+  }
+
+  .oem-lead-card__sub {
+    margin: 0 auto;
+    max-width: 46ch;
+    font-size: var(--cp-body);
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  @media screen and (min-width: 1000px) {
+    .oem-lead-card__sub {
+      max-width: none;
+      white-space: nowrap;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     PROCESS PANEL & GRID
+  ════════════════════════════════════════════════════════ */
+  .oem-process-panel {
+    padding: clamp(1.65rem, 3.25vw, 2.45rem) clamp(1.45rem, 2.65vw, 2.15rem);
+  }
+
+  .oem-process__header {
+    margin-bottom: clamp(1.35rem, 2.5vw, 1.75rem);
+    padding-bottom: 1.15rem;
+  }
+
+  .oem-zone--customization #production-process .oem-process__header {
+    margin-bottom: clamp(1.35rem, 2.25vw, 1.65rem);
+    padding-bottom: 1.1rem;
+  }
+
+  #production-process .oem-process__header {
+    text-align: center;
+  }
+
+  #production-process .oem-process__header .oem-section-title {
+    width: 100%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .oem-process__header .oem-section-title {
+    margin-bottom: clamp(0.85rem, 1.35vw, 1.05rem);
+  }
+
+  .oem-process__intro {
+    margin: 0;
+    max-width: 68ch;
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    line-height: 1.6;
+    color: rgb(var(--text-color) / 0.74);
+  }
+
+  .oem-process-section {
+    padding-inline: 0;
+  }
+
+  .oem-process-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--oem-inner-y, 1.75rem);
+  }
+
+  .oem-process-item {
+    text-align: center;
+  }
+
+  .oem-process-item h3 {
+    font-size: var(--cp-heading-md);
+    word-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 20px !important;
+    line-height: 30px;
+  }
+
+  .oem-process-item p {
+    max-width: 860px;
+    margin: 0 auto;
+    font-size: var(--cp-body);
+    word-spacing: 2px;
+    line-height: 27px;
+    color: #222;
+    font-weight: 400;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     TIMELINE
+  ════════════════════════════════════════════════════════ */
+  .oem-timeline {
+    --oem-timeline-track-offset: var(--oem-timeline-icon-axis);
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--oem-timeline-gap);
+    align-items: start;
+    justify-items: stretch;
+    position: relative;
+    width: 100%;
+  }
+
+  .oem-timeline__step {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .oem-timeline__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.7rem, 1.1vw, 0.9rem);
+    height: 100%;
+    text-align: center;
+  }
+
+  .oem-timeline__marker.oem-icon-ring {
+    position: relative;
+    display: block;
+    width: var(--oem-timeline-icon-size);
+    height: var(--oem-timeline-marker-height);
+    margin-inline: auto;
+    flex-shrink: 0;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .oem-timeline__marker.oem-icon-ring::before {
+    content: "";
+    position: absolute;
+    top: var(--oem-timeline-icon-axis);
+    left: 50%;
+    z-index: 0;
+    width: var(--oem-timeline-icon-size);
+    height: var(--oem-timeline-icon-size);
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 1.5px solid rgb(var(--button-background) / 0.32);
+    background: rgb(var(--background));
+    box-shadow: 0 1px 0 rgb(var(--text-color) / 0.04), 0 6px 18px rgb(var(--text-color) / 0.06);
+  }
+
+  .oem-timeline__index {
+    position: absolute;
+    top: var(--oem-timeline-badge-top);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--oem-step-badge-size);
+    height: var(--oem-step-badge-size);
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    border: 1px solid var(--oem-step-badge-border);
+    background: var(--oem-step-badge-bg);
+    color: var(--oem-step-badge-color);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    box-shadow: var(--oem-step-badge-shadow);
+  }
+
+  .oem-timeline__glyph {
+    position: absolute;
+    top: var(--oem-timeline-icon-axis);
+    left: 50%;
+    z-index: 1;
+    width: var(--oem-timeline-icon-size);
+    height: var(--oem-timeline-icon-size);
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .oem-timeline__glyph svg {
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .oem-timeline__copy {
+    width: min(100%, var(--oem-timeline-copy-max));
+    max-width: var(--oem-timeline-copy-max);
+    margin: 0 auto;
+  }
+
+  .oem-timeline__title {
+    margin: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    line-height: 1;
+    color: rgb(var(--text-color));
+  }
+
+  .oem-timeline__text {
+    margin: 0.4rem 0 0;
+    font-size: clamp(0.78rem, 0.88vw, 0.86rem);
+    line-height: 1.5;
+    color: rgb(var(--text-color) / 0.72);
+  }
+
+  .oem-timeline::before {
+    content: none;
+  }
+
+  @media screen and (min-width: 48.0625rem) {
+    .oem-timeline {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1.1rem, 2.2vw, 1.45rem) var(--oem-timeline-gap);
+    }
+    .oem-timeline__item {
+      align-items: center;
+      text-align: center;
+    }
+    .oem-timeline__copy {
+      width: min(100%, var(--oem-timeline-copy-max));
+    }
+  }
+
+  @media screen and (min-width: 62.5rem) {
+    .oem-timeline {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: var(--oem-timeline-gap);
+      justify-items: stretch;
+    }
+    .oem-timeline__step {
+      display: flex;
+      justify-content: center;
+    }
+    .oem-timeline__item {
+      width: min(100%, var(--oem-timeline-copy-max));
+      max-width: var(--oem-timeline-copy-max);
+    }
+    .oem-timeline__marker.oem-icon-ring {
+      margin-inline: auto;
+    }
+    .oem-timeline::before {
+      content: "";
+      position: absolute;
+      top: calc((var(--oem-timeline-marker-height) - (var(--oem-timeline-icon-size) / 2)));
+      left: calc(100% / 12);
+      right: calc(100% / 12);
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        rgb(var(--button-background) / 0.18),
+        rgb(var(--button-background) / 0.5) 50%,
+        rgb(var(--button-background) / 0.18)
+      );
+      pointer-events: none;
+      z-index: 0;
+      transform: translateY(-50%);
+    }
+    .oem-timeline__step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: calc((var(--oem-timeline-marker-height) - (var(--oem-timeline-icon-size) / 2)));
+      right: 0;
+      width: 0.4rem;
+      height: 0.4rem;
+      border: solid rgb(var(--button-background) / 0.45);
+      border-width: 1.5px 1.5px 0 0;
+      transform: translate(50%, -50%) rotate(45deg);
+      pointer-events: none;
+      z-index: 2;
+    }
+  }
+
+  @media screen and (min-width: 48.0625rem) and (max-width: 62.49rem) {
+    .oem-timeline::before,
+    .oem-timeline__step::after {
+      content: none;
+    }
+  }
+
+  @media screen and (max-width: 47.99rem) {
+    .oem-timeline::before {
+      content: "";
+      position: absolute;
+      top: var(--oem-timeline-icon-axis);
+      bottom: calc(var(--oem-timeline-icon-size) / 2);
+      left: 50%;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(
+        180deg,
+        rgb(var(--button-background) / 0.18),
+        rgb(var(--button-background) / 0.5) 50%,
+        rgb(var(--button-background) / 0.18)
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    .oem-timeline__step::after {
+      content: none;
+    }
+    .oem-timeline__item {
+      align-items: center;
+      text-align: center;
+    }
+    .oem-timeline__copy {
+      width: min(100%, 22rem);
+      max-width: 22rem;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     WORKFLOW
+  ════════════════════════════════════════════════════════ */
+  #manufacturing-workflow {
+    min-width: 0;
+  }
+
+  .oem-workflow-detail__intro {
+    margin-bottom: calc(var(--oem-workflow-gap) + 0.35rem);
+  }
+
+  #manufacturing-workflow .oem-section-title {
+    margin-bottom: var(--oem-space-title-after);
+  }
+
+  .oem-workflow-grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--oem-workflow-gap);
+    align-items: stretch;
+  }
+
+  .oem-workflow-grid > .oem-workflow-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .oem-workflow-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--image-radius, 8px);
+    box-shadow: 0 1px 0 rgb(var(--text-color) / 0.04);
+    transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  }
+
+  .oem-workflow-grid .oem-workflow-card:hover {
+    border-color: rgb(var(--button-background) / 0.35);
+    box-shadow: 0 10px 28px rgb(var(--text-color) / 0.08);
+    transform: translateY(-2px);
+  }
+
+  .oem-workflow-card__media {
+    position: relative;
+    flex: 0 0 auto;
+    aspect-ratio: var(--oem-workflow-media-aspect);
+    overflow: hidden;
+    background: rgb(var(--text-color) / 0.04);
+  }
+
+  .oem-workflow-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .oem-workflow-card__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgb(var(--text-color) / 0.06) 100%);
+  }
+
+  .oem-workflow-card__badge {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.65rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--oem-step-badge-border);
+    background: var(--oem-step-badge-bg);
+    color: var(--oem-step-badge-color);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    box-shadow: var(--oem-step-badge-shadow);
+  }
+
+  .oem-workflow-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: var(--oem-card-body-pad-y-top) var(--oem-card-body-pad-x) var(--oem-card-body-pad-y-bottom);
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    overflow: hidden;
+  }
+
+  .oem-workflow-card__title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    color: rgb(var(--text-color));
+  }
+
+  .oem-workflow-card__text {
+    margin: 0;
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+    line-height: 1.62;
+    overflow-wrap: break-word;
+    color: rgb(var(--text-color) / 0.76);
+  }
+
+  /* ════════════════════════════════════════════════════════
+     CRAFT / MATERIALS SECTION
+  ════════════════════════════════════════════════════════ */
+  .oem-craft-section {
+    width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  .oem-craft-section__header {
+    width: 100%;
+    max-width: none;
+    margin-bottom: calc(var(--oem-craft-gap-lg) + 0.35rem);
+  }
+
+  .oem-craft-section__eyebrow {
+    margin: 0 0 0.55rem;
+    padding-left: 0.65rem;
+    border-left: 2px solid var(--oem-craft-accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1.35;
+    color: var(--oem-craft-accent);
+  }
+
+  .oem-craft-section__desc {
+    margin: 0;
+    max-width: 68ch;
+    font-size: var(--cp-body);
+    line-height: 27px;
+    word-spacing: 2px;
+  }
+
+  .oem-craft-grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(var(--oem-craft-grid-cols), minmax(0, 1fr));
+    gap: var(--oem-craft-gap);
+    margin-top: calc(var(--oem-craft-gap-lg) + 0.15rem);
+    align-items: stretch;
+  }
+
+  .oem-craft-section .oem-craft-card--catalog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--oem-craft-border);
+    border-radius: var(--image-radius, 8px);
+    background: var(--oem-craft-card-bg);
+    box-shadow: var(--oem-craft-shadow);
+    transition: border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .oem-craft-section .oem-craft-card--catalog:hover {
+    border-color: rgb(var(--button-background) / 0.28);
+    box-shadow: var(--oem-craft-shadow-hover);
+  }
+
+  .oem-craft-section .oem-craft-card__media {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: rgb(var(--text-color) / 0.04);
+  }
+
+  .oem-craft-section .oem-craft-card__img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s ease;
+  }
+
+  .oem-craft-section .oem-craft-card--catalog:hover .oem-craft-card__img {
+    transform: scale(1.07);
+  }
+
+  .oem-craft-section .oem-craft-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--oem-craft-body-pad-top) var(--oem-craft-body-pad) var(--oem-craft-body-pad-bottom);
+    min-height: 0;
+  }
+
+  .oem-craft-section .oem-craft-card__title {
+    margin: 0;
+    padding-inline: 0.1rem;
+    font-size: 16px;
+    font-weight: 600;
+    word-spacing: 2px;
+    letter-spacing: 0.1px;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+
+  .oem-craft-section .oem-craft-card__text {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgb(var(--text-color) / 0.72);
+  }
+
+  .oem-craft-section .oem-craft-card__tag {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 1;
+    padding: 0.22rem 0.42rem;
+    border: 1px solid var(--oem-craft-border);
+    border-radius: 0.2rem;
+    background: var(--oem-craft-card-bg);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--oem-craft-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .oem-craft-section .oem-craft-card--catalog,
+    .oem-craft-section .oem-craft-card__img {
+      transition: none;
+    }
+    .oem-craft-section .oem-craft-card--catalog:hover .oem-craft-card__img {
+      transform: none;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     RFQ
+  ════════════════════════════════════════════════════════ */
+  .oem-rfq {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--oem-rfq-gap);
+    align-items: stretch;
+  }
+
+  .oem-rfq-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: rgb(var(--background));
+  }
+
+  .oem-rfq-panel__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .oem-rfq-panel__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .oem-rfq-panel__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--text-color) / 0.07);
+  }
+
+  .oem-rfq-panel__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: var(--oem-rfq-pad);
+  }
+
+  .oem-rfq-panel__content h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .oem-rfq-panel__content > p {
+    flex: 1 1 auto;
+    margin: 0;
+    line-height: 1.62;
+    color: rgb(var(--text-color) / 0.76);
+  }
+
+  .oem-rfq-trust {
+    margin-top: auto;
+    padding-top: 0.7rem;
+    display: grid;
+    gap: 0.45rem;
+    list-style: none;
+    padding-inline: 0;
+    padding-bottom: 0;
+  }
+
+  .oem-rfq-trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.84rem;
+    color: rgb(var(--text-color) / 0.78);
+  }
+
+  .oem-rfq-trust li::before {
+    content: "✓";
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: rgb(var(--button-background) / 0.15);
+    color: rgb(var(--button-background));
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .oem-rfq form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.75rem;
+    background: rgb(var(--background));
+    padding: var(--oem-rfq-pad);
+  }
+
+  .oem-rfq-form-fields {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .oem-rfq-form__head {
+    margin-bottom: 1rem;
+  }
+
+  .oem-rfq-form__head h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .oem-rfq-form__head p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: rgb(var(--text-color) / 0.75);
+  }
+
+  .oem-turnstile-mount {
+    grid-column: 1 / -1;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .oem-turnstile-error {
+    margin: 0 0 0.65rem;
+    font-size: 0.86rem;
+    line-height: 1.35;
+    color: #b00020;
+  }
+
+  @keyframes oem-rfq-success-in {
+    from { opacity: 0; transform: translateY(0.5rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .oem-rfq-success {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    padding: 2rem 1.25rem 2.25rem;
+    text-align: center;
+    animation: oem-rfq-success-in 0.5s ease forwards;
+  }
+
+  .oem-rfq-success__inner {
+    max-width: 26rem;
+    margin: 0 auto;
+  }
+
+  .oem-rfq-success__icon {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 1.1rem;
+    color: rgb(var(--button-background));
+  }
+
+  .oem-rfq-success__icon svg {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .oem-rfq-success__title {
+    margin: 0 0 0.55rem;
+    font-size: clamp(1rem, 2.8vw, 1.15rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgb(var(--text-color));
+    line-height: 1.25;
+  }
+
+  .oem-rfq-success__text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: rgb(var(--text-color) / 0.78);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .oem-rfq-success { animation: none; }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     FORM
+  ════════════════════════════════════════════════════════ */
+  .oem-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.5vw, 1rem);
+  }
+
+  .oem-field-full {
+    grid-column: 1 / -1;
+  }
+
+  .oem-form-grid input,
+  .oem-form-grid select,
+  .oem-form-grid textarea {
+    width: 100%;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.45rem;
+    padding: 0.72rem 0.76rem;
+    font: inherit;
+    background: rgb(var(--background));
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .oem-form-grid input:focus,
+  .oem-form-grid select:focus,
+  .oem-form-grid textarea:focus {
+    outline: none;
+    border-color: rgb(var(--button-background));
+    box-shadow: 0 0 0 3px rgb(var(--button-background) / 0.15);
+  }
+
+  .oem-form-grid textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     FAQ
+  ════════════════════════════════════════════════════════ */
+  .oem-faq {
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.8rem;
+    padding: clamp(1.1rem, 2vw, 1.35rem);
+    background: rgb(var(--text-color) / 0.02);
+  }
+
+  .oem-faq details {
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.8rem;
+    background: rgb(var(--background));
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .oem-faq details[open] {
+    border-color: rgb(var(--button-background) / 0.45);
+    background: rgb(var(--button-background) / 0.05);
+  }
+
+  .oem-faq details + details {
+    margin-top: 0.6rem;
+  }
+
+  .oem-faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    padding-right: 1.6rem;
+    position: relative;
+    list-style: none;
+  }
+
+  .oem-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .oem-faq summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1rem;
+    color: rgb(var(--text-color) / 0.7);
+  }
+
+  .oem-faq details[open] summary::after {
+    content: "−";
+    color: rgb(var(--button-background));
+  }
+
+  .oem-faq details p,
+  .oem-faq details .oem-faq-answer p {
+    margin: 0.55rem 0 0;
+    font-size: var(--cp-body);
+    line-height: 28px !important;
+    padding: 10px 30px 0;
+    color: black;
+    font-weight: 400;
+    word-spacing: 1.5px !important;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  .oem-faq details .oem-faq-answer {
+    margin: 0;
+  }
+
+  .oem-faq__support {
+    margin-top: 0.8rem;
+    border-top: 1px dashed rgb(var(--border-color));
+    padding-top: 0.7rem;
+    font-size: 0.84rem;
+    color: rgb(var(--text-color) / 0.72);
+  }
+
+  .oem-faq__support a {
+    color: rgb(var(--button-background));
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     TRUST
+  ════════════════════════════════════════════════════════ */
+  .oem-trust {
+    background: rgb(var(--text-color) / 0.03);
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.8rem;
+    padding: clamp(1.25rem, 2.5vw, 1.65rem);
+  }
+
+  .oem-trust__intro {
+    margin: 0 0 1.15rem;
+    max-width: 72ch;
+    line-height: 1.6;
+    color: rgb(var(--text-color) / 0.76);
+  }
+
+  .oem-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.5vw, 1.15rem);
+  }
+
+  .oem-trust-card {
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.65rem;
+    background: rgb(var(--background));
+    padding: 1.1rem 1.15rem;
+  }
+
+  .oem-trust-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .oem-trust-card h3 {
+    margin: 0;
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .oem-trust-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.58;
+    color: rgb(var(--text-color) / 0.76);
+  }
+
+  .oem-trust-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgb(var(--button-background) / 0.35);
+    background: rgb(var(--button-background) / 0.12);
+    color: rgb(var(--button-background));
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     OEM DETAILS GRID
+  ════════════════════════════════════════════════════════ */
+  .oem-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.95rem, 1.5vw, 1.2rem);
+  }
+
+  .oem-detail-card {
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.22s ease;
+  }
+
+  .oem-detail-card:hover {
+    border-color: rgb(var(--button-background) / 0.35);
+  }
+
+  .oem-detail-card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: rgb(var(--background));
+  }
+
+  .oem-detail-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .oem-detail-card__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--text-color) / 0.04);
+  }
+
+  .oem-detail-card__body {
+    padding: 1.1rem 1.15rem 1.25rem;
+  }
+
+  .oem-detail-card__body h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.35;
+  }
+
+  .oem-detail-card__body p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.58;
+    color: rgb(var(--text-color) / 0.76);
+  }
+
+  /* ════════════════════════════════════════════════════════
+     WHY SECTION
+  ════════════════════════════════════════════════════════ */
+  .oem-why {
+    background: rgb(var(--text-color) / 0.05);
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.85rem;
+    padding: clamp(1.35rem, 2.5vw, 1.75rem);
+    color: rgb(var(--text-color));
+  }
+
+  .oem-why .oem-section-title {
+    color: rgb(var(--text-color));
+    margin-bottom: 0.45rem;
+  }
+
+  .oem-why__intro {
+    margin: 0 0 1.2rem;
+    color: rgb(var(--text-color) / 0.76);
+    max-width: 72ch;
+    line-height: 1.6;
+  }
+
+  .oem-why__metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .oem-why__metric {
+    border: 1px solid rgb(var(--border-color));
+    background: rgb(var(--background));
+    border-radius: 0.55rem;
+    padding: 0.7rem 0.75rem;
+  }
+
+  .oem-why__metric strong {
+    display: block;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    color: rgb(var(--text-color));
+  }
+
+  .oem-why__metric span {
+    display: block;
+    margin-top: 0.18rem;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgb(var(--text-color) / 0.72);
+  }
+
+  .oem-why__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .oem-why__item {
+    border: 1px solid rgb(var(--border-color));
+    background: rgb(var(--background));
+    border-radius: 0.6rem;
+    padding: 1rem 1rem 1.1rem;
+  }
+
+  .oem-why__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    border: 1px solid rgb(var(--border-color));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+    color: rgb(var(--text-color));
+  }
+
+  .oem-why__item h3 {
+    margin: 0 0 0.28rem;
+    color: rgb(var(--text-color));
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .oem-why__item p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: rgb(var(--text-color) / 0.74);
+    line-height: 1.55;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     DOWNLOADS
+  ════════════════════════════════════════════════════════ */
+  .oem-downloads {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .oem-downloads__intro {
+    margin: 0 0 0.85rem;
+    color: rgb(var(--text-color) / 0.75);
+    max-width: 760px;
+  }
+
+  .oem-download-card {
+    border: 1px solid rgb(var(--border-color));
+    border-radius: 0.7rem;
+    background: rgb(var(--background));
+    padding: 1.1rem 1.15rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .oem-download-card:hover {
+    border-color: rgb(var(--button-background) / 0.45);
+  }
+
+  .oem-download-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .oem-download-card__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 0.55rem;
+    border: 1px solid rgb(var(--button-background) / 0.3);
+    background: rgb(var(--button-background) / 0.1);
+    flex-shrink: 0;
+  }
+
+  .oem-download-card__icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .oem-download-card h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .oem-download-card p {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.58;
+    color: rgb(var(--text-color) / 0.74);
+  }
+
+  .oem-download-card .oem-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     UPLOAD
+  ════════════════════════════════════════════════════════ */
+  .oem-upload {
+    border: 1px dashed rgb(var(--border-color));
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.75rem;
+    background: rgb(var(--text-color) / 0.02);
+  }
+
+  .oem-upload label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(var(--text-color) / 0.72);
+    font-weight: 600;
+  }
+
+  .oem-upload small {
+    display: block;
+    margin-top: 0.3rem;
+    color: rgb(var(--text-color) / 0.62);
+    font-size: 0.72rem;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     FOOTER OVERRIDES
+  ════════════════════════════════════════════════════════ */
+  body:has(.oem-page) .footer {
+    border-top: 1px solid rgb(var(--border-color));
+    background: linear-gradient(180deg, rgb(var(--text-color) / 0.04) 0%, rgb(var(--background)) 28%);
+    padding-block-start: clamp(2.5rem, 4vw, 3.5rem);
+    padding-block-end: clamp(2rem, 3vw, 2.75rem);
+  }
+
+  body:has(.oem-page) .footer .footer__inner {
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+    row-gap: clamp(2rem, 3vw, 2.75rem);
+  }
+
+  body:has(.oem-page) .footer .footer__block-list {
+    gap: clamp(1.75rem, 3vw, 2.75rem);
+  }
+
+  body:has(.oem-page) .footer .footer__block--text .prose {
+    line-height: 1.6;
+    color: rgb(var(--text-color) / 0.82);
+  }
+
+  .footer-block-text { color: white !important; }
+
+  body:has(.oem-page) .footer .link-faded,
+  body:has(.oem-page) .footer .link-faded-reverse {
+    letter-spacing: 0.01em;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     LOGISTICS & PAYMENT SECTION
+  ════════════════════════════════════════════════════════ */
+  .talon-logistics-payment {
+    --oem-radius-card: var(--image-radius, 8px);
+    background: rgb(var(--background, 255 255 255));
+    color: rgb(var(--text-color, 17 17 17));
+  }
+
+  .talon-logistics-payment > .oem-wrap {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .talon-logistics-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.75rem;
+    width: 100%;
+  }
+
+  .talon-logistics-inner > .oem-section-logistics,
+  .talon-logistics-inner > .oem-section-payment,
+  .talon-logistics-inner > .talon-content-box {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .talon-logistics-media,
+  .talon-logistics-inner .talon-payment-box {
+    width: 100%;
+    max-width: 56.25rem;
+    margin-inline: auto;
+    border-radius: var(--image-radius, 8px);
+    overflow: hidden;
+    background: rgb(var(--background, 255 255 255));
+  }
+
+  .talon-logistics-media img,
+  .talon-logistics-inner .talon-payment-box img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+    vertical-align: middle;
+  }
+
+  .talon-logistics-wrapper--dual {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+    width: 100%;
+    max-width: 56.25rem;
+    margin-inline: auto;
+  }
+
+  .talon-logistics-wrapper--dual .talon-logistics-media--column {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .talon-logistics-wrapper--dual .talon-logistics-media--column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .talon-logistics-inner > .oem-section-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .talon-divider {
+    height: 5px;
+    background: rgb(var(--text-color, 17 17 17));
+    margin: clamp(3rem, 5vw, 4.5rem) 0;
+    opacity: 0.12;
+  }
+
+  .talon-logistics-inner > .talon-content-box {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    width: 100%;
+  }
+
+  .talon-logistics-inner > .talon-content-box:last-child {
+    margin-bottom: 0;
+  }
+
+  .talon-logistics-inner .talon-content-box h3 {
+    font-size: var(--cp-heading-md);
+    word-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #111;
+    width: 100%;
+    max-width: 72ch;
+    letter-spacing: 0.1px;
+    margin: 0 0 18px;
+    line-height: 27px;
+  }
+
+  .talon-logistics-inner .talon-content-box p,
+  .talon-logistics-inner .talon-richtext {
+    margin: 0 auto;
+    font-size: var(--cp-body);
+    word-spacing: 2px;
+    line-height: 27px;
+    color: #222;
+    font-weight: 400;
+  }
+
+  .talon-logistics-inner .talon-richtext--bulk,
+  .talon-logistics-inner .talon-richtext--bulk p {
+    text-align: left;
+  }
+
+  .talon-logistics-inner .talon-richtext--bulk ol {
+    margin: 0.65rem auto 0;
+    padding-left: 1.35rem;
+    max-width: 72ch;
+    list-style: decimal;
+    list-style-position: outside;
+    text-align: left;
+  }
+
+  .talon-logistics-inner .talon-richtext--bulk ol li {
+    display: list-item;
+    list-style: decimal;
+    margin-bottom: 0.4rem;
+    font-size: var(--cp-body);
+    line-height: 27px;
+    text-align: left;
+  }
+
+  .talon-logistics-inner .talon-richtext--bulk ol li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     STATS BAR
+  ════════════════════════════════════════════════════════ */
+  .talon-stats-bar {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid rgb(var(--border-color, 220 220 220));
+    border-bottom: 1px solid rgb(var(--border-color, 220 220 220));
+    background: rgb(var(--background, 255 255 255));
+  }
+
+  .talon-stat-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(0.85rem, 1.75vw, 1.35rem) clamp(1rem, 2vw, 1.65rem);
+    gap: 0.3rem;
+  }
+
+  .talon-stat-divider {
+    width: 1px;
+    background: rgb(var(--border-color, 220 220 220));
+    align-self: stretch;
+    flex-shrink: 0;
+  }
+
+  .talon-stat-title {
+    display: block;
+    font-size: clamp(16px, 1.85vw, 25px);
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    line-height: 27px;
+    color: rgb(var(--text-color, 17 17 17));
+  }
+
+  .talon-stat-sub {
+    display: block;
+    font-size: var(--cp-body);
+    line-height: 27px;
+    word-spacing: 2px;
+    max-width: 22ch;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     FAQ SECTION (talon)
+  ════════════════════════════════════════════════════════ */
+  .talon-faq-section {
+    --oem-radius-card: var(--image-radius, 8px);
+    background: rgb(var(--background, 255 255 255));
+    color: rgb(var(--text-color, 17 17 17));
+  }
+
+  .talon-faq-wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-block: 0;
+    padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .talon-faq-heading {
+    margin-top: 0;
+    margin-bottom: clamp(1.15rem, 1.85vw, 1.5rem);
+    font-size:  var(--cp-heading-lg);
+    font-weight: 600;
+    word-spacing: 2px;
+    letter-spacing: 0.1px;
+    line-height: 27px;
+  }
+
+  .talon-faq-list {
+    border: none;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .talon-faq-list details {
+    border: 1px solid rgb(var(--border-color, 220 220 220));
+    border-radius: var(--image-radius, 8px);
+    padding: 0.7rem 0.85rem;
+    background: rgb(var(--background, 255 255 255));
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .talon-faq-list details + details {
+    margin-top: 0.5rem;
+  }
+
+  .talon-faq-list details[open] {
+    border-color: rgb(var(--button-background, 0 0 0) / 0.35);
+    background: rgb(var(--button-background, 0 0 0) / 0.03);
+  }
+
+  .talon-faq-list summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1;
+    padding-left: 1.75rem;
+    padding-right: 0.5rem;
+    position: relative;
+    word-spacing: 2px;
+    list-style: none;
+    color: rgb(var(--text-color, 17 17 17));
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .talon-faq-list summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .talon-faq-list summary::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    background-color: rgb(var(--text-color, 17 17 17) / 0.45);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    transition: transform 0.25s ease, background-color 0.2s ease;
+  }
+
+  .talon-faq-list details[open] > summary::before {
+    transform: translateY(-50%) rotate(90deg);
+    background-color: rgb(var(--button-background, 0 0 0));
+  }
+
+  .talon-faq-list details p,
+  .talon-faq-list details .oem-faq-answer p {
+    font-size: 16px;
+    line-height: 27px !important;
+    color: black;
+    font-weight: 400;
+    word-spacing: 1.5px !important;
+    word-wrap: break-word;
+    white-space: normal;
+    margin: 0;
+  }
+
+  .talon-faq-list details .oem-faq-answer {
+    margin: 0;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     RESPONSIVE — ≥1280px
+  ════════════════════════════════════════════════════════ */
+  @media screen and (min-width: 1280px) {
+    .oem-wrap {
+      max-width: 1360px;
+    }
+  }
+
+  @media screen and (min-width: 48.0625rem) {
+    .oem-page .oem-capability-grid,
+    .oem-page .oem-workflow-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 68.75rem) {
+    .oem-page .oem-workflow-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     RESPONSIVE — ≤1024px
+  ════════════════════════════════════════════════════════ */
+  @media screen and (max-width: 1024px) {
+
+    .oem-timeline::before,
+    .oem-timeline__step:not(:last-child)::after {
+      content: none;
+    }
+
+    .shopify-section--talon-oem-main .oem-process-grid,
+    .shopify-section--talon-oem-main .oem-process-section .oem-process-item p {
+      max-width: 95% !important;
+    }
+
+    .oem-wrap {
+      padding-inline: clamp(1rem, 2.5vw, 1.75rem);
+    }
+
+    .oem-page-heading     { font-size: 24px; }
+    .oem-section-title    { font-size: 22px; }
+    .oem-lead-card__title { font-size: 16px; }
+    .oem-lead-card__sub   { font-size: 15px; }
+
+    .oem-grid-3,
+    .oem-customization-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .oem-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oem-grid-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .oem-page .oem-capability-grid,
+    .oem-page .oem-workflow-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .oem-craft-section { --oem-craft-grid-cols: 3; }
+
+    .oem-timeline {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 1.35rem);
+    }
+
+    .oem-capability-section .oem-media-card {
+      gap: 20px;
+      padding-bottom: 28px;
+    }
+
+    .oem-media-card__body h3 { font-size: 20px; }
+    .oem-media-card__body p  { font-size: 16px; line-height: 24px; }
+
+    .oem-process-item h3 { font-size: 20px; margin-bottom: 14px; }
+    .oem-process-item p  { font-size: 16px; line-height: 24px; }
+
+    .oem-craft-section__desc         { font-size: 16px; line-height: 24px; }
+    .oem-craft-section .oem-craft-card__title { font-size: 14px; }
+    .oem-workflow-card__title        { font-size: 14px; }
+
+    .oem-rfq { grid-template-columns: 1fr; }
+
+    .oem-trust-grid   { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oem-details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oem-downloads    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .oem-why__metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oem-why__grid    { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .oem-hero { min-height: 420px; }
+    .oem-hero__image   { object-position: 56% center; }
+    .oem-hero__content { padding: 2rem; max-width: 100%; }
+
+    .talon-faq-list summary            { font-size: 16px; }
+    .talon-faq-list details p,
+    .talon-faq-list details .oem-faq-answer p { font-size: 15px; }
+    .talon-faq-heading { font-size: 24px; }
+
+    .talon-logistics-inner .talon-content-box h3 { font-size: clamp(15px, 3.5vw, 19px); }
+    .talon-logistics-inner .talon-content-box p,
+    .talon-logistics-inner .talon-richtext       { font-size: 15px; line-height: 24px; }
+    .talon-logistics-inner .talon-richtext--bulk ol li { font-size: 15px; }
+
+    .talon-stat-title { font-size: clamp(1rem, 1.85vw, 1.5625rem); }
+    .talon-stat-sub   { font-size: 16px; line-height: 22px; }
+
+    .shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk ol {
+      padding-left: 4.65rem !important;
+    }
+
+    .talon-content-box p { font-size: 16px !important; }
+    .talon-logistics-inner .talon-richtext--bulk ol li { font-size: 16px !important; }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     RESPONSIVE — ≤768px
+  ════════════════════════════════════════════════════════ */
+  @media screen and (max-width: 768px) {
+
+    .oem-page {
+      --oem-space-flow-tight:  clamp(0.6rem, 2vw, 0.75rem);
+      --oem-space-flow-medium: clamp(0.8rem, 2.5vw, 1rem);
+      --oem-space-title-after: clamp(1rem, 2.5vw, 1.25rem);
+      --oem-space-faq-extra:   clamp(0.5rem, 2vw, 0.75rem);
+      --oem-capability-gap:    clamp(1rem, 3vw, 1.25rem);
+      --oem-workflow-gap:      clamp(0.9rem, 2.5vw, 1.15rem);
+      --oem-rfq-gap:           clamp(1.1rem, 3vw, 1.5rem);
+    }
+
+    .oem-page-heading  { font-size: clamp(18px, 4vw, 24px) !important; }
+    .oem-section-title { font-size: clamp(18px, 4vw, 24px) !important; }
+
+    .shopify-section--talon-oem-main .oem-page > .oem-wrap,
+    .shopify-section--talon-oem-faq .oem-wrap.talon-faq-wrap {
+      padding-inline: 24px !important;
+    }
+
+    .breadcrumb { padding-top: 30px; }
+    .oem-wrap   { padding-inline: 1rem; }
+
+    .oem-capability-section .oem-media-card {
+      grid-template-columns: 1fr;
+      gap: 26px;
+      padding-bottom: 24px;
+    }
+
+    .oem-media-card__media,
+    .oem-media-card__body {
+      order: unset !important;
+    }
+
+    .oem-media-card__body    { padding: 0; }
+    .oem-media-card__body h3 { font-size: clamp(15px, 3.5vw, 19px); margin-bottom: 10px; }
+    .oem-media-card__body p  { font-size: 16px; line-height: 22px; }
+    .oem-media-card__media   { aspect-ratio: 16 / 9; }
+
+    .oem-craft-section { --oem-craft-grid-cols: 2; }
+
+    .oem-process-item h3 { font-size: clamp(15px, 3.5vw, 19px); margin-bottom: 12px; }
+    .oem-process-item p  { font-size: 16px; line-height: 21px; }
+
+    .oem-timeline {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .oem-page {
+      --oem-timeline-icon-size: 3.25rem;
+      --oem-timeline-copy-max: 100%;
+    }
+
+    .oem-timeline__item { align-items: center; text-align: center; }
+    .oem-timeline__copy { width: min(100%, 22rem); max-width: 22rem; }
+    .oem-timeline__title      { font-size: 13px; }
+    .oem-timeline__text       { font-size: 12px; line-height: 1.5; }
+    .oem-timeline__glyph svg  { width: 1.25rem; height: 1.25rem; }
+
+    .oem-capability-grid .oem-media-card:hover .oem-media-card__media img,
+    .oem-workflow-grid .oem-workflow-card:hover .oem-workflow-card__media img {
+      transform: none;
+    }
+
+    .oem-workflow-grid .oem-workflow-card:hover {
+      transform: none;
+      box-shadow: 0 1px 0 rgb(var(--text-color) / 0.04);
+    }
+
+    .oem-workflow-card__body  { padding: 0.5rem; }
+    .oem-workflow-card__title { font-size: clamp(0.8rem, 3.6vw, 0.88rem); letter-spacing: 0.05em; line-height: 1.4; }
+    .oem-workflow-card__text  { font-size: clamp(0.84rem, 3.4vw, 0.9rem); line-height: 1.58; }
+
+    .oem-hero { min-height: 380px; }
+    .oem-hero__content  { padding: 1.5rem; }
+    .oem-hero__sub      { font-size: 0.78rem; }
+    .oem-hero__support  { font-size: 0.92rem; }
+    .oem-hero__trust    { gap: 0.35rem; }
+    .oem-hero__trust li { font-size: 0.68rem; padding: 0.24rem 0.55rem; }
+    .oem-hero__image    { object-position: 58% center; }
+
+    .oem-grid-3,
+    .oem-grid-4,
+    .oem-grid-6,
+    .oem-hero {
+      border-radius: var(--oem-radius-hero);
+    }
+
+    .oem-lead-card        { padding: 0.95rem 0.9rem; border-radius: 0.75rem; }
+    .oem-lead-card__title { font-size: 15px; margin-bottom: 0.65rem; line-height: 1.3; }
+    .oem-lead-card__sub   { font-size: 14px; max-width: none; }
+
+    .oem-process-panel   { padding: 1rem 0.9rem 1.1rem; }
+    .oem-process__header { margin-bottom: 1.1rem; padding-bottom: 0.95rem; }
+
+    .oem-form-grid    { grid-template-columns: 1fr; }
+    .oem-trust-grid   { grid-template-columns: 1fr; }
+    .oem-details-grid { grid-template-columns: 1fr; }
+    .oem-downloads    { grid-template-columns: 1fr; }
+    .oem-rfq          { grid-template-columns: 1fr; }
+    .oem-why          { padding: 0.95rem; }
+    .oem-why__metrics,
+    .oem-why__grid    { grid-template-columns: 1fr; }
+
+    .talon-faq-heading { font-size: 20px; line-height: 1.3; }
+    .talon-faq-list summary { font-size: 15px; padding-left: 1.5rem; }
+    .talon-faq-list details p,
+    .talon-faq-list details .oem-faq-answer p { font-size: 14px; line-height: 1.65 !important; }
+    .oem-faq summary { font-size: 0.85rem; }
+    .oem-faq details p,
+    .oem-faq details .oem-faq-answer p { font-size: 15px; line-height: 1.65 !important; }
+
+    .talon-logistics-wrapper--dual { flex-direction: column; }
+    .talon-logistics-wrapper--dual .talon-logistics-media--column {
+      flex: 0 0 auto;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+    }
+
+    .talon-logistics-inner .talon-content-box h3 {
+      font-size: clamp(0.95rem, 3.5vw, 1rem);
+      letter-spacing: 0;
+    }
+
+    .talon-logistics-inner .talon-content-box p,
+    .talon-logistics-inner .talon-richtext {
+      font-size: 14px;
+      line-height: 27px;
+      word-spacing: 0;
+    }
+
+    .talon-logistics-inner .talon-richtext--bulk ol li {
+      font-size: 14px !important;
+      line-height: 21px;
+      word-spacing: 0;
+    }
+
+    .shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk ol {
+      padding-left: 1.25rem !important;
+    }
+
+    .talon-divider { margin: clamp(2rem, 4vw, 3rem) 0; }
+
+    .talon-stats-bar { flex-wrap: wrap; }
+    .talon-stat-item { flex: 1 1 45%; min-width: 0; padding: 0.75rem 0.65rem; }
+    .talon-stat-title {
+      font-size: clamp(15px, 3.5vw, 19px);
+      letter-spacing: 0;
+      line-height: 21px;
+    }
+    .talon-stat-sub { font-size: 16px; line-height: 16px; }
+
+    .oem-craft-section .oem-craft-card__title { font-size: 13px; }
+    .oem-craft-section__desc { font-size: 16px; line-height: 22px; word-spacing: 0; }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     RESPONSIVE — ≤480px
+  ════════════════════════════════════════════════════════ */
+  @media screen and (max-width: 480px) {
+
+    .oem-timeline::before,
+    .oem-timeline::after {
+      content: none;
+    }
+
+    .oem-image-grid {
+      padding-top: 22px !important;
+      padding-bottom: 22px !important;
+    }
+
+    .shopify-section--talon-oem-main .oem-process-section .oem-process-item p {
+      max-width: 100% !important;
+    }
+
+    .shopify-section--talon-oem-main .oem-process-grid {
+      max-width: 100% !important;
+    }
+
+    .shopify-section--talon-oem-main .oem-zone--customization + .oem-craft-section {
+      padding-block-start: 22px !important;
+      padding-block-end: 22px !important;
+    }
+
+    .shopify-section--talon-oem-main .talon-logistics-payment {
+      padding-block: 22px !important;
+    }
+
+    .oem-logistics { padding-inline: 0 !important; }
+
+    .oem-wrap { padding-inline: 0.85rem !important; }
+
+    .shopify-section--talon-oem-main .oem-page > .oem-wrap,
+    .shopify-section--talon-oem-faq .oem-wrap.talon-faq-wrap {
+      padding-inline: 16px !important;
+    }
+
+    .oem-page-heading {
+      font-size: clamp(15px, 5vw, 25px);
+      letter-spacing: 0;
+      word-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .oem-section-title {
+      font-size: clamp(15px, 5vw, 20px) !important;
+      letter-spacing: 0;
+      line-height: 1.2;
+      margin-bottom: 16px !important;
+    }
+
+    .oem-section-title-Cs {
+      font-size: clamp(15px, 5vw, 20px) !important;
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .oem-craft-section { --oem-craft-grid-cols: 2; }
+
+    .oem-craft-section .oem-craft-card__title {
+      font-size: 12px;
+      word-spacing: 0;
+      line-height: 16px;
+    }
+
+    .oem-craft-section .oem-craft-card__text { font-size: 0.75rem; }
+
+    .oem-process-item h3 { font-size: clamp(13px, 4.5vw, 17px); margin-bottom: 8px !important; }
+    .oem-process-item p  { font-size: 14px; line-height: 21px; word-spacing: 0; }
+
+    .oem-media-card__body h3 { font-size: clamp(13px, 4.5vw, 17px); padding-top: 16px; }
+    .oem-media-card__body p  { font-size: clamp(12px, 3.5vw, 14px); line-height: 21px; word-spacing: 0; }
+
+    .oem-lead-card__title { font-size: 14px; letter-spacing: 0; line-height: 1.2; }
+    .oem-lead-card__sub   { font-size: 14px; letter-spacing: 0; line-height: 1.2; }
+
+    .oem-hero { min-height: 320px; }
+    .oem-hero__content { padding: 1.1rem; }
+    .oem-hero__content h1 { font-size: clamp(1.4rem, 7vw, 1.85rem); }
+
+    .talon-stats-bar { flex-direction: column; gap: 0; }
+    .talon-stat-divider { width: 100%; height: 1px; align-self: auto; }
+    .talon-stat-item  { flex: none; width: 100%; padding: 0.85rem 1rem; }
+    .talon-stat-sub   { max-width: none; font-size: 14px; line-height: 27px; word-spacing: 0; }
+
+    .talon-faq-heading { font-size: clamp(15px, 5vw, 20px) !important; letter-spacing: 0; line-height: 1.2; }
+
+    {% comment %} .shopify-section--talon-oem-faq .talon-faq-section {
+      padding-top: 22px !important;
+      padding-bottom: 22px !important;
+    } {% endcomment %}
+
+    .shopify-section--talon-oem-faq .talon-faq-heading {
+      margin: 20px 0 !important;
+      font-size: clamp(15px, 5vw, 20px) !important;
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .talon-faq-list summary {
+      font-size: 14px;
+      word-spacing: 0;
+    }
+
+    .talon-faq-list details p,
+    .talon-faq-list details .oem-faq-answer p {
+      font-size: 12px;
+      line-height: 16px !important;
+      word-spacing: -0.1px !important;
+    }
+
+    .talon-logistics-inner .talon-content-box h3 {
+      font-size: clamp(13px, 4.5vw, 17px);
+      margin-bottom: 8px !important;
+    }
+
+    .talon-logistics-inner .talon-content-box p,
+    .talon-logistics-inner .talon-richtext {
+      font-size: 14px !important;
+      line-height: 21px;
+      word-spacing: 0;
+    }
+
+    .talon-logistics-inner .talon-richtext--bulk ol li { font-size: 13px; }
+
+    .oem-workflow-card__title { font-size: 12px; letter-spacing: 0; line-height: 16px; }
+
+    .oem-timeline__title { font-size: 13px; }
+    .oem-timeline__text  { font-size: 11px; }
+
+    .oem-rfq-panel__content h3 { font-size: 0.9rem; }
+
+    .oem-downloads { grid-template-columns: 1fr; }
+    .oem-why       { padding: 0.85rem; }
+
+    body:has(.oem-page) .footer .footer__inner { padding-inline: 1rem; }
+
+    .breadcrumb {
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      padding-top: 22px !important;
+      margin-bottom: 13px;
+    }
+
+    .breadcrumb a,
+    .breadcrumb-current {
+      white-space: normal;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════
+     PRINT
+  ════════════════════════════════════════════════════════ */
+  @media print {
+    .oem-hero,
+    .oem-rfq,
+    .oem-craft-section .oem-craft-card__img {
+      break-inside: avoid;
+    }
+
+    .oem-hero__image { display: none; }
+    .oem-hero__content { color: #000; }
+  }
+</style>
+
+<div class="oem-page">
+  <div class="oem-wrap">
+    {%- liquid
+      assign oem_show_supplementary_sections = false
+      assign oem_show_downloads = false
+    -%}
+
+    {%- liquid
+      assign oem_hero_image = 'custom-sportswear-manufacturing-factory-banner.jpg'
+      assign oem_hero_alt = 'Custom sportswear manufacturing factory for OEM ODM and private label solutions'
+      assign oem_hero_sizes = '(min-width: 769px) min(1320px, 100vw), 100vw'
+    -%}
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Customization Services</span>
+    </nav>
+
+    <h1 class="oem-page-heading">OEM &amp; ODM Custom Sportswear Manufacturing</h1>
+
+    <div class="oem-zone--customization">
+      <section
+        class="oem-section oem-section-Custom-Service"
+        id="customization-capabilities"
+        aria-labelledby="customization-capabilities-title"
+      >
+        <h2 class="oem-section-title oem-section-title-Cs" id="customization-capabilities-title">Customization Services</h2>
+      </section>
+
+      <section
+        class="oem-section oem-customization-major"
+        id="production-process"
+        aria-labelledby="oem-process-title"
+      >
+        <div class="oem-process-panel">
+          <header class="oem-process__header">
+            <h2 class="oem-lead-card__title" id="oem-process-title">ONE-STOP SPORTSWEAR CUSTOMIZATION SOLUTION</h2>
+            <p class="oem-lead-card__sub">SPORTSWEAR MANUFACTURER WITH 20 YEARS OF EXPERIENCE</p>
+          </header>
+          {%- render 'talon-oem-process-grid' -%}
+        </div>
+      </section>
+
+      <section
+        class="oem-section oem-customization-major"
+        id="manufacturing-workflow"
+        aria-labelledby="oem-workflow-detail-title"
+      >
+        <h2 class="oem-section-title" id="oem-workflow-detail-title">OEM / ODM MANUFACTURING WORKFLOW</h2>
+        {%- render 'talon-factory-workflow-2026' -%}
+      </section>
+
+      {%- render 'talon-oem-customization-capability-grid' -%}
+    </div>
+
+    {%- render 'talon-craft-materials-showcase' -%}
+
+    {%- if oem_show_supplementary_sections -%}
+      <section class="oem-section" id="why-work-talon">
+        <h2 class="oem-section-title">Why Work With Talon</h2>
+        <div class="oem-trust">
+          <p class="oem-trust__intro">
+            Built for serious custom apparel projects, Talon combines factory execution, quality control, and
+            export-ready operations to deliver reliable OEM and ODM outcomes.
+          </p>
+          <div class="oem-trust-grid">
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>OEM Manufacturing</h3>
+                <span class="oem-trust-tag">Factory Direct</span>
+              </div>
+              <p>Production workflows aligned to your specs, from approved sample to stable bulk output.</p>
+            </article>
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>ODM / Private Label</h3>
+                <span class="oem-trust-tag">Brand Ready</span>
+              </div>
+              <p>Fast product adaptation with private label execution, trims, and packaging for market launch.</p>
+            </article>
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>Bulk Orders</h3>
+                <span class="oem-trust-tag">Volume Support</span>
+              </div>
+              <p>Capacity-based planning for seasonal, repeat, and large-volume sportswear requirements.</p>
+            </article>
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>Sampling Service</h3>
+                <span class="oem-trust-tag">Fast Sampling</span>
+              </div>
+              <p>Structured sample development for fit, fabric, print, and branding approvals before production.</p>
+            </article>
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>Worldwide Shipping</h3>
+                <span class="oem-trust-tag">Global Delivery</span>
+              </div>
+              <p>Export-ready dispatch with documentation and packaging suited for international B2B supply.</p>
+            </article>
+            <article class="oem-trust-card">
+              <div class="oem-trust-card__top">
+                <h3>Factory Production</h3>
+                <span class="oem-trust-tag">Quality Control</span>
+              </div>
+              <p>In-line QC checkpoints and finishing controls to maintain consistency across every batch.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="oem-section" id="oem-service-details-legacy">
+        <h2 class="oem-section-title">OEM / ODM Service Details</h2>
+        {%- assign oem_detail_img_sizes = '(min-width: 769px) min(720px, 55vw), 100vw' -%}
+        <div class="oem-details-grid">
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-woven-labels-detail.png', alt: 'TALON Woven Labels Detail', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Woven Labels</h3>
+              <p>Custom woven neck and side labels engineered to reinforce brand identity across every production batch.</p>
+            </div>
+          </article>
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-hang-tags-flatlay.png', alt: 'TALON Premium Hang Tags', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Hang Tags</h3>
+              <p>Brand-specific hang tags with SKU and care details for clean retail presentation and inventory clarity.</p>
+            </div>
+          </article>
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-neck-label-detail.png', alt: 'TALON Neck Label Detail', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Neck Labels</h3>
+              <p>Printed and woven neck label options matched to fabric type, wash standards, and brand guidelines.</p>
+            </div>
+          </article>
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-premium-custom-packaging.png', alt: 'TALON Custom Packaging', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Custom Packaging</h3>
+              <p>Polybags, boxes, and carton labeling configured for efficient export handling and premium brand delivery.</p>
+            </div>
+          </article>
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-performance-zipper-detail.png', alt: 'TALON Performance Zipper Detail', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Zippers</h3>
+              <p>Durable zipper components and custom pullers selected for performance use and long-term wear reliability.</p>
+            </div>
+          </article>
+          <article class="oem-card oem-detail-card">
+            <div class="oem-detail-card__media">
+              {%- render 'talon-oem-asset-image', asset: 'talon-hd-sports-accessories-lifestyle.png', alt: 'TALON Sports Accessories Lifestyle', sizes: oem_detail_img_sizes, preset: 'large', width: 1536, height: 1024, loading: 'lazy' -%}
+            </div>
+            <div class="oem-detail-card__body">
+              <h3>Accessories</h3>
+              <p>Integrated accessory support including drawcords, trims, badges, and branding components for full OEM setup.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="oem-section" id="why-choose-talon">
+        <div class="oem-why">
+          <h2 class="oem-section-title">Why Choose Talon</h2>
+          <p class="oem-why__intro">
+            Talon is built for serious B2B custom apparel programs with factory-led production, structured QC, and
+            dependable delivery execution.
+          </p>
+          <div class="oem-why__metrics">
+            <div class="oem-why__metric"><strong>10+ Years</strong><span>OEM Experience</span></div>
+            <div class="oem-why__metric"><strong>1000+</strong><span>Bulk Orders</span></div>
+            <div class="oem-why__metric"><strong>Global</strong><span>Shipping Support</span></div>
+            <div class="oem-why__metric"><strong>Fast</strong><span>Turnaround Flow</span></div>
+          </div>
+          <div class="oem-why__grid">
+            <article class="oem-why__item">
+              <span class="oem-why__icon">01</span>
+              <h3>Premium Quality</h3>
+              <p>Process-level quality control from raw material checks to final packing.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">02</span>
+              <h3>Factory Direct Production</h3>
+              <p>Direct manufacturing coordination for consistent specs and stable output.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">03</span>
+              <h3>Low MOQ</h3>
+              <p>Flexible order minimums designed for brand growth and pilot runs.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">04</span>
+              <h3>Fast Sampling</h3>
+              <p>Quick sample development to reduce approval cycles and launch delays.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">05</span>
+              <h3>Worldwide Shipping</h3>
+              <p>Export-ready logistics handling for distributors and international buyers.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">06</span>
+              <h3>Quality Control</h3>
+              <p>In-line production audits and final inspections before shipment release.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">07</span>
+              <h3>Bulk Manufacturing Support</h3>
+              <p>Capacity planning and batch scheduling for repeat and high-volume orders.</p>
+            </article>
+            <article class="oem-why__item">
+              <span class="oem-why__icon">08</span>
+              <h3>Private Label Expertise</h3>
+              <p>Integrated brand execution across labels, trims, packaging, and finishing.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+
+    <section class="oem-process-section oem-section">
+      <div class="page-width">
+        <div class="oem-process-grid">
+          <div class="oem-process-item">
+            <h3>Our Requirements</h3>
+            <p>
+              We can customize any sportswear, you just need to send us your design file, or tell us your ideas, we can
+              customize for you. After receiving your request, we will reply to your request in time and get all the
+              details from you. Make sure the quality of the sportswear is what you expect.
+            </p>
+          </div>
+          <div class="oem-process-item">
+            <h3>Sample Production</h3>
+            <p>
+              After confirming all the details of the sportswear, we will start to produce samples, the production time
+              of the samples is about 10–20 days. After the samples are completed, we will take pictures for you to
+              confirm and then send them to you via DHL/UPS express. Please contact us if you need to modify the sample
+              after receiving it.
+            </p>
+          </div>
+          <div class="oem-process-item">
+            <h3>Mass Production</h3>
+            <p>
+              When it is confirmed that the sample clothes are exactly as you expect, we will make sportswear in batches
+              through a powerful production line. In addition, we will keep you updated with the production progress.
+              Make sure every step is what you expected.
+            </p>
+          </div>
+          <div class="oem-process-item">
+            <h3>Quality Inspection</h3>
+            <p>
+              To be able to ensure that all sportswear are of the expected quality, our strict and experienced quality
+              inspection team has carried out many strict inspections and supervision in the selection of raw materials,
+              incoming fabrics, craftsmanship, stitching, ironing and packaging.
+            </p>
+          </div>
+          <div class="oem-process-item">
+            <h3>Timely Delivery</h3>
+            <p>
+              Our production efficiency will be fully completed before the shipping date. And timely delivery after
+              receiving the balance payment.
+            </p>
+          </div>
+          <div class="oem-process-item">
+            <h3>After-sales Service</h3>
+            <p>
+              We promise that after the goods are dispatched, we will still keep in touch with you. We will solve all
+              problems encountered.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="oem-page talon-logistics-payment" id="oem-rfq">
+      <div class="talon-logistics-wrap oem-logistics">
+        <div class="talon-logistics-inner">
+
+          <div class="oem-section oem-section-logistics">
+            <h2 class="oem-section-title">
+              {{ section.settings.logistics_heading | default: 'Logistics Service' }}
+            </h2>
+            {%- if section.settings.logistics_brands_image != blank and section.settings.logistics_image != blank -%}
+              <div class="talon-logistics-wrapper talon-logistics-wrapper--dual">
+                <div class="talon-logistics-media talon-logistics-media--column">
+                  <img
+                    src="{{ section.settings.logistics_image | image_url: width: 1200 }}"
+                    alt="Global logistics — air freight, sea freight, and road transport"
+                    width="1200"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </div>
+                <div class="talon-logistics-media talon-logistics-media--column">
+                  <img
+                    src="{{ section.settings.logistics_brands_image | image_url: width: 800 }}"
+                    alt="DHL, FedEx, UPS, TNT, and EMS shipping partners"
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </div>
+              </div>
+            {%- else -%}
+              <div class="talon-logistics-media">
+                {% if section.settings.logistics_image != blank %}
+                  <img
+                    src="{{ section.settings.logistics_image | image_url: width: 1200 }}"
+                    alt="Global logistics — air freight, sea freight, and road transport"
+                    width="1200"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% else %}
+                  <img
+                    src="{{ 'global-logistics-and-transportation.jpg' | asset_url }}"
+                    alt="Global logistics — air freight, sea freight, and road transport"
+                    width="1200"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% endif %}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="oem-section oem-section-payment">
+            <h2 class="oem-section-title">
+              {{ section.settings.payment_heading | default: 'Payment Method' }}
+            </h2>
+            <div class="talon-payment-box">
+              {% if section.settings.payment_image != blank %}
+                <img
+                  src="{{ section.settings.payment_image | image_url: width: 1200 }}"
+                  alt="Payment Options"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0631/4472/2477/files/Payment-options.png?v=1779705017"
+                  alt="Payment Options"
+                  loading="lazy"
+                >
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="talon-content-box talon-content-box-sample-order" style="padding-top: 24px !important;">
+            <h3>{{ section.settings.sample_title | default: 'Sample Order' }}</h3>
+            <p>{{ section.settings.sample_text }}</p>
+          </div>
+
+          <div class="talon-content-box talon-content-box--bulk">
+            <h3>{{ section.settings.bulk_title | default: 'Bulk order' }}</h3>
+            <div class="talon-richtext oem-richtext talon-richtext--bulk">
+              {%- liquid
+                assign bulk_html = section.settings.bulk_text
+                if bulk_html contains '<ul>'
+                  assign bulk_html = bulk_html | replace: '<ul>', '<ol>' | replace: '</ul>', '</ol>'
+                endif
+              -%}
+              {{ bulk_html }}
+            </div>
+          </div>
+
+          <div class="talon-content-box">
+            <h3>{{ section.settings.shipping_title | default: 'Changes of Shipping' }}</h3>
+            <p>{{ section.settings.shipping_text }}</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {%- if oem_show_downloads -%}
+      <section class="oem-section" id="downloads">
+        <h2 class="oem-section-title">Downloads</h2>
+        <p class="oem-downloads__intro">
+          Access updated OEM/ODM resources for product planning, sizing alignment, and custom manufacturing execution.
+        </p>
+        <div class="oem-downloads">
+          <article class="oem-download-card">
+            <div class="oem-download-card__meta">
+              <span class="oem-icon oem-download-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 4h11a1.5 1.5 0 0 1 1.5 1.5V19a1.5 1.5 0 0 1-1.5 1.5H5"/><path d="M5 4v16.5"/><path d="M9 9h7M9 12.5h7M9 16h5"/><path d="M16.5 14.5h3v3.5h-3z"/><path d="M17.25 15.25a1.25 1.25 0 0 0 0 1.75"/>
+                </svg>
+              </span>
+              <h3>Product Catalog</h3>
+            </div>
+            <p>Download our OEM sportswear catalog featuring jerseys, gymwear, and teamwear manufacturing options.</p>
+            <a class="button oem-btn oem-btn--primary" href="/files/Talon-OEM-ODM-Catalog.pdf" target="_blank" rel="noopener">Download Catalog</a>
+          </article>
+          <article class="oem-download-card">
+            <div class="oem-download-card__meta">
+              <span class="oem-icon oem-download-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="5.5" r="2"/><path d="M12 7.5V10"/><path d="M8.5 10.5h7"/><path d="M9.5 10.5V17M14.5 10.5V17"/><path d="M7.5 17.5h9"/><path d="M5.5 12.5h2M16.5 12.5h2"/><path d="M4.5 8.5h15"/>
+                </svg>
+              </span>
+              <h3>Size Chart</h3>
+            </div>
+            <p>Use our sizing reference to align fit standards before sampling and bulk production approvals.</p>
+            <a class="button oem-btn oem-btn--primary" href="/files/Talon-Size-Chart.pdf" target="_blank" rel="noopener">View Size Guide</a>
+          </article>
+          <article class="oem-download-card">
+            <div class="oem-download-card__meta">
+              <span class="oem-icon oem-download-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 3h11l3 3v14H6z"/><path d="M17 3v3h3"/><path d="M9 9h6M9 12h6M9 15h4"/><path d="M3 20h3"/><path d="M18 20h3"/><path d="M8 20V17.5h8V20"/><path d="M10 17.5V15h4v2.5"/>
+                </svg>
+              </span>
+              <h3>OEM Guide</h3>
+            </div>
+            <p>Review the Talon OEM workflow, production checkpoints, and private label requirements.</p>
+            <a class="button oem-btn oem-btn--primary" href="/files/Talon-OEM-Guide.pdf" target="_blank" rel="noopener">Download OEM Guide</a>
+          </article>
+        </div>
+      </section>
+    {%- endif -%}
+
+  </div>
+
+  {%- if settings.oem_turnstile_site_key != blank -%}
+    <script src="{{ 'oem-rfq-turnstile.js' | asset_url }}" defer></script>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Talon OEM page",
+  "class": "shopify-section--talon-oem-main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logistics_heading",
+      "label": "Logistics heading",
+      "default": "Logistics Service"
+    },
+    {
+      "type": "image_picker",
+      "id": "logistics_image",
+      "label": "Logistics image (transport / cargo)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logistics_brands_image",
+      "label": "Logistics image (DHL / FedEx / courier logos)"
+    },
+    {
+      "type": "text",
+      "id": "payment_heading",
+      "label": "Payment heading",
+      "default": "Payment Method"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_image",
+      "label": "Payment image"
+    },
+    {
+      "type": "text",
+      "id": "sample_title",
+      "label": "Sample order title",
+      "default": "Sample Order"
+    },
+    {
+      "type": "textarea",
+      "id": "sample_text",
+      "label": "Sample order text",
+      "default": "For the samples, we usually send it directly to you by DHL/UPS/Fedex express, and the transportation time is 5-7 days"
+    },
+    {
+      "type": "text",
+      "id": "bulk_title",
+      "label": "Bulk order title",
+      "default": "Bulk order"
+    },
+    {
+      "type": "richtext",
+      "id": "bulk_text",
+      "label": "Bulk order text",
+      "default": "<p>For bulk order, We have 4 different kinds of logistics options:</p><ol><li>DHL / UPS / FedEx Express (5–7 days)</li><li>Air Freight via Freight Forwarder (12–15 days, all taxes included)</li><li>Truck + Air Freight via Freight Forwarder (30–35 days to EU, all taxes included)</li><li>Sea Freight via Freight Forwarder (45–60 days to EU, all taxes included)</li></ol>"
+    },
+    {
+      "type": "text",
+      "id": "shipping_title",
+      "label": "Shipping changes title",
+      "default": "Changes of Shipping"
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_text",
+      "label": "Shipping changes text",
+      "default": "Any changes that you make regarding shipping once the item is shipped, including but not limited to changing the address, putting an order on hold, or updating shipping settings/preferences may delay your receipt of the products and replacement products and/or refunds. If you have any modification, you must do so prior to your order being shipped."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon OEM page"
+    }
+  ]
+}
+{% endschema %}

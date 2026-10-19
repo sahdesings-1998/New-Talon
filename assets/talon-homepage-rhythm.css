@@ -1,0 +1,221 @@
+/**
+ * TALON — Homepage major content group rhythm
+ * Desktop: each major block — 56px top + 56px bottom (3.5rem)
+ * Mobile: 20px top + 20px bottom via --section-gap-half
+ *
+ * Adjacent blocks naturally sum to 112px (56 + 56). No block uses 112px padding directly.
+ */
+
+ :root{
+   --homepage-mobile-section-pad-y: clamp(2rem, 1.9rem + 0.5vw, 2.125rem);
+   --homepage-Tablet-section-pad-y: clamp(2.125rem, 2rem + 0.6vw, 2.375rem);
+   --homepage-desk-section-pad-y: clamp(2.5rem, 4vw, 3rem);
+
+ }
+
+body.template-index {
+  --homepage-section-pad-y: var(--section-gap-half);
+}
+
+body.template-index .shopify-section--logo-list .logo-list__mobile-dots {
+  display: none;
+}
+
+@media screen and (min-width: 1000px) {
+  body.template-index {
+    --homepage-section-pad-y: 3.5rem; /* 56px */
+  }
+}
+
+/* Hero wrapper flush (overrides section custom_css padding) */
+body.template-index .shopify-section--custom-liquid:has(.hero-carousel) > .section-spacing {
+  padding-block: 0 !important;
+}
+
+/* OEM showcase shell: layers carry top/bottom pad; no extra shell padding */
+body.template-index .shopify-section--talon-oem-showcase > .section-spacing {
+  padding-block: 0;
+}
+
+/* ── OEM showcase major blocks — each 56px top + 56px bottom ── */
+body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer,
+body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story,
+body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery,
+body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities,
+body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+  margin-block-start: 0;
+  padding-block-start: var(--homepage-section-pad-y);
+  padding-block-end: var(--homepage-section-pad-y);
+}
+
+/* ── Shopify sections — each 56px top + 56px bottom ── */
+body.template-index .shopify-section--multi-column > .section-spacing,
+body.template-index .shopify-section--logo-list > .section-spacing,
+body.template-index .shopify-section--featured-collections > .section-spacing,
+body.template-index
+  .shopify-section--custom-liquid:has(.slider-wrapper)
+  > .section-spacing {
+  padding-block-start: var(--homepage-section-pad-y);
+  padding-block-end: var(--homepage-section-pad-y);
+}
+
+body.template-index .shopify-section--video {
+  padding-block-start: var(--homepage-section-pad-y);
+  padding-block-end: var(--homepage-section-pad-y);
+}
+
+@media screen and (max-width: 1024px) {
+
+   body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+    margin-block-start: 0;
+    padding-block-start: var(--homepage-desk-section-pad-y);
+    padding-block-end: var(--homepage-desk-section-pad-y);
+  }
+  .talon-oem-showcase-top {
+    padding-block-start: clamp(2.375rem, 2.1rem + 1.2vw, 2.875rem) !important;
+}
+
+body.template-index .shopify-section--multi-column>.section-spacing, body.template-index .shopify-section--logo-list>.section-spacing, body.template-index .shopify-section--featured-collections>.section-spacing, body.template-index .shopify-section--custom-liquid:has(.slider-wrapper)>.section-spacing{
+   padding-block-start: var(--homepage-desk-section-pad-y);
+    padding-block-end: var(--homepage-desk-section-pad-y);
+}
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading{
+  line-height:clamp(1.625rem, 2.5vw, 1.75rem);
+  font-size: clamp(22px, 2.8vw, 28px);
+}
+}
+
+@media screen and (max-width: 768px) {
+
+   body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+    margin-block-start: 0;
+    padding-block-start: var(--homepage-Tablet-section-pad-y);
+    padding-block-end: var(--homepage-Tablet-section-pad-y);
+  }
+  .talon-oem-showcase-top {
+    padding-block-start: clamp(2.375rem, 2.1rem + 1.2vw, 2.875rem) !important;
+}
+
+body.template-index .shopify-section--multi-column>.section-spacing, body.template-index .shopify-section--logo-list>.section-spacing, body.template-index .shopify-section--featured-collections>.section-spacing, body.template-index .shopify-section--custom-liquid:has(.slider-wrapper)>.section-spacing{
+   padding-block-start: var(--homepage-Tablet-section-pad-y);
+    padding-block-end: var(--homepage-Tablet-section-pad-y);
+}
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading{
+  line-height:clamp(1.625rem, 2.5vw, 1.75rem);
+  font-size: clamp(18px, 4vw, 24px);
+}
+
+}
+
+@media screen and (max-width: 699px) {
+
+  body.template-index .shopify-section--multi-column > .section-spacing,
+body.template-index .shopify-section--logo-list > .section-spacing,
+body.template-index .shopify-section--featured-collections > .section-spacing,
+body.template-index
+  .shopify-section--custom-liquid:has(.slider-wrapper)
+  > .section-spacing {
+  padding-block-start: var(--homepage-mobile-section-pad-y);
+  padding-block-end: var(--homepage-mobile-section-pad-y);
+}
+
+  body.template-index .shopify-section--logo-list .logo-list {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    margin-inline: calc(-1 * var(--talon-oem-wrap-pad-x));
+    padding-inline: var(--talon-oem-wrap-pad-x);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--talon-oem-wrap-pad-x);
+    scrollbar-width: none;
+  }
+
+  body.template-index .shopify-section--logo-list .section-stack {
+    position: relative;
+  }
+
+  body.template-index .shopify-section--logo-list .section-stack::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: calc(-1 * var(--talon-oem-wrap-pad-x));
+    width: 3.5rem;
+    height: calc(100% - 1rem);
+    pointer-events: none;
+    background: linear-gradient(90deg, rgb(var(--background) / 0), rgb(var(--background)) 82%);
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list__item {
+    position: relative;
+    flex: 0 0 min(50vw, 12.25rem);
+    height: 6.25rem;
+    min-height: 6.25rem;
+    padding: 0;
+    overflow: hidden;
+    scroll-snap-align: center;
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list__item .constrained-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list__mobile-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-block-start: 0.75rem;
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list__mobile-dots span {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    /* background: rgb(var(--text-color) / 0.22); */
+  }
+
+  body.template-index .shopify-section--logo-list .logo-list__mobile-dots span:first-child {
+    /* width: 1.2rem;
+    background: rgb(var(--text-color) / 0.55); */
+  }
+
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities,
+  body.template-index .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+    margin-block-start: 0;
+    padding-block-start: var(--homepage-mobile-section-pad-y);
+    padding-block-end: var(--homepage-mobile-section-pad-y);
+  }
+
+  body.template-index .shopify-section--talon-oem-showcase > .section-spacing {
+    padding-block: 0;
+  }
+}
+
+@media screen and (max-width: 699px) {
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading{
+  line-height:clamp(1.625rem, 2.5vw, 1.75rem);
+  font-size: clamp(20px, 4vw, 24px);
+  margin-bottom:16px;
+}
+
+}

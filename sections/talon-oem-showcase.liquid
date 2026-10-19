@@ -1,0 +1,717 @@
+{{ 'talon-oem-layout.css' | asset_url | stylesheet_tag }}
+{{ 'talon-oem-showcase.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign color_scheme_hash = section.settings.color_scheme.settings.background_gradient | default: section.settings.color_scheme.settings.background | md5
+  assign loading_strategy = 'lazy'
+
+  if section.index <= 2
+    assign loading_strategy = 'eager'
+  endif
+
+  assign hero_sizes = '(max-width: 699px) 100vw, (max-width: 999px) 46vw, 34rem'
+  assign placeholder_primary = section.settings.placeholder_asset | default: 'custom-sportswear-manufacturing-factory-banner.jpg'
+  assign image_alt = section.settings.image.alt | default: section.settings.image_alt
+
+  assign story_content = section.settings.content
+  if story_content != blank
+    assign story_content = story_content | replace: 'TALON GLOBAL Ltd.', '<strong class="talon-oem-showcase__em">TALON GLOBAL Ltd.</strong>'
+    assign story_content = story_content | replace: '20 years of experience', '<strong class="talon-oem-showcase__em">20 years of experience</strong>'
+  endif
+
+  assign gallery_image_keys = 'gallery_image_1,gallery_image_2,gallery_image_3,gallery_image_4,gallery_image_5' | split: ','
+  assign gallery_placeholder_keys = 'gallery_placeholder_1,gallery_placeholder_2,gallery_placeholder_3,gallery_placeholder_4,gallery_placeholder_5' | split: ','
+  assign gallery_alt_keys = 'gallery_alt_1,gallery_alt_2,gallery_alt_3,gallery_alt_4,gallery_alt_5' | split: ','
+  assign gallery_default_assets = 'talon-factory-02.webp,talon-factory-03.webp,talon-factory-05.webp,industrial-garment-stitching-assembly-line.jpg,talon-factory-06.webp' | split: ','
+  assign gallery_default_alts = 'Sportswear production floor,Garment manufacturing line,Factory quality workflow,Industrial stitching assembly,Precision fabric cutting' | split: ','
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --talon-oem-story-max: {% if section.settings.content_width == 'sm' %}28rem{% elsif section.settings.content_width == 'md' %}30rem{% else %}33rem{% endif %};
+    --talon-oem-story-title: clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem);
+    --talon-oem-story-body: calc(var(--text-base) * 1.125);
+    --talon-oem-story-lead: calc(var(--text-lg) * 1.1);
+  }
+
+  .talon-oem-showcase-top{
+  padding-block-start:clamp(4.5rem, 8vw, 7rem) !important;
+  }
+</style>
+
+<style>
+    .talon-gallery-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+    z-index: 9999;
+    padding: 20px;
+  }
+
+  .talon-gallery-popup.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .talon-gallery-popup-image {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+
+  .talon-gallery-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 42px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .talon-gallery-trigger img {
+    cursor: pointer;
+    transition: transform .3s ease;
+  }
+
+  .talon-gallery-trigger:hover img {
+    transform: scale(1.02);
+  }
+{% comment %} dots css {% endcomment %}
+
+.talon-oem-showcase__gallery-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.talon-oem-showcase__gallery-dots span.active {
+  background: #000;
+  transform: scale(1.2);
+}
+
+ @media screen and (max-width: 500px) {
+  .talon-gallery-popup {
+    display: none !important;
+  }
+}
+</style>
+
+{% comment %} popup script {% endcomment %}
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const popup = document.querySelector('.talon-gallery-popup');
+    const popupImg = document.querySelector('.talon-gallery-popup-image');
+    const closeBtn = document.querySelector('.talon-gallery-close');
+
+    document.querySelectorAll('.talon-gallery-trigger img').forEach(img => {
+     img.addEventListener('click', function (e) {
+
+  e.preventDefault(); // Stop link redirect
+
+  if (window.innerWidth <= 500) {
+    return; // Do nothing on mobile
+  }
+
+  popupImg.src = this.src;
+  popupImg.alt = this.alt || '';
+
+  popup.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+    });
+
+    function closePopup() {
+      popup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closePopup);
+
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) {
+        closePopup();
+      }
+    });
+
+  });
+  </script>
+
+  {% comment %} dots script {% endcomment %}
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const gallery = document.querySelector('.talon-oem-showcase__gallery');
+  const dots = document.querySelectorAll('.talon-oem-showcase__gallery-dots span');
+
+  if (!gallery || !dots.length) return;
+
+  function updateDots() {
+    const scrollLeft = gallery.scrollLeft;
+    const itemWidth = gallery.scrollWidth / dots.length;
+    const activeIndex = Math.round(scrollLeft / itemWidth);
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === activeIndex);
+    });
+  }
+
+  gallery.addEventListener('scroll', updateDots);
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      const itemWidth = gallery.scrollWidth / dots.length;
+
+      gallery.scrollTo({
+        left: itemWidth * index,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  updateDots();
+});
+</script>
+
+<div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }} {% if section.settings.separate_section_with_border %}bordered-section{% endif %}">
+  <div class="talon-oem-showcase__wrap">
+    <div class="talon-oem-showcase">
+      {%- comment -%} Section 1 — Manufacturer story {%- endcomment -%}
+      <section
+        class="talon-oem-showcase-top talon-oem-showcase__layer talon-oem-showcase__layer--story {% if section.settings.image_position == 'start' %}talon-oem-showcase__layer--story-image-start{% endif %}"
+        aria-labelledby="talon-oem-story-heading-{{ section.id }}"
+      >
+        <div class="talon-oem-showcase__story-copy text-start">
+          {%- if section.settings.heading != blank -%}
+            <header class="talon-oem-showcase__story-header">
+              <h2 id="talon-oem-story-heading-{{ section.id }}" class="h2 talon-oem-showcase__story-heading">
+                {{- section.settings.heading | escape -}}
+              </h2>
+            </header>
+          {%- endif -%}
+
+          {%- if story_content != blank -%}
+            <div class="prose prose--tight talon-oem-showcase__story-body text-start">
+              {{- story_content -}}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <figure class="talon-oem-showcase__story-figure">
+          {%- render 'talon-oem-showcase-gallery-image',
+            image: section.settings.image,
+            asset: placeholder_primary,
+            alt: image_alt,
+            class: 'talon-oem-showcase__story-image',
+            sizes: hero_sizes,
+            loading: loading_strategy
+          -%}
+        </figure>
+      </section>
+
+      {% comment %} popup model {% endcomment %}
+
+      <div class="talon-gallery-popup">
+  <span class="talon-gallery-close">&times;</span>
+  <img class="talon-gallery-popup-image" src="" alt="">
+</div>
+
+{% comment %} popup model end {% endcomment %}
+
+      {%- comment -%} Manufacturing image showcase (above capabilities) {%- endcomment -%}
+      <section class="talon-oem-showcase__layer talon-oem-showcase__layer--gallery" aria-label="{{ 'Manufacturing gallery' | escape }}">
+        <div class="talon-oem-showcase__gallery">
+          {%- for image_key in gallery_image_keys -%}
+            {%- assign gallery_index = forloop.index0 -%}
+            {%- assign picked_image = section.settings[image_key] -%}
+            {%- assign picked_placeholder = section.settings[gallery_placeholder_keys[gallery_index]] | default: gallery_default_assets[gallery_index] -%}
+            {%- assign picked_alt = section.settings[gallery_alt_keys[gallery_index]] | default: gallery_default_alts[gallery_index] -%}
+
+            {%- if picked_image != blank or picked_placeholder != blank -%}
+              {%- render 'talon-oem-showcase-gallery-item',
+                image: picked_image,
+                asset: picked_placeholder,
+                alt: picked_alt,
+                loading: 'lazy'
+              -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="talon-oem-showcase__gallery-dots" aria-hidden="true">
+          {%- for image_key in gallery_image_keys -%}
+            {%- assign gallery_index = forloop.index0 -%}
+            {%- assign picked_image = section.settings[image_key] -%}
+            {%- assign picked_placeholder = section.settings[gallery_placeholder_keys[gallery_index]] | default: gallery_default_assets[gallery_index] -%}
+
+            {%- if picked_image != blank or picked_placeholder != blank -%}
+              <span></span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </section>
+
+      {%- comment -%} Section 2 — Manufacturing capabilities {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <section
+          class="talon-oem-showcase__layer talon-oem-showcase__layer--capabilities"
+          aria-label="{{ section.settings.features_heading | default: 'Manufacturing capabilities' | escape }}"
+        >
+          <div class="talon-oem-showcase__capabilities">
+            <ol class="talon-oem-showcase__cap-grid unstyled-list" role="list">
+              {%- for block in section.blocks -%}
+                {%- render 'talon-oem-showcase-feature',
+                  block: block,
+                  icon_color: section.settings.icon_color
+                -%}
+              {%- endfor -%}
+            </ol>
+          </div>
+        </section>
+      {%- endif -%}
+
+      {%- comment -%} Section 3 — Why Choose Us (unified CTA + capability showcase) {%- endcomment -%}
+      {%- if section.settings.cta_heading != blank or section.settings.cta_text != blank -%}
+        <section
+          class="talon-oem-showcase__layer talon-oem-showcase__layer--cta"
+          aria-labelledby="talon-oem-why-heading-{{ section.id }}"
+        >
+          <div class="talon-oem-showcase__why-unified" role="region" aria-label="Why choose TALON manufacturing">
+            <header class="talon-oem-showcase__why-intro">
+              {%- if section.settings.cta_heading != blank -%}
+                <h3 id="talon-oem-why-heading-{{ section.id }}" class="talon-oem-showcase__why-heading">
+                  {{ section.settings.cta_heading | escape }}
+                </h3>
+              {%- endif -%}
+
+              {%- if section.settings.cta_text != blank -%}
+                <p class="talon-oem-showcase__why-lead">{{ section.settings.cta_text | escape }}</p>
+              {%- endif -%}
+
+              {%- if section.settings.cta_button_text != blank -%}
+                <div class="talon-oem-showcase__why-intro-action">
+                  {%- render 'button',
+                    content: section.settings.cta_button_text,
+                    href: section.settings.cta_button_link,
+                    style: 'outline',
+                    subdued: true
+                  -%}
+                </div>
+              {%- endif -%}
+            </header>
+
+            <div class="talon-oem-showcase__why-grid">
+              {%- render 'talon-oem-showcase-why-pillar',
+                pillar_icon: 'picto-box',
+                title: 'One-Stop Solution',
+                point_1: 'Customized designs',
+                point_2: 'Sample and bulk production',
+                point_3: 'Custom labels and packaging',
+                point_4: 'Logistics and customs clearance'
+              -%}
+
+              {%- render 'talon-oem-showcase-why-pillar',
+                pillar_icon: 'picto-timer',
+                title: 'Timely Delivery & Production Support',
+                point_1: 'Sample order: 10-20 days',
+                point_2: 'Bulk order: 20-30 days',
+                point_3: '24/7 customer support'
+              -%}
+
+              {%- render 'talon-oem-showcase-why-pillar',
+                pillar_icon: 'picto-percent',
+                title: 'Low MOQ',
+                point_1: 'MOQ: 100 pieces per style',
+                point_2: 'Mix of 4 customized sizes',
+                point_3: 'One design per color',
+                point_4: 'Cost-effective solutions'
+              -%}
+
+              {%- render 'talon-oem-showcase-why-pillar',
+                pillar_icon: 'picto-shield',
+                title: 'Premium Quality Products',
+                point_1: 'High-quality yarn and fabrics',
+                point_2: 'Standardized production processes',
+                point_3: 'Five-stage quality inspection',
+                point_4: 'Refund policy for defective products'
+              -%}
+            </div>
+          </div>
+        </section>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TALON OEM showcase",
+  "class": "shopify-section--talon-oem-showcase",
+  "tag": "section",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "separate_section_with_border",
+      "label": "t:global.section.separate_section_with_border",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section 1 — Story imagery"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Manufacturing image",
+      "info": "Single premium factory or production visual."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "TALON sportswear manufacturing facility"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_asset",
+      "label": "Placeholder asset filename",
+      "default": "custom-sportswear-manufacturing-factory-banner.jpg"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:global.image.position",
+      "options": [
+        {
+          "value": "end",
+          "label": "t:global.position.right"
+        },
+        {
+          "value": "start",
+          "label": "t:global.position.left"
+        }
+      ],
+      "default": "end"
+    },
+    {
+      "type": "header",
+      "content": "Section 1 — Story content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:global.text.heading",
+      "default": "Sportswear Manufacturer"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:global.text.content",
+      "default": "<p>TALON GLOBAL Ltd. is a professional sportswear manufacturer with more than 20 years of experience.</p><p>Our company covers an area of 3,000 square meters, with more than 10 advanced production lines and 300 staff members, with an annual output of more than 3 million pieces.</p><p>We provide one-stop customized services, including product design, sample and bulk order production.</p><p>We do not have MOQ.</p><p>We have a strict product quality control process that enables us to deliver quality products to customers on time.</p><p>We look forward to establishing a long-term business relationship with you!</p>"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:global.sizes.content_width",
+      "options": [
+        {
+          "value": "sm",
+          "label": "t:global.sizes.small"
+        },
+        {
+          "value": "md",
+          "label": "t:global.sizes.medium"
+        },
+        {
+          "value": "lg",
+          "label": "t:global.sizes.large"
+        }
+      ],
+      "default": "md"
+    },
+    {
+      "type": "header",
+      "content": "Manufacturing image gallery"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Gallery image 1"
+    },
+    {
+      "type": "text",
+      "id": "gallery_placeholder_1",
+      "label": "Gallery image 1 placeholder",
+      "default": "talon-factory-02.webp"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt_1",
+      "label": "Gallery image 1 alt",
+      "default": "Sportswear production floor"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Gallery image 2"
+    },
+    {
+      "type": "text",
+      "id": "gallery_placeholder_2",
+      "label": "Gallery image 2 placeholder",
+      "default": "talon-factory-03.webp"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt_2",
+      "label": "Gallery image 2 alt",
+      "default": "Garment manufacturing line"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Gallery image 3"
+    },
+    {
+      "type": "text",
+      "id": "gallery_placeholder_3",
+      "label": "Gallery image 3 placeholder",
+      "default": "talon-factory-05.webp"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt_3",
+      "label": "Gallery image 3 alt",
+      "default": "Factory quality workflow"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_4",
+      "label": "Gallery image 4"
+    },
+    {
+      "type": "text",
+      "id": "gallery_placeholder_4",
+      "label": "Gallery image 4 placeholder",
+      "default": "industrial-garment-stitching-assembly-line.jpg"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt_4",
+      "label": "Gallery image 4 alt",
+      "default": "Industrial stitching assembly"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_5",
+      "label": "Gallery image 5"
+    },
+    {
+      "type": "text",
+      "id": "gallery_placeholder_5",
+      "label": "Gallery image 5 placeholder",
+      "default": "talon-factory-06.webp"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt_5",
+      "label": "Gallery image 5 alt",
+      "default": "Precision fabric cutting"
+    },
+    {
+      "type": "header",
+      "content": "Section 2 — Capabilities"
+    },
+    {
+      "type": "text",
+      "id": "features_heading",
+      "label": "Capabilities heading",
+      "default": "OEM / ODM MANUFACTURING CAPABILITIES"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "t:sections.text_with_icons.icon_color"
+    },
+    {
+      "type": "header",
+      "content": "Section 3 — CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Why Did You Choose Us?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "From Concept To Completion,\nWe Transform Your Ideas Into Reality."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA button text"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Capability",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:global.icons.icon",
+          "options": [
+            {
+              "value": "picto-building",
+              "label": "t:global.icons.building"
+            },
+            {
+              "value": "picto-star",
+              "label": "t:global.icons.star"
+            },
+            {
+              "value": "picto-gift",
+              "label": "t:global.icons.gift"
+            },
+            {
+              "value": "picto-customer-support",
+              "label": "t:global.icons.customer_support"
+            },
+            {
+              "value": "picto-delivery-truck",
+              "label": "t:global.icons.delivery_truck"
+            },
+            {
+              "value": "picto-percent",
+              "label": "t:global.icons.percent"
+            },
+            {
+              "value": "picto-operator",
+              "label": "t:global.icons.operator"
+            },
+            {
+              "value": "picto-shield",
+              "label": "t:global.icons.shield"
+            },
+            {
+              "value": "picto-credit-card",
+              "label": "t:global.icons.credit_card"
+            },
+            {
+              "value": "picto-lock",
+              "label": "t:global.icons.lock"
+            }
+          ],
+          "default": "picto-building"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:global.text.title",
+          "default": "Capability"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TALON OEM showcase",
+      "category": "TALON",
+      "settings": {
+        "features_heading": "OEM / ODM MANUFACTURING CAPABILITIES",
+        "cta_heading": "Why Did You Choose Us?",
+        "cta_text": "From Concept To Completion,\nWe Transform Your Ideas Into Reality."
+      },
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-building",
+            "title": "OEM & ODM Sportswear Customization"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-star",
+            "title": "20 Years Experience"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-gift",
+            "title": "Professional Design Team"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-customer-support",
+            "title": "Reliable After-Sale Service"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-delivery-truck",
+            "title": "On Time Delivery"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-percent",
+            "title": "LOW MOQ"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-operator",
+            "title": "24 Hours Online Contact"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "picto-shield",
+            "title": "All Payments Are Secured and Trusted"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

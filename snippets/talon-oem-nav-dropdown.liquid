@@ -1,0 +1,47 @@
+{%- comment -%}
+  OEM & ODM nav links — single source for desktop compact dropdown and mobile drawer.
+  Params:
+    oem_odm_url — page URL without hash (default /pages/oem-odm)
+    variant — 'sidebar' for mobile drawer list items; default desktop dropdown
+{%- endcomment -%}
+{%- assign oem_base = oem_odm_url | default: '/pages/oem-odm' -%}
+{%- assign is_sidebar = false -%}
+{%- if variant == 'sidebar' -%}
+  {%- assign is_sidebar = true -%}
+{%- endif -%}
+
+{%- capture sidebar_link_class -%}header-sidebar__linklist-button{% if section.settings.sidebar_text_font == 'heading' %} h6{% endif %}{%- endcapture -%}
+
+{%- if is_sidebar -%}
+  <li>
+    <a href="{{ oem_base }}#customization-capabilities" class="{{ sidebar_link_class }}">Customized Service</a>
+  </li>
+  <li>
+    <a href="{{ oem_base }}#oem-details" class="{{ sidebar_link_class }}">Craft &amp; Materials</a>
+  </li>
+ 
+  <li>
+    <a href="{{ oem_base }}#oem-rfq" class="{{ sidebar_link_class }}">Payment &amp; Logistics Service</a>
+    {% comment %} <a href="https://taloneshop.com/pages/shipping-payment-info class="{{ sidebar_link_class }}">Payment &amp; Logistics Service</a> {% endcomment %}
+  </li>
+   <li>
+    <a href="{{ oem_base }}#faq" class="{{ sidebar_link_class }}">FAQ</a>
+    {% comment %} <a href="https://taloneshop.com/pages/faq-section" class="{{ sidebar_link_class }}">FAQ</a> {% endcomment %}
+  </li>
+{%- else -%}
+  <li>
+    <a href="{{ oem_base }}#customization-capabilities" class="link-faded-reverse">Customized Service</a>
+  </li>
+  <li>
+    <a href="{{ oem_base }}#oem-details" class="link-faded-reverse">Craft &amp; Materials</a>
+  </li>
+
+  <li>
+    <a href="{{ oem_base }}#oem-rfq" class="link-faded-reverse">Payment &amp; Logistics Service</a>
+    {% comment %} <a href="https://taloneshop.com/pages/shipping-payment-info" class="link-faded-reverse">Payment &amp; Logistics Service</a> {% endcomment %}
+  </li>
+    <li>
+    <a href="{{ oem_base }}#faq" class="link-faded-reverse">FAQ</a>
+    {% comment %} <a href="https://taloneshop.com/pages/faq-section" class="link-faded-reverse">FAQ</a> {% endcomment %}
+  </li>
+{%- endif -%}

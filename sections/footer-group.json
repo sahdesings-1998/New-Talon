@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links": {
+          "type": "links",
+          "disabled": true,
+          "settings": {
+            "menu": "about-talon",
+            "show_menu_title": true,
+            "menu_title": ""
+          }
+        },
+        "links_KhjBfV": {
+          "type": "links",
+          "settings": {
+            "menu": "customer-service",
+            "show_menu_title": true,
+            "menu_title": ""
+          }
+        },
+        "text_yVNtmD": {
+          "type": "text",
+          "settings": {
+            "title": "Contact Us",
+            "content": "<p>HK Office: Room 13B, 13/F, Hollywood Centre, 77-91 Queen's Road West, Sheung Wan, Hong Kong<br/>Factory: 1/F, A3 District, No.5 Xinggong Road, Longxing Industrial Zone, Shaxi Town, Zhongshan City, Guangdong, China<br/>Lynda Morris Design Director<br/>Dora Custom Service Manager<br/><br/>Phone:<br/>Email: Dorali@talonglobal.com<br/>Whatsapp:</p>",
+            "enable_follow_on_shop": false
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "title": "",
+            "content": "<p>Signup Deal</p>",
+            "button_background": "",
+            "button_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "links",
+        "links_KhjBfV",
+        "text_yVNtmD",
+        "newsletter"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": false,
+        "show_social_media": true,
+        "show_payment_icons": true,
+        "show_country_selector": true,
+        "show_country_name": true,
+        "show_country_flag": true,
+        "show_locale_selector": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

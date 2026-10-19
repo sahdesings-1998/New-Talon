@@ -1,0 +1,1003 @@
+/* TALON OEM showcase — premium 3-section manufacturer presentation */
+
+
+
+.shopify-section--talon-oem-showcase {
+  --talon-oem-shadow-soft: 0 1px 0 rgb(var(--text-color) / 0.04);
+  --talon-oem-shadow-md: 0 4px 14px rgb(var(--text-color) / 0.06);
+  --talon-oem-shadow-lg: 0 10px 28px rgb(var(--text-color) / 0.08);
+  --talon-oem-gradient-surface: linear-gradient(
+    165deg,
+    rgb(var(--text-color) / 0.045) 0%,
+    rgb(var(--background)) 42%,
+    rgb(var(--background)) 100%
+  );
+  --talon-oem-gradient-icon: linear-gradient(
+    160deg,
+    rgb(var(--text-color) / 0.09) 0%,
+    rgb(var(--text-color) / 0.035) 52%,
+    rgb(var(--background)) 100%
+  );
+  --talon-oem-gradient-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(var(--text-color) / 0.07) 100%
+  );
+  /* Map to shared OEM layout tokens (talon-oem-layout.css) */
+  --talon-oem-cap-gap: var(--talon-oem-capability-gap);
+  --talon-oem-cap-grid-row-gap: var(--talon-oem-capability-gap);
+  --talon-oem-cap-grid-col-gap: var(--talon-oem-space-flow-tight);
+  --talon-oem-why-pad-x: var(--talon-oem-wrap-pad-x);
+  --talon-oem-why-intro-pad-y: var(--talon-oem-space-flow-medium);
+  --talon-oem-interactive-accent: var(--accent, var(--button-background));
+  --talon-oem-brand: #00afcc;
+  font-weight: 500;
+}
+
+/* Section shell — half-gap top/bottom (pairs with adjacent sections for full --section-gap) */
+.shopify-section--talon-oem-showcase .section-spacing {
+  padding-block-start: var(--section-gap-half);
+  padding-block-end: var(--section-gap-half);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__wrap {
+  width: 100%;
+  max-width: var(--talon-oem-wrap-max);
+  margin-inline: auto;
+  padding-inline: var(--talon-oem-wrap-pad-x);
+  min-width: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase {
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+  min-width: 0;
+  gap: 0;
+}
+
+/* —— Shared layer rhythm (OEM page section flow) —— */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer {
+  padding-block: var(--talon-oem-space-section-pad);
+  margin-block-start: var(--talon-oem-space-section);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer:first-child {
+  margin-block-start: 0;
+  padding-block-start: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer + .talon-oem-showcase__layer {
+  border-block-start: none;
+}
+
+/* ═══════════════════════════════════════
+   Section 1 — Manufacturer story
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story {
+  display: grid;
+  gap: var(--talon-oem-space-flow-medium);
+  align-items: stretch;
+  margin-block-start: 0;
+  padding-block-start: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: start;
+  gap: 0;
+  width: 100%;
+  max-width: var(--talon-oem-story-max, 30rem);
+  margin-inline: auto;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-header {
+  width: 100%;
+  margin-block-end: var(--talon-oem-space-title-after);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading {
+  /* font-size: var(--talon-oem-story-title, clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem)); */
+  /* font-weight: 500; */
+  letter-spacing: 0em;
+  /* line-height: 1.25; */
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  text-align: start;
+  word-spacing:2px;
+  text-transform: uppercase;
+  color: rgb(var(--text-color));
+  text-wrap: balance;
+      font-size: 30px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body {
+  /* font-family: var(--text-font-family);
+  font-size: var(--talon-oem-story-body, calc(var(--text-base) * 1.125));
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgb(var(--text-color) / 0.9);
+  width: 100%; */
+  font-size: clamp(1rem, 0.8vw + 0.5rem, 1.125rem) !important;
+    line-height: 1.62;
+    color: black;
+    font-weight: 400;
+    line-height: clamp(1.125rem, 2vw, 1.6875rem);
+    word-wrap: break-word;
+    white-space: normal;
+    word-spacing:2px;
+    margin: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body .talon-oem-showcase__em {
+  font-weight: 600;
+  color: inherit;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(:not(meta, span) + *) {
+  margin-block-start: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p) {
+  margin-block: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:first-child) {
+    color: rgb(var(--text-color));
+    font-size: clamp(1rem, .8vw + .5rem, 1.125rem) !important;
+    font-weight: 400;
+    line-height: clamp(1.125rem, 2vw, 1.6875rem);
+    word-wrap: break-word;
+    white-space: normal;
+    word-spacing: 2px;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(2)),
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(3)) {
+  color: rgb(var(--text-color) / 0.9);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p + p) {
+  margin-block-start: 1.0625rem;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(4)) {
+  margin-block-start: 1.25rem;
+  color: rgb(var(--text-color));
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(5)),
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(6)) {
+  margin-block-start: 0.9375rem;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:nth-child(5)) {
+  margin-block-start: 1.375rem;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:last-child) {
+  color: rgb(var(--text-color) / 0.78);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure {
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  min-height: 15rem;
+  border-radius: var(--image-radius);
+  background: rgb(var(--text-color) / 0.04);
+  box-shadow: var(--talon-oem-shadow-md);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__story-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (min-width: 700px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--talon-oem-space-flow-medium);
+    align-items: stretch;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story-image-start .talon-oem-showcase__story-figure {
+    order: -1;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-copy {
+    margin-inline: 0;
+    max-width: none;
+    align-self: stretch;
+    align-items: flex-start;
+    min-height: 100%;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-header {
+    margin-block-end: var(--talon-oem-space-title-after);
+  }
+
+  /* .shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading {
+    font-size: clamp(1.625rem, 1.25rem + 1.2vw, 2.25rem);
+    letter-spacing: 0.065em;
+    line-height: 1.22;
+  } */
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body {
+    /* font-size: calc(var(--text-base) * 1.15); */
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:first-child) {
+    /* font-size: calc(var(--text-lg) * 1.12); */
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p + p) {
+    margin-block-start: 1.125rem;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure {
+    align-self: stretch;
+    aspect-ratio: auto;
+    min-height: 100%;
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story {
+    grid-template-columns: minmax(0, 1.02fr) minmax(20rem, 1fr);
+    gap: var(--talon-oem-space-section);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure {
+    min-height: 26rem;
+  }
+}
+
+/* ═══════════════════════════════════════
+   Manufacturing image gallery
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery {
+  margin-block-start: var(--talon-oem-capability-gap);
+  padding-block: 0;
+  background: transparent;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story + .talon-oem-showcase__layer--gallery,
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery + .talon-oem-showcase__layer--capabilities {
+  border-block-start: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery {
+  display: flex;
+  gap: var(--talon-oem-space-flow-tight);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+  flex: 0 0 min(72vw, 15.5rem);
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  min-height: 0;
+  scroll-snap-align: start;
+  border-radius: var(--image-radius);
+  /* box-shadow: var(--talon-oem-shadow-md); */
+  box-shadow: none;
+  transition:
+    box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item:hover {
+  box-shadow: var(--talon-oem-shadow-lg);
+  transform: translateY(-2px);
+} */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* background: var(--talon-oem-gradient-image); */
+  background: none;
+  opacity: 0.85;
+  transition: opacity 0.35s ease;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item:hover .talon-oem-showcase__gallery-media::after {
+  opacity: 1;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-dots {
+  display: none;
+}
+
+@media screen and (min-width: 700px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--talon-oem-space-flow-tight);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+    flex: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* ═══════════════════════════════════════
+   Section 2 — Capabilities (icon-focused)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story + .talon-oem-showcase__layer--capabilities,
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery + .talon-oem-showcase__layer--capabilities {
+  border-block-start: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities {
+  margin-block-start: var(--talon-oem-capability-gap);
+  padding-block: 0;
+  background: transparent;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__capabilities {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--talon-oem-cap-grid-row-gap) var(--talon-oem-cap-grid-col-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__cap-item {
+  display: grid;
+  grid-template-rows: auto minmax(2.75em, auto);
+  align-items: start;
+  justify-items: center;
+  gap: clamp(0.5rem, 1vw, 0.625rem);
+  padding: clamp(0.375rem, 1vw, 0.5rem);
+  border: none;
+  background: transparent;
+  text-align: center;
+  list-style: none;
+  cursor: default;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__cap-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(4.25rem, 10vw, 5.5rem);
+  height: clamp(4.25rem, 10vw, 5.5rem);
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--talon-oem-gradient-icon);
+  border: 1px solid rgb(var(--text-color) / 0.09);
+  color: rgb(var(--text-color));
+  box-shadow:
+    var(--talon-oem-shadow-soft),
+    var(--talon-oem-shadow-md);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__cap-icon svg {
+  width: clamp(1.75rem, 4vw, 2.25rem);
+  height: clamp(1.75rem, 4vw, 2.25rem);
+  shape-rendering: geometricPrecision;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__cap-title {
+  font-family: var(--heading-font-family);
+  font-size: clamp(0.9375rem, 0.85rem + 0.35vw, 1.125rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: clamp(1.125rem, 2vw, 1.6875rem);
+  margin: 0;
+  max-width: 13.5rem;
+  color: rgb(var(--text-color));
+  text-wrap: balance;
+  align-self: start;
+  text-align: center;
+}
+
+@media screen and (min-width: 700px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-item {
+    grid-template-rows: auto minmax(2.65em, auto);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-title {
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.1875rem);
+    max-width: 11.5rem;
+    line-height: clamp(1rem, 2vw, 1.125rem);
+    min-height: calc(2 * 1.32em);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-title {
+    /* font-size: clamp(1.03125rem, 0.95rem + 0.3vw, 1.28125rem); */
+            font-size: clamp(1rem,.8vw + .5rem,1.125rem);
+        word-spacing: 2px;
+    line-height: clamp(1rem, 2vw, 1.125rem);
+    max-width: 13rem;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-heading {
+    font-size: clamp(1.15625rem, 1rem + 0.58vw, 1.5rem);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-title {
+    font-size: clamp(1.03125rem, 0.94rem + 0.32vw, 1.21875rem);
+  }
+}
+
+/* ═══════════════════════════════════════
+   Section 3 — Why Choose Us (unified block)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities + .talon-oem-showcase__layer--cta,
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery + .talon-oem-showcase__layer--cta {
+  border-block-start: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery + .talon-oem-showcase__layer--cta,
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities + .talon-oem-showcase__layer--cta {
+  margin-block-start: var(--talon-oem-space-section);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  margin-block-start: var(--talon-oem-space-section);
+  padding-block: 0;
+  background: transparent;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-unified {
+  --talon-oem-why-card-pad-y: clamp(1.125rem, 2.25vw, 1.5rem);
+  --talon-oem-why-card-pad-x: clamp(1.125rem, 2.5vw, 1.5rem);
+  --talon-oem-why-accent: var(--talon-oem-interactive-accent);
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  background: #fff;
+  border: 1px solid rgb(var(--border-color, var(--text-color) / 0.12));
+  border-radius: var(--talon-oem-radius-card);
+  box-shadow: var(--talon-oem-shadow-soft);
+  overflow: hidden;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--talon-oem-why-intro-pad-y) var(--talon-oem-why-pad-x);
+  border-block-end: 1px solid rgb(var(--text-color) / 0.08);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-heading {
+ font-family: var(--heading-font-family);
+    font-size: 30px;
+    font-weight: bold;
+    word-spacing:2px;
+    letter-spacing: 0em;
+    /* line-height: clamp(1rem, 2vw, 1.125rem); */
+    margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+    /* margin: 0 0 var(--talon-oem-space-title-after); */
+    max-width: 68ch;
+    text-transform: uppercase;
+    color: rgb(var(--text-color));
+    text-wrap: balance;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-lead {
+  font-family: var(--text-font-family);
+    font-size: clamp(1.125rem,1.5vw,1.25rem);
+    font-weight: bold;
+    letter-spacing: 0em;
+    line-height: clamp(1rem, 2vw, 1.125rem);
+    margin: 0;
+    max-width: 68ch;
+        word-spacing: 2px;
+    color: black;
+    text-transform: uppercase;
+    /* white-space: pre-line; */
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-intro-action {
+  margin-block-start: var(--talon-oem-space-flow-medium);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:first-child {
+  border-block-start: none;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* gap: clamp(0.6875rem, 1.15vw, 0.875rem); */
+  gap: clamp(1.5rem, 2.5vw, 2rem);
+  padding: var(--talon-oem-why-card-pad-y) var(--talon-oem-why-card-pad-x);
+  margin: 0;
+  background: #fff;
+  border-block-start: 1px solid rgb(var(--border-color, var(--text-color) / 0.1));
+  cursor: default;
+  transition:
+    transform 0.36s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    background-color 0.36s ease,
+    box-shadow 0.36s ease;
+}
+
+@media screen and (pointer: fine) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(
+      180deg,
+      rgb(var(--text-color) / 0.03) 0%,
+      #fff 100%
+    );
+    box-shadow: 0 6px 20px rgb(var(--text-color) / 0.06);
+  }
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(3.5rem, 7vw, 4.125rem);
+  height: clamp(3.5rem, 7vw, 4.125rem);
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--talon-oem-gradient-icon);
+  border: 1px solid rgb(var(--text-color) / 0.09);
+  color: rgb(var(--text-color));
+  box-shadow: var(--talon-oem-shadow-soft);
+  transition:
+    border-color 0.36s ease,
+    box-shadow 0.36s ease,
+    transform 0.36s ease;
+}
+
+@media screen and (pointer: fine) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:hover .talon-oem-showcase__why-pillar-icon {
+    border-color: rgb(var(--text-color) / 0.14);
+    box-shadow: var(--talon-oem-shadow-md);
+    transform: scale(1.04);
+  }
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-icon svg {
+  width: clamp(1.625rem, 3.5vw, 1.9375rem);
+  height: clamp(1.625rem, 3.5vw, 1.9375rem);
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-body {
+  display: flex;
+  flex-direction: column;
+  /* gap: clamp(0.4375rem, 0.85vw, 0.5625rem); */
+  gap:12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-title {
+   margin: 0;
+    font-family: var(--heading-font-family);
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+    font-weight: bold;
+    word-spacing: 2px;
+    line-height: clamp(1.125rem, 2vw, 1.6875rem);
+    text-transform: uppercase;
+    color: black;
+    text-wrap: balance;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-points {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.375rem, 0.75vw, 0.5rem);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-points li {
+  /* position: relative;
+  padding-inline-start: 0.875rem;
+  font-family: var(--text-font-family);
+  font-size: clamp(0.8125rem, 0.78rem + 0.18vw, 0.9375rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: rgb(var(--text-color) / 0.76); */
+
+     /* position: relative; */
+    /* padding-inline-start: .875rem; */
+    font-family: var(--text-font-family);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    /* font-weight: 500; */
+    line-height: 1.55;
+    color: black;
+}
+
+.shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-points li::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0.58em;
+  inset-inline-start: 0;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background: rgb(var(--text-color) / 0.32);
+}
+
+@media screen and (min-width: 700px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:nth-child(odd) {
+    border-inline-end: 1px solid rgb(var(--text-color) / 0.06);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:nth-child(-n + 2) {
+    border-block-start: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+
+
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar {
+    min-height: 10.25rem;
+    padding: clamp(1.375rem, 2.25vw, 1.75rem) clamp(1.125rem, 1.75vw, 1.5rem);
+    border-block-start: none;
+    border-inline-end: 1px solid rgb(var(--border-color, var(--text-color) / 0.1));
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:last-child {
+    border-inline-end: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:nth-child(odd) {
+    border-inline-end: 1px solid rgb(var(--border-color, var(--text-color) / 0.1));
+  }
+}
+
+/* ═══════════════════════════════════════
+   Mobile & tablet responsive
+   ═══════════════════════════════════════ */
+
+@media screen and (max-width: 699px) {
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-header {
+  width: 100%;
+  margin-block-end:0px;
+}
+  .shopify-section--talon-oem-showcase .section-spacing {
+    padding-block-start: var(--section-gap-half);
+    padding-block-end: var(--section-gap-half);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer {
+    padding-block: 0;
+    margin-block-start: var(--talon-oem-space-flow-medium);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story {
+    gap: var(--talon-oem-capability-gap);
+    margin-block-start: 0;
+    padding-block-start: 0;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-copy {
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-heading {
+    font-size:clamp(15px, 5vw, 20px);
+    letter-spacing: 0em;
+    line-height: 1.2;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body {
+    font-size: calc(var(--text-base) * 1.0625);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:first-child) {
+    font-size: calc(var(--text-lg) * 1.03);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure {
+    aspect-ratio: 16 / 10;
+    max-height: min(52vh, 20rem);
+    min-height: 0;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery {
+    margin-block-start: var(--talon-oem-capability-gap);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities {
+    margin-block-start: var(--talon-oem-capability-gap);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta {
+    margin-block-start: var(--talon-oem-space-flow-medium);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__wrap .talon-oem-showcase__gallery {
+    gap: var(--talon-oem-space-flow-tight);
+    margin-inline: calc(-1 * var(--talon-oem-wrap-pad-x));
+    padding-inline: var(--talon-oem-wrap-pad-x);
+    scroll-padding-inline: var(--talon-oem-wrap-pad-x);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+    flex: 0 0 min(42vw, 10.5rem);
+    aspect-ratio: 3 / 4;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-item {
+    grid-template-rows: auto auto;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-title {
+    min-height: 0;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-icon {
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-title {
+    font-size: clamp(0.875rem, 3vw, 1.125rem);
+    max-width: 18rem;
+    line-height: clamp(1rem, 2vw, 1.125rem);
+  }
+
+  
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--cta,
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--capabilities + .talon-oem-showcase__layer--cta {
+    margin-block-start: var(--talon-oem-space-flow-medium);
+    padding-block: 0;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-unified {
+    border-radius: 0.5rem;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-intro {
+    padding-block: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-heading {
+    font-size: clamp(1.25rem, 4.3vw, 1.25rem);
+    letter-spacing: 0em;
+    max-width: 100%;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-lead {
+    font-size: clamp(1rem,2vw,1.125rem);
+    letter-spacing: 0em;
+    line-height: clamp(1rem, 2vw, 1.125rem);
+    max-width: 100%;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar {
+    min-height: 0;
+    border-inline-end: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:nth-child(odd) {
+    border-inline-end: none;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__cap-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-figure {
+    min-height: 18rem;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+
+@media screen and (max-width: 699px) {
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery {
+    position: relative;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--gallery::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: calc(-1 * var(--talon-oem-wrap-pad-x));
+    width: 4.5rem;
+    height: calc(100% - 1.25rem);
+    pointer-events: none;
+    background: linear-gradient(90deg, rgb(var(--background) / 0), rgb(var(--background)) 82%);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar {
+    align-items: center;
+    text-align: center;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-body,
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-points {
+    align-items: center;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-title,
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar-points li {
+    text-align: center;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__wrap .talon-oem-showcase__gallery {
+    display: flex;
+    gap: 0.9rem;
+    margin-inline: calc(-1 * var(--talon-oem-wrap-pad-x));
+    padding-inline: var(--talon-oem-wrap-pad-x);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--talon-oem-wrap-pad-x);
+    scrollbar-width: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__wrap .talon-oem-showcase__gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item {
+    flex: 0 0 min(86vw, 22rem);
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: center;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-block-start: 0.75rem;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-dots span {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: rgb(var(--text-color) / 0.22);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-dots span:first-child {
+    /* width: 1.2rem;
+    background: rgb(var(--text-color) / 0.55); */
+  }
+}
+
+@media (hover: none) {
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item:hover,
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:hover,
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:hover .talon-oem-showcase__why-pillar-icon {
+    transform: none;
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__gallery-item:hover {
+    box-shadow: var(--talon-oem-shadow-md);
+  }
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__why-pillar:hover {
+    box-shadow: none;
+    background: #fff;
+  }
+}
+
+:root{
+  --talon-oem-mobile-capability-gap:clamp(1.5rem, 2.5vw, 1.625rem);
+}
+
+@media screen and (max-width: 500px) {
+
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body :where(p:first-child),
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__story-body{
+    font-size:clamp(12px, 3.5vw, 14px) !important;
+    line-height:21px ;
+  }
+  .shopify-section--talon-oem-showcase .talon-oem-showcase__layer--story{
+    gap:var(--talon-oem-mobile-capability-gap);
+  }
+}

@@ -1,0 +1,41 @@
+{%- comment -%}
+  Blog nav links — desktop compact dropdown and mobile drawer.
+  Params:
+    blog_root_url — blog URL without trailing slash (default /pages/blog-posts)
+    variant — 'sidebar' for mobile drawer list items
+{%- endcomment -%}
+{%- assign blog_root = blog_root_url | default: '/pages/blog-posts' -%}
+{%- assign is_sidebar = false -%}
+{%- if variant == 'sidebar' -%}
+  {%- assign is_sidebar = true -%}
+{%- endif -%}
+
+{%- capture sidebar_link_class -%}header-sidebar__linklist-button{% if section.settings.sidebar_text_font == 'heading' %} h6{% endif %}{%- endcapture -%}
+
+{%- if is_sidebar -%}
+  <li>
+    {% comment %} <a href="{{ blog_root | append: '/tagged/exhibitions-events' }}" class="{{ sidebar_link_class }}">Exhibitions &amp; Events</a> {% endcomment %}
+    <a href="/pages/blog-posts#exhibitions-events" class="{{ sidebar_link_class }}">Exhibitions &amp; Events</a>
+  </li>
+  <li>
+    {% comment %} <a href="{{ blog_root | append: '/tagged/fashion-trends' }}" class="{{ sidebar_link_class }}">Fashion Trends</a> {% endcomment %}
+    <a href="/pages/blog-posts#fashion-trends" class="{{ sidebar_link_class }}">Fashion Trends</a>
+  </li>
+  <li>
+    {% comment %} <a href="{{ blog_root }}" class="{{ sidebar_link_class }}">Posts</a> {% endcomment %}
+    <a href="/pages/blog-posts#posts" class="{{ sidebar_link_class }}">Posts</a>
+  </li>
+{%- else -%}
+  <li>
+    {% comment %} <a href="{{ blog_root | append: '/tagged/exhibitions-events' }}" class="link-faded-reverse">Exhibitions &amp; Events</a> {% endcomment %}
+    <a href="/pages/blog-posts#exhibitions-events" class="link-faded-reverse">Exhibitions &amp; Events</a>
+  </li>
+  <li>
+    {% comment %} <a href="{{ blog_root | append: '/tagged/fashion-trends' }}" class="link-faded-reverse">Fashion Trends</a> {% endcomment %}
+    <a href="/pages/blog-posts#fashion-trends" class="link-faded-reverse">Fashion Trends</a>
+  </li>
+  <li>
+    {% comment %} <a href="{{ blog_root }}" class="link-faded-reverse">Posts</a> {% endcomment %}
+    <a href="/pages/blog-posts#posts" class="link-faded-reverse">Posts</a>
+  </li>
+{%- endif -%}

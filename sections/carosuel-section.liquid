@@ -1,0 +1,720 @@
+{% comment %}
+  ============================================================
+  RESPONSIVE CAROUSEL SECTION — Shopify Liquid
+  
+  IMAGE SIZES FOR RESPONSIVE CAROUSEL (560px desktop height):
+  ─────────────────────────────────────────────────────────────
+  Slide 1 (Split — 40% text / 60% image):
+    • Desktop : 1200 × 560 px
+    • Mobile  : 800 × 500 px
+
+  Slides 2, 3, 4 (Full-bleed image):
+    • Desktop : 1920 × 560 px
+    • Mobile  : 900 × 600 px  (portrait-friendly crop)
+
+  General tips:
+    • Use .jpg for photos, .webp for best performance
+    • Keep file size under 300 KB per image
+    • Shopify auto-serves responsive sizes via image_url filter
+  ─────────────────────────────────────────────────────────────
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Responsive Carousel",
+  "tag": "section",
+  "class": "rc-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "split_slide",
+      "name": "Slide 1 — Text + Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (recommended: 1200×560px)"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow Text",
+          "default": "New Collection"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Crafted For Every Moment"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Discover our latest arrivals, designed with purpose and worn with pride."
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#f5f0ea"
+        }
+      ]
+    },
+    {
+      "type": "image_slide",
+      "name": "Image Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (recommended: 1920×560px)"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image Alt Text",
+          "default": "Slide image"
+        }
+      ]
+    },
+    {
+      "type": "image_cta_slide",
+      "name": "Image Slide + CTA Button",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (recommended: 1920×560px)"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image Alt Text",
+          "default": "Slide image"
+        },
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "Button Label",
+          "default": "Explore Now"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg",
+          "label": "Button Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_text",
+          "label": "Button Text Color",
+          "default": "#1a1a1a"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Responsive Carousel",
+      "blocks": [
+        { "type": "split_slide" },
+        { "type": "image_slide" },
+        { "type": "image_cta_slide" },
+        { "type": "image_slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div
+  class="rc-carousel"
+  id="rc-carousel-{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+>
+  <div class="rc-track">
+
+    {% for block in section.blocks %}
+
+      {%- if block.type == 'split_slide' -%}
+        <div
+          class="rc-slide rc-slide--split"
+          style="--text-color: {{ block.settings.text_color }}; --bg-color: {{ block.settings.bg_color }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="rc-split__text">
+            {%- if block.settings.eyebrow != blank -%}
+              <span class="rc-eyebrow">{{ block.settings.eyebrow }}</span>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <h2 class="rc-heading">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if block.settings.subtext != blank -%}
+              <p class="rc-subtext">{{ block.settings.subtext }}</p>
+            {%- endif -%}
+            {%- if block.settings.btn_label != blank -%}
+              <a href="{{ block.settings.btn_url | default: '#' }}" class="rc-btn rc-btn--primary">
+                {{ block.settings.btn_label }}
+              </a>
+            {%- endif -%}
+          </div>
+          <div class="rc-split__image">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1200
+                | image_tag:
+                  loading: 'eager',
+                  widths: '400,600,800,1000,1200',
+                  sizes: '(max-width: 767px) 100vw, 60vw',
+                  alt: block.settings.heading
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'rc-placeholder' }}
+            {%- endif -%}
+          </div>
+        </div>
+
+      {%- elsif block.type == 'image_slide' -%}
+        <div class="rc-slide rc-slide--image" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1920
+              | image_tag:
+                loading: 'lazy',
+                widths: '600,900,1200,1600,1920',
+                sizes: '100vw',
+                alt: block.settings.alt_text
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'rc-placeholder' }}
+          {%- endif -%}
+        </div>
+
+      {%- elsif block.type == 'image_cta_slide' -%}
+        <div class="rc-slide rc-slide--image rc-slide--cta" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1920
+              | image_tag:
+                loading: 'lazy',
+                widths: '600,900,1200,1600,1920',
+                sizes: '100vw',
+                alt: block.settings.alt_text
+            }}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'rc-placeholder' }}
+          {%- endif -%}
+          {%- if block.settings.btn_label != blank -%}
+            
+              href="{{ block.settings.btn_url | default: '#' }}"
+              class="rc-btn rc-btn--overlay"
+              style="--btn-bg: {{ block.settings.btn_bg }}; --btn-text: {{ block.settings.btn_text }};"
+            >
+              {{ block.settings.btn_label }}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          {%- endif -%}
+        </div>
+
+      {%- endif -%}
+
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size > 1 %}
+    <button class="rc-arrow rc-arrow--prev" aria-label="Previous slide">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="rc-arrow rc-arrow--next" aria-label="Next slide">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="rc-dots" role="tablist" aria-label="Carousel navigation">
+      {% for block in section.blocks %}
+        <button
+          class="rc-dot {% if forloop.first %}rc-dot--active{% endif %}"
+          role="tab"
+          aria-label="Go to slide {{ forloop.index }}"
+          data-index="{{ forloop.index0 }}"
+        ></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+
+<style>
+/* ============================================================
+   CAROUSEL — BASE
+   ============================================================ */
+.rc-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+.rc-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rc-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+
+/* ── SLIDE BASE ── */
+.rc-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  /* Fixed height on desktop */
+  height: 560px;
+}
+
+/* ============================================================
+   SLIDE 1 — SPLIT (40% text / 60% image)
+   ============================================================ */
+.rc-slide--split {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--bg-color, #f5f0ea);
+  color: var(--text-color, #1a1a1a);
+}
+
+.rc-split__text {
+  flex: 0 0 40%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.rc-split__image {
+  flex: 0 0 60%;
+  width: 60%;
+  overflow: hidden;
+}
+
+.rc-split__image img,
+.rc-split__image .rc-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* TEXT ELEMENTS */
+.rc-eyebrow {
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+.rc-heading {
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  font-weight: 700;
+  margin: 0;
+}
+
+.rc-subtext {
+  font-size: clamp(0.875rem, 1.4vw, 1.05rem);
+  line-height: 1.6;
+  opacity: 0.75;
+  margin: 0;
+  max-width: 36ch;
+}
+
+/* ============================================================
+   FULL IMAGE SLIDES
+   ============================================================ */
+.rc-slide--image img,
+.rc-slide--image .rc-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================================
+   CTA BUTTON (Slide 3 — bottom-right overlay)
+   ============================================================ */
+.rc-slide--cta {
+  position: relative;
+}
+
+.rc-btn--overlay {
+  position: absolute;
+  bottom: clamp(1rem, 3vw, 2.5rem);
+  right: clamp(1rem, 3vw, 2.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75em 1.5em;
+  background: var(--btn-bg, #ffffff);
+  color: var(--btn-text, #1a1a1a);
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.rc-btn--overlay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+}
+
+/* ============================================================
+   PRIMARY BUTTON (Slide 1)
+   ============================================================ */
+.rc-btn--primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75em 1.75em;
+  background: var(--text-color, #1a1a1a);
+  color: var(--bg-color, #f5f0ea);
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.rc-btn--primary:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   ARROWS
+   ============================================================ */
+.rc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  cursor: pointer;
+  width: clamp(36px, 5vw, 52px);
+  height: clamp(36px, 5vw, 52px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #1a1a1a;
+}
+
+.rc-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.rc-arrow--prev { left: clamp(0.75rem, 2vw, 1.5rem); }
+.rc-arrow--next { right: clamp(0.75rem, 2vw, 1.5rem); }
+
+/* ============================================================
+   DOTS
+   ============================================================ */
+.rc-dots {
+  position: absolute;
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.rc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.rc-dot--active {
+  background: #ffffff;
+  transform: scale(1.35);
+}
+
+/* ============================================================
+   PLACEHOLDER SVG
+   ============================================================ */
+.rc-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (max 900px) → height 420px
+   ============================================================ */
+@media (max-width: 900px) {
+  .rc-slide {
+    height: 420px;
+  }
+  .rc-split__text  { flex: 0 0 45%; width: 45%; }
+  .rc-split__image { flex: 0 0 55%; width: 55%; }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max 600px) → auto height, stacked
+   ============================================================ */
+@media (max-width: 600px) {
+  .rc-slide {
+    height: 260px;
+  }
+
+  /* Keep 40/60 split on mobile — no stacking */
+  .rc-split__text {
+    flex: 0 0 40%;
+    width: 40%;
+    padding: 1rem 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .rc-split__image {
+    flex: 0 0 60%;
+    width: 60%;
+  }
+
+  /* Scale text down so it fits the narrower panel */
+  .rc-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .rc-heading {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .rc-subtext {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .rc-btn--primary {
+    font-size: 0.7rem;
+    padding: 0.5em 1em;
+    margin-top: 0.25rem;
+  }
+
+  /* Full-image slides */
+  .rc-slide--image {
+    height: 260px;
+  }
+
+  .rc-arrow {
+    width: 30px;
+    height: 30px;
+  }
+  .rc-arrow--prev { left: 0.4rem; }
+  .rc-arrow--next { right: 0.4rem; }
+
+  .rc-btn--overlay {
+    font-size: 0.72rem;
+    padding: 0.5em 0.9em;
+    bottom: 0.6rem;
+    right: 0.6rem;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const section = document.getElementById('rc-carousel-{{ section.id }}');
+  if (!section) return;
+
+  const track  = section.querySelector('.rc-track');
+  const dots   = section.querySelectorAll('.rc-dot');
+  const prevBtn = section.querySelector('.rc-arrow--prev');
+  const nextBtn = section.querySelector('.rc-arrow--next');
+  const slides  = section.querySelectorAll('.rc-slide');
+
+  if (slides.length <= 1) return;
+
+  const speed  = parseInt(section.dataset.speed, 10) || 5000;
+  const doAuto = section.dataset.autoplay === 'true';
+  let autoSlide;
+
+  /* ── Clone first & last ── */
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone  = slides[slides.length - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden',  'true');
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, slides[0]);
+
+  const allSlides = section.querySelectorAll('.rc-slide');
+  let currentIndex = 1; // start at real slide 0 (index 1 due to prepended clone)
+
+  /* ── Update position ── */
+  function updateSlider(transition = true) {
+    track.style.transition = transition ? 'transform 0.55s cubic-bezier(0.77, 0, 0.18, 1)' : 'none';
+    track.style.transform  = `translateX(-${currentIndex * 100}%)`;
+
+    // Update dots (real slides are index 1..slides.length)
+    const realIndex = currentIndex - 1;
+    dots.forEach((d, i) => d.classList.toggle('rc-dot--active', i === realIndex));
+  }
+
+  /* ── Infinite loop reset ── */
+  track.addEventListener('transitionend', () => {
+    if (allSlides[currentIndex].isSameNode(firstClone)) {
+      currentIndex = 1;
+      updateSlider(false);
+    }
+    if (allSlides[currentIndex].isSameNode(lastClone)) {
+      currentIndex = slides.length;
+      updateSlider(false);
+    }
+  });
+
+  /* ── Next ── */
+  nextBtn && nextBtn.addEventListener('click', () => {
+    if (currentIndex >= allSlides.length - 1) return;
+    currentIndex++;
+    updateSlider();
+    resetAutoSlide();
+  });
+
+  /* ── Prev ── */
+  prevBtn && prevBtn.addEventListener('click', () => {
+    if (currentIndex <= 0) return;
+    currentIndex--;
+    updateSlider();
+    resetAutoSlide();
+  });
+
+  /* ── Dots ── */
+  dots.forEach((d, i) => d.addEventListener('click', () => {
+    currentIndex = i + 1; // offset by 1 for prepended clone
+    updateSlider();
+    resetAutoSlide();
+  }));
+
+  /* ── Swipe ── */
+  let startX = 0;
+  section.addEventListener('pointerdown', e => { startX = e.clientX; });
+  section.addEventListener('pointerup', e => {
+    const diff = startX - e.clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0 && currentIndex < allSlides.length - 1) currentIndex++;
+      if (diff < 0 && currentIndex > 0) currentIndex--;
+      updateSlider();
+      resetAutoSlide();
+    }
+  });
+
+  /* ── Keyboard ── */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft'  && currentIndex > 0)                  { currentIndex--; updateSlider(); resetAutoSlide(); }
+    if (e.key === 'ArrowRight' && currentIndex < allSlides.length - 1) { currentIndex++; updateSlider(); resetAutoSlide(); }
+  });
+
+  /* ── Autoplay ── */
+  function startAutoSlide() {
+    if (!doAuto) return;
+    autoSlide = setInterval(() => {
+      if (currentIndex >= allSlides.length - 1) return;
+      currentIndex++;
+      updateSlider();
+    }, speed);
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlide);
+    startAutoSlide();
+  }
+
+  /* ── Pause on hover ── */
+  section.addEventListener('mouseenter', () => clearInterval(autoSlide));
+  section.addEventListener('mouseleave', startAutoSlide);
+
+  /* ── Init ── */
+  updateSlider(false);
+  startAutoSlide();
+})();
+</script>

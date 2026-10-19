@@ -1,0 +1,801 @@
+{{ 'talon-split-hero-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #talon-shs-{{ section.id }} {
+    --talon-shs-max-width: {{ section.settings.container_max_width | default: '1440px' }};
+    --talon-shs-desktop-ratio: {{ section.settings.desktop_aspect_ratio | default: '21 / 9' }};
+    --talon-shs-mobile-ratio: {{ section.settings.mobile_aspect_ratio | default: '3 / 4' }};
+    --talon-shs-desktop-height: {{ section.settings.desktop_height | default: '580px' }};
+    --talon-shs-mobile-height: {{ section.settings.mobile_height | default: 420 }}px;
+    --talon-shs-radius: {{ section.settings.corner_radius | default: 12 }}px;
+    --talon-shs-slide-bg: {{ section.settings.slide_bg | default: '#0a0f18' }};
+    --talon-shs-img-fit: {{ section.settings.image_fit | default: 'cover' }};
+    --talon-shs-img-fit-mobile: {{ section.settings.image_fit_mobile | default: 'cover' }};
+    --talon-shs-pad-top: {{ section.settings.padding_top | default: 24 }}px;
+    --talon-shs-pad-bottom: {{ section.settings.padding_bottom | default: 32 }}px;
+    --talon-shs-pad-top-mobile: {{ section.settings.padding_top_mobile | default: 16 }}px;
+    --talon-shs-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile | default: 20 }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign has_blocks = false
+  if section.blocks.size > 0
+    assign has_blocks = true
+  endif
+
+  assign fallback_banner = 'custom-sportswear-manufacturing-factory-banner.jpg' | asset_url
+-%}
+
+<div
+  id="talon-shs-{{ section.id }}"
+  class="talon-shs talon-split-hero-slider-section{% if section.settings.desktop_aspect_ratio == 'custom' %} talon-shs--fixed-desktop{% endif %}{% if section.settings.mobile_aspect_ratio == 'custom' %} talon-shs--fixed-mobile{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="talon-shs__container{% if section.settings.full_width %} talon-shs__container--full{% endif %}">
+    {% comment %} Single Centered Hero Slideshow {% endcomment %}
+    <div
+      class="talon-shs__slider-panel"
+      data-autoplay="{{ section.settings.autoplay | default: true }}"
+      data-interval="{{ section.settings.autoplay_speed | default: 4500 }}"
+    >
+      <div class="talon-shs__track">
+        {%- if has_blocks -%}
+          {% comment %} Prepend clone of last block for infinite loop {% endcomment %}
+          {%- assign last_b = section.blocks.last -%}
+          {%- liquid
+            assign last_show_text = last_b.settings.show_text_overlay
+            if last_show_text == nil
+              assign last_show_text = true
+            endif
+            if last_b.settings.title == blank and last_b.settings.subheading == blank and last_b.settings.button_text == blank
+              assign last_show_text = false
+            endif
+          -%}
+          <div class="talon-shs__slide is-clone" data-clone="last" aria-hidden="true">
+            <div class="talon-shs__slide-inner">
+              <picture class="talon-shs__picture">
+                {%- if last_b.settings.mobile_image != blank -%}
+                  <source media="(max-width: 767px)" srcset="{{ last_b.settings.mobile_image | image_url: width: 1200 }}">
+                {%- endif -%}
+                {%- if last_b.settings.image != blank -%}
+                  {{ last_b.settings.image | image_url: width: 2400 | image_tag: class: 'talon-shs__image', alt: last_b.settings.title | default: 'Slide' }}
+                {%- else -%}
+                  <img src="{{ fallback_banner }}" alt="Slide" class="talon-shs__image" width="1600" height="900">
+                {%- endif -%}
+              </picture>
+
+              {%- if last_show_text -%}
+                <div class="talon-shs__overlay" aria-hidden="true"></div>
+                <div class="talon-shs__slide-content text-{{ last_b.settings.text_alignment | default: 'left' }}">
+                  {%- if last_b.settings.subheading != blank -%}
+                    <p class="talon-shs__slide-subheading">{{ last_b.settings.subheading | escape }}</p>
+                  {%- endif -%}
+                  {%- if last_b.settings.title != blank -%}
+                    <h2 class="talon-shs__slide-title">{{ last_b.settings.title | escape }}</h2>
+                  {%- endif -%}
+                  {%- if last_b.settings.button_text != blank -%}
+                    <div class="talon-shs__slide-btn-wrap">
+                      <a href="{{ last_b.settings.button_link | default: '/pages/oem-odm' }}" class="talon-shs__slide-btn">
+                        <span>{{ last_b.settings.button_text | escape }}</span>
+                      </a>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {% comment %} Real slide blocks {% endcomment %}
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign show_slide_text = block.settings.show_text_overlay
+              if show_slide_text == nil
+                assign show_slide_text = true
+              endif
+              if block.settings.title == blank and block.settings.subheading == blank and block.settings.button_text == blank
+                assign show_slide_text = false
+              endif
+            -%}
+            <div class="talon-shs__slide" data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <div class="talon-shs__slide-inner">
+                <picture class="talon-shs__picture">
+                  {%- if block.settings.mobile_image != blank -%}
+                    <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url: width: 1200 }}">
+                  {%- endif -%}
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 2400 | image_tag:
+                      loading: 'lazy',
+                      class: 'talon-shs__image',
+                      alt: block.settings.title | default: 'TALON Hero Slide'
+                    }}
+                  {%- else -%}
+                    <img src="{{ fallback_banner }}" alt="{{ block.settings.title | default: 'TALON Hero Slide' }}" class="talon-shs__image" width="1600" height="900">
+                  {%- endif -%}
+                </picture>
+
+                {%- if show_slide_text -%}
+                  <div class="talon-shs__overlay" aria-hidden="true"></div>
+                  <div class="talon-shs__slide-content text-{{ block.settings.text_alignment | default: 'left' }}">
+                    {%- if block.settings.subheading != blank -%}
+                      <p class="talon-shs__slide-subheading">{{ block.settings.subheading | escape }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.title != blank -%}
+                      <h2 class="talon-shs__slide-title">{{ block.settings.title | escape }}</h2>
+                    {%- endif -%}
+                    {%- if block.settings.button_text != blank -%}
+                      <div class="talon-shs__slide-btn-wrap">
+                        <a href="{{ block.settings.button_link | default: '/pages/oem-odm' }}" class="talon-shs__slide-btn">
+                          <span>{{ block.settings.button_text | escape }}</span>
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+
+          {% comment %} Append clone of first block for infinite loop {% endcomment %}
+          {%- assign first_b = section.blocks.first -%}
+          {%- liquid
+            assign first_show_text = first_b.settings.show_text_overlay
+            if first_show_text == nil
+              assign first_show_text = true
+            endif
+            if first_b.settings.title == blank and first_b.settings.subheading == blank and first_b.settings.button_text == blank
+              assign first_show_text = false
+            endif
+          -%}
+          <div class="talon-shs__slide is-clone" data-clone="first" aria-hidden="true">
+            <div class="talon-shs__slide-inner">
+              <picture class="talon-shs__picture">
+                {%- if first_b.settings.mobile_image != blank -%}
+                  <source media="(max-width: 767px)" srcset="{{ first_b.settings.mobile_image | image_url: width: 1200 }}">
+                {%- endif -%}
+                {%- if first_b.settings.image != blank -%}
+                  {{ first_b.settings.image | image_url: width: 2400 | image_tag: class: 'talon-shs__image', alt: first_b.settings.title | default: 'Slide' }}
+                {%- else -%}
+                  <img src="{{ fallback_banner }}" alt="Slide" class="talon-shs__image" width="1600" height="900">
+                {%- endif -%}
+              </picture>
+
+              {%- if first_show_text -%}
+                <div class="talon-shs__overlay" aria-hidden="true"></div>
+                <div class="talon-shs__slide-content text-{{ first_b.settings.text_alignment | default: 'left' }}">
+                  {%- if first_b.settings.subheading != blank -%}
+                    <p class="talon-shs__slide-subheading">{{ first_b.settings.subheading | escape }}</p>
+                  {%- endif -%}
+                  {%- if first_b.settings.title != blank -%}
+                    <h2 class="talon-shs__slide-title">{{ first_b.settings.title | escape }}</h2>
+                  {%- endif -%}
+                  {%- if first_b.settings.button_text != blank -%}
+                    <div class="talon-shs__slide-btn-wrap">
+                      <a href="{{ first_b.settings.button_link | default: '/pages/oem-odm' }}" class="talon-shs__slide-btn">
+                        <span>{{ first_b.settings.button_text | escape }}</span>
+                      </a>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- else -%}
+          {% comment %} Fallback slide if no blocks added {% endcomment %}
+          <div class="talon-shs__slide" data-slide-index="0">
+            <div class="talon-shs__slide-inner">
+              <picture class="talon-shs__picture">
+                <img src="{{ fallback_banner }}" alt="China Garment Factory" class="talon-shs__image" width="1600" height="900">
+              </picture>
+              <div class="talon-shs__overlay" aria-hidden="true"></div>
+              <div class="talon-shs__slide-content">
+                <p class="talon-shs__slide-subheading">Custom Polo, Sports Jacket, School Uniform, Waterproof Jacket, Short Sleeve, Long Sleeve Tops, Sports Pants, Padded Gilet, Brushed Fabric Jacket.</p>
+                <h2 class="talon-shs__slide-title">China Garment Factory Focus On Custom Sportswear</h2>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {% comment %} Arrow Navigation Controls {% endcomment %}
+      {%- if section.settings.show_arrows -%}
+        <button type="button" class="talon-shs__arrow talon-shs__arrow--prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" class="talon-shs__arrow talon-shs__arrow--next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      {% comment %} Bottom-Right Pagination Dots {% endcomment %}
+      {%- if section.settings.show_dots -%}
+        {%- assign total_slides_count = section.blocks.size | default: 1 -%}
+        {%- if total_slides_count > 1 -%}
+          <div class="talon-shs__dots" role="tablist" aria-label="Slide indicators">
+            {%- for i in (1..total_slides_count) -%}
+              <button
+                type="button"
+                class="talon-shs__dot{% if forloop.first %} is-active{% endif %}"
+                data-dot-index="{{ forloop.index0 }}"
+                aria-label="Slide {{ forloop.index }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initHeroSlider(section) {
+      if (!section) return;
+      const slider = section.querySelector('.talon-shs__slider-panel');
+      if (!slider) return;
+
+      const track = slider.querySelector('.talon-shs__track');
+      const dots = slider.querySelectorAll('.talon-shs__dot');
+      const prevBtn = slider.querySelector('.talon-shs__arrow--prev');
+      const nextBtn = slider.querySelector('.talon-shs__arrow--next');
+
+      const realSlides = slider.querySelectorAll('.talon-shs__slide:not(.is-clone)');
+      const totalSlides = realSlides.length;
+      if (totalSlides < 2) return;
+
+      let currentIndex = 1; // 1 = first real slide
+      let isTransitioning = false;
+      let autoplayTimer = null;
+      const autoplayEnabled = slider.dataset.autoplay === 'true';
+      const autoplayInterval = parseInt(slider.dataset.interval, 10) || 4500;
+
+      // Initial placement at first real slide
+      track.classList.add('is-instant');
+      track.style.transform = 'translateX(-100%)';
+      void track.offsetHeight;
+      track.classList.remove('is-instant');
+
+      function updateActiveUI() {
+        const realIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        dots.forEach((dot, idx) => {
+          const isActive = idx === realIndex;
+          dot.classList.toggle('is-active', isActive);
+          dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+
+      function goToSlide(index, instant) {
+        if (isTransitioning && !instant) return;
+        isTransitioning = !instant;
+        currentIndex = index;
+
+        if (instant) {
+          track.classList.add('is-instant');
+        } else {
+          track.classList.remove('is-instant');
+        }
+
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+        updateActiveUI();
+      }
+
+      function nextSlide() {
+        if (isTransitioning) return;
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        if (isTransitioning) return;
+        goToSlide(currentIndex - 1);
+      }
+
+      track.addEventListener('transitionend', function() {
+        isTransitioning = false;
+        if (currentIndex >= totalSlides + 1) {
+          goToSlide(1, true);
+          void track.offsetHeight;
+          track.classList.remove('is-instant');
+        } else if (currentIndex <= 0) {
+          goToSlide(totalSlides, true);
+          void track.offsetHeight;
+          track.classList.remove('is-instant');
+        }
+      });
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextSlide();
+          resetAutoplay();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          prevSlide();
+          resetAutoplay();
+        });
+      }
+
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetIndex = parseInt(this.dataset.dotIndex, 10);
+          goToSlide(targetIndex + 1);
+          resetAutoplay();
+        });
+      });
+
+      function startAutoplay() {
+        if (!autoplayEnabled) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(nextSlide, autoplayInterval);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      slider.addEventListener('mouseenter', stopAutoplay);
+      slider.addEventListener('mouseleave', startAutoplay);
+
+      // Touch swipe
+      let touchStartX = 0;
+      let touchDeltaX = 0;
+
+      slider.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        stopAutoplay();
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', function(e) {
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', function() {
+        if (Math.abs(touchDeltaX) > 40) {
+          if (touchDeltaX < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+        startAutoplay();
+      });
+
+      startAutoplay();
+    }
+
+    function initAll() {
+      document.querySelectorAll('.talon-shs').forEach(initHeroSlider);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAll);
+    } else {
+      initAll();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.target.matches('.talon-split-hero-slider-section') || e.target.querySelector('.talon-shs')) {
+        initHeroSlider(e.target.querySelector('.talon-shs') || e.target);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Talon Hero Slider",
+  "tag": "section",
+  "class": "section talon-split-hero-slider-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container & Centered Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_max_width",
+      "label": "Hero banner maximum width",
+      "options": [
+        {
+          "value": "1200px",
+          "label": "Compact (1200px)"
+        },
+        {
+          "value": "1360px",
+          "label": "Medium (1360px)"
+        },
+        {
+          "value": "1440px",
+          "label": "Standard Centered (1440px - Recommended)"
+        },
+        {
+          "value": "1600px",
+          "label": "Wide Centered (1600px)"
+        }
+      ],
+      "default": "1440px"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full edge-to-edge width (removes side margins)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Desktop Dimensions & Fit"
+    },
+    {
+      "type": "select",
+      "id": "desktop_aspect_ratio",
+      "label": "Desktop Aspect Ratio",
+      "info": "21:9 is the standard aspect ratio for TALON ultrawide banners (2200x943).",
+      "options": [
+        {
+          "value": "21 / 9",
+          "label": "21:9 Ultrawide (Recommended - Pixel Perfect)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "16:9 Standard Widescreen"
+        },
+        {
+          "value": "3 / 1",
+          "label": "3:1 Panoramic"
+        },
+        {
+          "value": "custom",
+          "label": "Fixed Desktop Height (Uses desktop height below)"
+        }
+      ],
+      "default": "21 / 9"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height",
+      "label": "Fixed desktop height (if 'Fixed Desktop Height' selected)",
+      "options": [
+        {
+          "value": "440px",
+          "label": "Compact (440px)"
+        },
+        {
+          "value": "480px",
+          "label": "Standard (480px)"
+        },
+        {
+          "value": "540px",
+          "label": "Medium (540px)"
+        },
+        {
+          "value": "580px",
+          "label": "Large (580px)"
+        },
+        {
+          "value": "640px",
+          "label": "Extra Large (640px)"
+        }
+      ],
+      "default": "540px"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Desktop image fit style",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover (Fill frame - No black bars)"
+        },
+        {
+          "value": "contain",
+          "label": "Contain (Full image uncropped)"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Dimensions & Fit"
+    },
+    {
+      "type": "select",
+      "id": "mobile_aspect_ratio",
+      "label": "Mobile Aspect Ratio",
+      "info": "Choose 21:9 to match desktop, 3:4/4:5 for vertical banners, or custom height.",
+      "options": [
+        {
+          "value": "21 / 9",
+          "label": "21:9 Ultrawide (Same as desktop)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "3:4 Mobile Portrait (Recommended)"
+        },
+        {
+          "value": "4 / 5",
+          "label": "4:5 Mobile Portrait"
+        },
+        {
+          "value": "1 / 1",
+          "label": "1:1 Square"
+        },
+        {
+          "value": "16 / 9",
+          "label": "16:9 Landscape"
+        },
+        {
+          "value": "custom",
+          "label": "Fixed Mobile Height"
+        }
+      ],
+      "default": "3 / 4"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 240,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Fixed mobile height",
+      "default": 420
+    },
+    {
+      "type": "select",
+      "id": "image_fit_mobile",
+      "label": "Mobile image fit style",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover (Fill mobile frame)"
+        },
+        {
+          "value": "contain",
+          "label": "Contain (Full image uncropped)"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "color",
+      "id": "slide_bg",
+      "label": "Banner background color",
+      "default": "#0a0f18"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Hero frame corner radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Slider Controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2500,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Slide rotation speed",
+      "default": 4500
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing desktop (padding)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing desktop (padding)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing mobile (padding)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing mobile (padding)",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Desktop slide image (21:9 Recommended)"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile slide image"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_text_overlay",
+          "label": "Show text overlay & dark gradient",
+          "default": true,
+          "info": "Uncheck if the banner graphic already has title and text designed into the image."
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Slide title"
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Slide subheading / details"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "CTA button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "CTA button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Talon Hero Slider",
+      "settings": {
+        "container_max_width": "1440px",
+        "desktop_aspect_ratio": "21 / 9",
+        "mobile_aspect_ratio": "3 / 4",
+        "image_fit": "cover",
+        "image_fit_mobile": "cover",
+        "slide_bg": "#0a0f18",
+        "corner_radius": 12,
+        "full_width": false,
+        "autoplay": true,
+        "autoplay_speed": 4500,
+        "show_arrows": true,
+        "show_dots": true,
+        "padding_top": 24,
+        "padding_bottom": 32,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 20
+      },
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "show_text_overlay": true,
+            "title": "China Garment Factory Focus On Custom Sportswear",
+            "subheading": "Custom Polo, Sports Jacket, School Uniform, Waterproof Jacket, Short Sleeve, Long Sleeve Tops, Sports Pants, Padded Gilet, Brushed Fabric Jacket."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_text_overlay": true,
+            "title": "- Rich color fabric warehouse, support OEM garment customization",
+            "subheading": "- Full fabric stock | Fast bulk delivery"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_text_overlay": true,
+            "title": "- Strict in-process QC before shipment, stable bulk quality consistency",
+            "subheading": "Online inspecion"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_text_overlay": true,
+            "title": "Ideas grow stronger when shared..",
+            "subheading": "Our Professional Team Works Together For You"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "show_text_overlay": true,
+            "title": "Our Team Turns Your Design Into Reality",
+            "subheading": "Strong Team, Stable Supply & Premium Quality，Collective Expertise Powers Reliable Manufacturing",
+            "button_text": "GET MORE VIEW >>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

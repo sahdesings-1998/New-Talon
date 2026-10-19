@@ -1,0 +1,45 @@
+/**
+ * TALON — Legacy marketing page templates (custom-liquid inline CSS)
+ * Normalizes section block padding to --section-gap-half rhythm.
+ * Hero / CTA sections keep their dedicated inline padding.
+ */
+
+.shopify-section--custom-liquid section:not(.payment-hero):not(.support-hero):not(.delivery-hero):not(.hero):not(.top-hero):not(.hero-box):not(.cta):not(.hero-carousel) {
+  padding-block: var(--section-gap-half) !important;
+  padding-inline: 0 !important;
+}
+
+/* Secure Payments hero: undo .secure-box 110px override; keep hero proportions */
+.shopify-section--custom-liquid section.payment-hero.secure-box {
+  padding-block-start: 140px !important;
+  padding-block-end: 120px !important;
+}
+
+.shopify-section--custom-liquid .hero-box.support-hero {
+  padding-block: 140px 90px !important;
+  padding-inline: 0 !important;
+}
+
+.shopify-section--custom-liquid .content-section {
+  padding-top: var(--section-gap) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .shopify-section--custom-liquid section:not(.payment-hero):not(.support-hero):not(.delivery-hero):not(.hero):not(.top-hero):not(.hero-box):not(.cta):not(.hero-carousel) {
+    padding-block: var(--section-gap-half) !important;
+    padding-inline: 0 !important;
+  }
+
+  .shopify-section--custom-liquid section.payment-hero.secure-box {
+    padding-block-start: 120px !important;
+    padding-block-end: 90px !important;
+  }
+
+  .shopify-section--custom-liquid .hero-box.support-hero {
+    padding-block: 120px 70px !important;
+  }
+
+  .shopify-section--custom-liquid .delivery-hero {
+    padding-block: 120px 90px !important;
+  }
+}

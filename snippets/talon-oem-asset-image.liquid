@@ -1,0 +1,21 @@
+{%- comment -%}
+  Full-resolution theme asset — original file only.
+  Uses asset_url (never image_url / width / srcset). Params: asset, alt, class, loading, fetchpriority, width, height, title
+{%- endcomment -%}
+{%- liquid
+  assign img_alt_text = alt | escape
+  assign img_title_text = title | default: alt | escape
+  assign img_class = class | default: ''
+  assign img_loading = loading | default: 'lazy'
+  assign img_src = asset | asset_url
+-%}
+<img
+  {% if img_class != blank %}class="{{ img_class }}"{% endif %}
+  src="{{ img_src }}"
+  alt="{{ img_alt_text }}"
+  {% if img_title_text != blank %}title="{{ img_title_text }}"{% endif %}
+  {% if width != blank and height != blank %}width="{{ width }}" height="{{ height }}"{% endif %}
+  loading="{{ img_loading }}"
+  decoding="{% if fetchpriority == 'high' %}sync{% else %}async{% endif %}"
+  {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
+>

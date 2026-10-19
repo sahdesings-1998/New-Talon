@@ -1,0 +1,682 @@
+/**
+ * TALON — OEM & ODM page (/pages/oem-odm)
+ * Unified container, 56px major rhythm, 28px inner gaps
+ */
+
+:root {
+  /* --cp-pad-x: clamp(1.25rem, 3vw, 2.5rem); */
+  --cp-pad-y-top: clamp(3rem, 4.5vw, 3.5rem);
+  --cp-pad-y-bot: clamp(3rem, 4.5vw, 3.5rem);
+  --oem-cp-pad:clamp(2.125rem, 2rem + .6vw, 2.375rem);
+  --oem-cp-desk:clamp(2.5rem, 4vw, 3rem);
+  --oem-cp-desktop: clamp(2.5rem, 4vw, 3.5rem);
+  --oem-cp-mobile:clamp(2rem, 1.9rem + .5vw, 2.125rem);
+
+  --oem-desk-x: clamp(1.5rem, 3vw, 2rem);
+
+  /* --cp-pad-y-top: 0px; */
+  /* --cp-pad-y-bot: 0px; */
+}
+
+.shopify-section--talon-oem-main,
+.shopify-section--talon-oem-faq {
+  --oem-major-y: 3.5rem; /* 56px */
+  --oem-major-x: 3.5rem; /* 56px */
+  --oem-inner-y: 1.5rem; /* 24px */
+  --oem-pad-x: 2.5rem; /* 40px */
+  --oem-outer-margin-total: 12.5rem;
+  --oem-container-outer-max: 107.5rem;
+  --oem-container-max: 100%;
+}
+
+@media screen and (min-width: 75rem) {
+  .shopify-section--talon-oem-main,
+  .shopify-section--talon-oem-faq {
+    --oem-container-max: min(
+      var(--oem-container-outer-max),
+      calc(100vw - var(--oem-outer-margin-total))
+    );
+  }
+}
+
+/* ═══════════════════════════════════════
+   Single page container
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-page > .oem-wrap,
+.shopify-section--talon-oem-faq .oem-wrap.talon-faq-wrap {
+  /* width: 100%; */
+  max-width: 1320px !important;
+  /* margin: 0 auto; */
+  /* max-width: var(--oem-container-max) !important; */
+  margin-inline: auto !important;
+  padding-inline: var(--oem-pad-x) !important;
+  padding-block: 0 !important;
+  box-sizing: border-box;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-payment > .oem-wrap {
+  width: 100%;
+  max-width: var(--oem-container-max) !important;
+  margin-inline: auto !important;
+  padding-inline: var(--oem-pad-x) !important;
+  padding-block: 0 !important;
+  box-sizing: border-box;
+}
+
+.shopify-section--talon-oem-main .oem-process-section .page-width {
+  max-width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+/* Full-width content — remove narrow columns */
+.shopify-section--talon-oem-main .oem-process-grid,
+.shopify-section--talon-oem-main .oem-process-section .oem-process-item p {
+  max-width: 80% !important;
+}
+
+.shopify-section--talon-oem-main .oem-lead-card,
+.shopify-section--talon-oem-main .oem-process__intro {
+  max-width: 100% !important;
+}
+
+/* ═══════════════════════════════════════
+   RESET nested / legacy spacing
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-section:not(.oem-customization-major):not(.oem-craft-section):not(.oem-process-section),
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-main #customization-capabilities {
+  padding-block: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-page > .oem-wrap > .breadcrumb,
+.shopify-section--talon-oem-main .oem-page > .oem-wrap > .oem-page-heading {
+  /* padding-block: 0 !important; */
+}
+
+/* H1 → first major zone: single 56px gap (no stacked heading margin) */
+.shopify-section--talon-oem-main .oem-page-heading {
+  margin-bottom: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-page-heading + .oem-zone--customization {
+  padding-block-start: var(--oem-major-y) ;
+}
+
+.shopify-section--talon-oem-main .oem-process-section .oem-process-item {
+  padding-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-payment .oem-section-logistics,
+.shopify-section--talon-oem-main .talon-logistics-payment > .oem-wrap > .oem-section-payment,
+.shopify-section--talon-oem-main .talon-logistics-payment > .oem-wrap .talon-content-box,
+.shopify-section--talon-oem-main .talon-logistics-inner > * {
+  padding-block: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-section .talon-stats-bar,
+.shopify-section--talon-oem-faq .talon-faq-section .talon-faq-heading,
+.shopify-section--talon-oem-faq .talon-faq-section .talon-faq-list {
+  padding-block: 0 !important;
+}
+
+/* ═══════════════════════════════════════
+   MAJOR zones — 56px, anti-stack
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-craft-section,
+.shopify-section--talon-oem-main .oem-process-section,
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-faq .talon-faq-section {
+  padding-block-start: var(--oem-major-y) !important;
+  padding-block-end: var(--oem-major-y) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+/* Adjacent major blocks: one 56px gap (drop upper block bottom padding) */
+.shopify-section--talon-oem-main .oem-craft-section:has(+ .oem-process-section),
+.shopify-section--talon-oem-main .oem-process-section:has(+ .talon-logistics-payment) {
+  padding-block-end: 0 !important;
+}
+
+/* Logistics → FAQ: single 56px (FAQ top only) */
+.shopify-section--talon-oem-main:has(+ .shopify-section--talon-oem-faq) .talon-logistics-payment {
+  padding-block-end: 0 ;
+}
+
+/* ═══════════════════════════════════════
+   Customization Services — 56px between content sections only
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-zone--customization {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  /* padding-block-end: 0 !important; */
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities {
+  padding-block: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities .oem-section-title {
+  margin-bottom: 0 !important;
+}
+
+/* Customization majors: 56px margin rhythm (timeline, workflow, 4× capability) */
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major {
+  padding-block: 0 !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+  margin-top: var(--oem-major-y) !important;
+  margin-bottom: var(--oem-major-x) !important;
+  /* padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot) !important; */
+}
+
+/* No section padding on inner wrappers, cards, or grids */
+.shopify-section--talon-oem-main .oem-zone--customization .oem-process-panel,
+.shopify-section--talon-oem-main .oem-zone--customization .oem-capability-section .oem-media-card,
+.shopify-section--talon-oem-main .oem-zone--customization .oem-capability-section .oem-card,
+.shopify-section--talon-oem-main .oem-zone--customization .oem-workflow-grid,
+.shopify-section--talon-oem-main .oem-zone--customization .oem-timeline {
+  padding-block: 0 ;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization .oem-process-panel {
+  padding-inline: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #production-process .oem-process__header {
+  margin-bottom: var(--oem-inner-y) !important;
+  padding-bottom: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #manufacturing-workflow .oem-section-title {
+  margin-top: 0 !important;
+  margin-bottom: var(--oem-inner-y);
+}
+
+.shopify-section--talon-oem-main .oem-timeline {
+  align-items: start !important;
+  justify-items: center !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-timeline__step {
+  align-self: start !important;
+  height: auto !important;
+}
+
+.shopify-section--talon-oem-main .oem-timeline__item {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* ═══════════════════════════════════════
+   Craft & Materials — 56px major section (wrapper only)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-craft-section {
+  padding-block-start: var(--oem-major-y) !important;
+  padding-block-end: var(--oem-major-y) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-craft-section .oem-craft-grid,
+.shopify-section--talon-oem-main .oem-craft-section .oem-craft-card,
+.shopify-section--talon-oem-main .oem-craft-section .oem-craft-card--catalog {
+  padding-block: 0 !important;
+  margin-block-start: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization + .oem-craft-section {
+  padding-block-start: var(--oem-major-y) !important;
+  padding-block-end: var(--oem-major-y) !important;
+  
+}
+
+.shopify-section--talon-oem-main .oem-craft-section__header,
+.shopify-section--talon-oem-main .oem-craft-section .oem-section-title {
+  margin-top: 0 !important;
+  /* margin-bottom: 0 !important; */
+  transform: none !important;
+}
+
+.shopify-section--talon-oem-main .oem-craft-section__header {
+  margin-bottom: var(--oem-inner-y) !important;
+}
+
+.shopify-section--talon-oem-main .oem-craft-section .oem-craft-grid {
+  margin-top: 0 !important;
+}
+
+/* ═══════════════════════════════════════
+   Requirements — major section (56px), 28px between steps only
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-process-section {
+  padding-block-start: var(--oem-major-y) !important;
+  padding-block-end: var(--oem-major-y) !important;
+   margin-bottom: var(--oem-major-y) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+/* 56px sits on section wrapper — first visible content is the heading */
+.shopify-section--talon-oem-main .oem-craft-section + .oem-process-section {
+  padding-block-start: var(--oem-major-y) !important;
+}
+
+.shopify-section--talon-oem-main .oem-process-section .page-width,
+.shopify-section--talon-oem-main .oem-process-section .oem-process-panel,
+.shopify-section--talon-oem-main .oem-process-section .oem-process-grid,
+.shopify-section--talon-oem-main .oem-process-section .oem-process-item {
+  padding-block: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-main .oem-process-section .oem-process-grid {
+  gap: var(--oem-inner-y) !important;
+}
+
+.shopify-section--talon-oem-main .oem-process-section .oem-process-item h3 {
+  margin-top: 0 !important;
+  margin-bottom: var(--oem-inner-y) ;
+}
+
+/* ═══════════════════════════════════════
+   Logistics Service — one centered major block (matches Requirements)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .talon-logistics-payment {
+  padding-block: var(--oem-major-y) !important;
+  padding-block-end: var(--oem-major-y) !important;
+  padding-inline: 0 !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--oem-inner-y) !important;
+  max-width: 75rem; /* 1200px */
+  margin-inline: auto;
+  text-align: left;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner > .oem-section-logistics,
+.shopify-section--talon-oem-main .talon-logistics-inner > .oem-section-payment,
+.shopify-section--talon-oem-main .talon-logistics-inner > .talon-content-box {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Logistics sub-blocks (Sample / Bulk / Shipping) — centered sub-headings only */
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-content-box h3 {
+  text-align: center !important;
+  margin: 0 0 clamp(0.75rem, 1.25vw, 1.25rem) !important;
+  width: 100%;
+  max-width: 72ch !important;
+  margin-inline: auto !important;
+}
+
+/* Major section titles (Logistics / Payment) — inherit .oem-section-title, left aligned */
+.shopify-section--talon-oem-main .talon-logistics-payment .oem-section-title {
+  text-align: left !important;
+  margin: 0 0 var(--oem-space-title-after, clamp(1.15rem, 1.85vw, 1.5rem)) !important;
+ /* margin-bottom: 20px !important; */
+  max-width: none !important;
+  margin-inline: 0 !important;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-content-box p,
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-content-box .talon-richtext {
+  width: 100% !important;
+  max-width: 72ch !important;
+  margin-inline: auto !important;
+  text-align: left !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk,
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk p {
+  text-align: left !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk ol {
+  margin: 0.65rem auto 0 !important;
+  padding-left: 1.35rem !important;
+  max-width: 72ch !important;
+  list-style: decimal !important;
+  list-style-position: outside !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-richtext--bulk ol li {
+  display: list-item !important;
+  list-style: decimal !important;
+  text-align: left !important;
+}
+
+/* Logistics + Payment — shared single-image media panel */
+.shopify-section--talon-oem-main .talon-logistics-media:not(.talon-logistics-media--column),
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-payment-box {
+  width: 100% !important;
+  max-width: 56.25rem !important;
+  margin-inline: auto !important;
+  padding: 0 !important;
+  border-radius: var(--image-radius, 8px) !important;
+  overflow: hidden !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-media:not(.talon-logistics-media--column) img,
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-payment-box img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  display: block !important;
+  object-fit: cover;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-wrapper--dual {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: clamp(0.75rem, 1.5vw, 1rem) !important;
+  width: 100% !important;
+  max-width: 56.25rem !important;
+  margin-inline: auto !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-wrapper--dual .talon-logistics-media--column {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  border-radius: var(--image-radius, 8px) !important;
+  overflow: hidden !important;
+  aspect-ratio: 4 / 3;
+  margin: 0 !important;
+  max-width: none !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-wrapper--dual .talon-logistics-media--column img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.shopify-section--talon-oem-main .talon-logistics-inner > .oem-section-payment {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  text-align: left !important;
+}
+
+.shopify-section--talon-oem-main .talon-divider {
+  margin: var(--oem-inner-y) 0 !important;
+}
+
+/* ═══════════════════════════════════════
+   FAQ — one major section (56px top/bottom)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-faq .talon-faq-section {
+  padding-top: var(--oem-major-y) !important;
+  padding-bottom: var(--oem-major-y) !important;
+  padding-inline: 0 !important;
+  margin: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-wrap {
+  width: 100%;
+  max-width: var(--oem-container-max) !important;
+  margin-inline: auto !important;
+  padding-inline: var(--oem-pad-x) !important;
+  padding-block: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Per-child margins — avoids 28px flex gap colliding stats bar + heading */
+  gap: 0;
+  box-sizing: border-box;
+}
+
+/* Stats bar → FAQ heading: major rhythm (56px) */
+.shopify-section--talon-oem-faq .talon-stats-bar {
+  margin: 0 !important;
+  margin-bottom: var(--oem-major-y) !important;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-heading {
+  margin: 0 !important;
+  margin-bottom: var(--oem-inner-y) !important;
+  width: 100%;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-list {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-list details + details {
+  margin-top: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .oem-faq__support {
+  margin-top: 0 !important;
+  padding-top: 0.7rem;
+}
+
+/* .oem-zone--customization-bottom{
+  padding-block-end: var(--oem-cp-desktop) !important;
+} */
+
+    .oem-image-grid {
+        padding-top: var(--oem-cp-desktop);
+        padding-bottom: var(--oem-cp-desktop);
+    }
+
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+  margin-top: var(--oem-cp-desktop) !important;
+  margin-bottom: var(--oem-cp-desktop) !important;
+  /* padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot) !important; */
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization+.oem-craft-section,
+.shopify-section--talon-oem-faq .talon-stats-bar,
+.shopify-section--talon-oem-main .oem-craft-section+.oem-process-section,
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-faq .talon-faq-section,
+.shopify-section--talon-oem-main .oem-process-section {
+  padding-block-start: var(--oem-cp-desktop) !important;
+  padding-block-end: var(--oem-cp-desktop) !important;
+   margin-bottom: var(--oem-cp-desktop) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-heading{
+  margin-top:var(--oem-cp-desktop) !important;
+  
+}
+
+@media screen and (max-width: 1024px) {
+
+  .shopify-section--talon-oem-main .oem-page > .oem-wrap,
+.shopify-section--talon-oem-faq .oem-wrap.talon-faq-wrap {
+  padding-inline: var(--oem-desk-x) !important;;
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+  margin-top: var(--oem-cp-desk) !important;
+  margin-bottom: var(--oem-cp-desk) !important;
+  /* padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot) !important; */
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization+.oem-craft-section,
+.shopify-section--talon-oem-faq .talon-stats-bar,
+.shopify-section--talon-oem-main .oem-craft-section+.oem-process-section,
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-faq .talon-faq-section,
+.shopify-section--talon-oem-main .oem-process-section {
+  padding-block-start: var(--oem-cp-desk) !important;
+  padding-block-end: var(--oem-cp-desk) !important;
+   margin-bottom: var(--oem-cp-desk) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-heading{
+  margin-top:var(--oem-cp-desk) !important;
+  font-size: clamp(22px, 2.8vw, 28px);
+}
+}
+
+@media screen and (max-width: 768px) {
+.shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+  margin-top: var(--oem-cp-pad) !important;
+  margin-bottom: var(--oem-cp-pad) !important;
+  /* padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot) !important; */
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization+.oem-craft-section,
+.shopify-section--talon-oem-faq .talon-stats-bar,
+.shopify-section--talon-oem-main .oem-craft-section+.oem-process-section,
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-faq .talon-faq-section,
+.shopify-section--talon-oem-main .oem-process-section {
+  padding-block-start: var(--oem-cp-pad) !important;
+  padding-block-end: var(--oem-cp-pad) !important;
+   margin-bottom: var(--oem-cp-pad) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-heading{
+  margin-top:var(--oem-cp-pad) !important;
+font-size: clamp(18px, 4vw, 24px);
+}
+
+
+}
+
+@media screen and (max-width: 500px) {
+
+  .shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+.shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+  margin-top: var(--oem-cp-mobile) !important;
+  margin-bottom: var(--oem-cp-mobile) !important;
+  /* padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot) !important; */
+}
+
+.shopify-section--talon-oem-main .oem-zone--customization+.oem-craft-section,
+.shopify-section--talon-oem-faq .talon-stats-bar,
+.shopify-section--talon-oem-main .oem-craft-section+.oem-process-section,
+.shopify-section--talon-oem-main .talon-logistics-payment,
+.shopify-section--talon-oem-faq .talon-faq-section,
+.shopify-section--talon-oem-main .oem-process-section {
+  padding-block-start: var(--oem-cp-mobile) !important;
+  padding-block-end: var(--oem-cp-mobile) !important;
+   margin-bottom: var(--oem-cp-mobile) !important;
+  padding-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.shopify-section--talon-oem-faq .talon-faq-heading{
+  margin-top:var(--oem-cp-mobile) !important;
+}
+
+}
+
+@media screen and (max-width: 74.999rem) {
+  .shopify-section--talon-oem-main,
+  .shopify-section--talon-oem-faq {
+    --oem-container-max: 100%;
+  }
+}
+
+@media screen and (max-width: 47.999rem) {
+  .shopify-section--talon-oem-faq .talon-stats-bar {
+    margin-bottom: clamp(2rem, 8vw, var(--oem-major-y)) !important;
+  }
+
+  .shopify-section--talon-oem-faq .talon-faq-heading {
+    margin-bottom: clamp(1.25rem, 4vw, var(--oem-inner-y)) !important;
+  }
+
+  .shopify-section--talon-oem-main .oem-zone--customization #customization-capabilities + .oem-customization-major,
+  .shopify-section--talon-oem-main .oem-zone--customization > .oem-customization-major + .oem-customization-major {
+    /* margin-top: clamp(2rem, 8vw, var(--oem-major-y)) !important;
+    margin-bottom: clamp(2rem, 8vw, var(--oem-major-y)) !important; */
+   /* margin-top: 1.375rem !important;
+margin-bottom: 1.375rem !important; */
+  }
+
+  /* .shopify-section--talon-oem-main .oem-craft-section,
+  .shopify-section--talon-oem-main .oem-craft-section + .oem-process-section,
+  .shopify-section--talon-oem-main .oem-process-section {
+    /* padding-block-start: clamp(2rem, 8vw, var(--oem-major-y)) !important;
+    padding-block-end: clamp(2rem, 8vw, var(--oem-major-y)) !important; */
+            padding-block-start: 22px !important;
+        padding-block-end: 22px !important;
+  } */
+
+  .shopify-section--talon-oem-main .oem-craft-section {
+    padding-block-end: clamp(2rem, 8vw, var(--oem-major-y)) !important;
+  }
+}
+
+/* ═══════════════════════════════════════
+   Unified surface radius — --image-radius (8px)
+   ═══════════════════════════════════════ */
+
+.shopify-section--talon-oem-main .oem-workflow-card,
+.shopify-section--talon-oem-main .oem-craft-card,
+.shopify-section--talon-oem-main .talon-logistics-media,
+.shopify-section--talon-oem-main .talon-logistics-inner .talon-payment-box,
+.shopify-section--talon-oem-faq .talon-faq-list details {
+  border-radius: var(--image-radius, 8px) !important;
+}
+
+/* Capability feature images — radius on wrapper + img (split grid layout) */
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media {
+  border-radius: var(--image-radius, 8px) !important;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media :is(img, picture) {
+  border-radius: var(--image-radius, 8px) !important;
+  overflow: hidden;
+}
+
+.shopify-section--talon-oem-main .oem-capability-section .oem-media-card__media picture img {
+  border-radius: var(--image-radius, 8px) !important;
+}
+.footer-title{
+  font-weight:bold !important;
+}

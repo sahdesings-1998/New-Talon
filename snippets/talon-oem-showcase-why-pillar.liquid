@@ -1,0 +1,18 @@
+{%- comment -%}
+  Why Choose capability pillar (informational only).
+  Params: pillar_icon, title, point_1–4 (optional)
+{%- endcomment -%}
+<article class="talon-oem-showcase__why-pillar">
+  <span class="talon-oem-showcase__why-pillar-icon" aria-hidden="true">
+    {%- render 'icon', icon: pillar_icon, width: 34, stroke_width: 1.75 -%}
+  </span>
+  <div class="talon-oem-showcase__why-pillar-body">
+    <h4 class="talon-oem-showcase__why-pillar-title">{{ title | escape }}</h4>
+    <ul class="talon-oem-showcase__why-pillar-points unstyled-list" role="list">
+      {%- if point_1 != blank -%}<li>{{ point_1 | escape }}</li>{%- endif -%}
+      {%- if point_2 != blank -%}<li>{{ point_2 | escape }}</li>{%- endif -%}
+      {%- if point_3 != blank -%}<li>{{ point_3 | escape }}</li>{%- endif -%}
+      {%- if point_4 != blank -%}<li>{{ point_4 | escape }}</li>{%- endif -%}
+    </ul>
+  </div>
+</article>

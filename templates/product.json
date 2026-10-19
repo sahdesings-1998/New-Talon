@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "show_below_gallery": false
+          }
+        },
+        "pickup_availability_rDd6Yw": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "liquid_hti6WB": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<!-- Button to Open Modal -->\n<div class=\"garment-measurement\">\n  <button class=\"garment-measurement-button\" onclick=\"openMeasurementModal()\">\n    <svg class=\"garment-measurement-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n      <path d=\"M3 3v18h18\"></path>\n      <path d=\"M18 17V7\"></path>\n      <path d=\"M13 17V3\"></path>\n      <path d=\"M8 17v-5\"></path>\n    </svg>\n    Garment Measurements\n  </button>\n</div>\n\n<!-- Modal -->\n<div id=\"garmentModal\" class=\"garment-modal\">\n  <div class=\"garment-modal-content\">\n    <span class=\"garment-modal-close\" onclick=\"closeMeasurementModal()\">&times;</span>\n    <h2 class=\"garment-title\">Garment Measurements</h2>\n\n    <!-- Split Layout Container -->\n    <div class=\"garment-split-container\">\n      <!-- Left: Image Carousel -->\n      <div class=\"garment-carousel-wrapper\">\n        <div class=\"garment-carousel\" id=\"carouselTrack\">\n          {% for image in product.images limit: 3 %}\n            <div class=\"carousel-item\">\n              <img src=\"{{ image | img_url: '500x' }}\" alt=\"{{ image.alt | escape }}\" loading=\"lazy\">\n            </div>\n          {% endfor %}\n        </div>\n        <div class=\"carousel-arrows\">\n          <button class=\"carousel-arrow left\" onclick=\"scrollCarousel(-1)\">&#9664;</button>\n          <button class=\"carousel-arrow right\" onclick=\"scrollCarousel(1)\">&#9654;</button>\n        </div>\n      </div>\n\n      <!-- Right: Measurement Table -->\n      <div class=\"garment-measurement-table\">\n        <h3>Size Guide</h3>\n        <table>\n          <tr>\n            <th>Measurement</th>\n            <th>Size (inches)</th>\n          </tr>\n          <tr>\n            <td>Chest (Pit-to-Pit)</td>\n            <td>42\"</td>\n          </tr>\n          <tr>\n            <td>Shoulder (Seam-to-Seam)</td>\n            <td>18.5\"</td>\n          </tr>\n          <tr>\n            <td>Length (Collar-to-Hem)</td>\n            <td>28\"</td>\n          </tr>\n          <tr>\n            <td>Sleeve Length</td>\n            <td>25\"</td>\n          </tr>\n        </table>\n        <p class=\"measurement-help\">ℹ️ Lay garment flat and measure seam-to-seam.</p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- CSS -->\n<style>\n/* Button Styles */\n.garment-measurement-button {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n \n  padding: 10px 16px;\n  font-weight: 600;\n  color: #333;\n  cursor: pointer;\n  margin: 20px 0;\n \n  transition: all 0.3s;\n}\n.garment-measurement-button:hover {\n  background: #eee;\n}\n\n/* Modal Styles */\n.garment-modal {\n  display: none;\n  position: fixed;\n  z-index: 1000;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(0,0,0,0.7);\n  overflow-y: auto;\n}\n.garment-modal-content {\n  background: white;\n  margin: 50px auto;\n  padding: 25px;\n  width: 90%;\n  max-width: 800px;\n  border-radius: 10px;\n  box-shadow: 0 5px 15px rgba(0,0,0,0.2);\n  position: relative;\n}\n.garment-modal-close {\n  position: absolute;\n  top: 15px;\n  right: 20px;\n  font-size: 28px;\n  color: #777;\n  cursor: pointer;\n}\n.garment-modal-close:hover {\n  color: #333;\n}\n.garment-title {\n  color: #222;\n  font-size: 24px;\n  margin-bottom: 20px;\n  text-align: center;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 10px;\n}\n\n/* Split Layout */\n.garment-split-container {\n  display: flex;\n  gap: 30px;\n  flex-wrap: wrap;\n}\n.garment-carousel-wrapper {\n  flex: 1;\n  min-width: 300px;\n}\n.garment-measurement-table {\n  flex: 1;\n  min-width: 250px;\n}\n\n/* Carousel Styles */\n.garment-carousel {\n  display: flex;\n  overflow: hidden;\n  scroll-snap-type: x mandatory;\n  border-radius: 8px;\n  box-shadow: 0 2px 10px rgba(0,0,0,0.1);\n}\n.carousel-item {\n  scroll-snap-align: start;\n  flex: 0 0 100%;\n  min-width: 100%;\n}\n.carousel-item img {\n  width: 100%;\n  height: auto;\n  max-height: 400px;\n  object-fit: contain;\n  display: block;\n}\n.carousel-arrows {\n  display: flex;\n  justify-content: center;\n  gap: 15px;\n  margin-top: 15px;\n}\n.carousel-arrow {\n  background: #333;\n  color: white;\n  border: none;\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  font-size: 18px;\n  cursor: pointer;\n  transition: all 0.2s;\n}\n.carousel-arrow:hover {\n  background: #555;\n}\n.carousel-arrow:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n/* Measurement Table Styles */\n.garment-measurement-table h3 {\n  color: #222;\n  font-size: 18px;\n  margin-bottom: 15px;\n  padding-bottom: 8px;\n  border-bottom: 1px solid #eee;\n}\n.garment-measurement-table table {\n  width: 100%;\n  border-collapse: collapse;\n  margin-bottom: 15px;\n}\n.garment-measurement-table th, \n.garment-measurement-table td {\n  padding: 10px;\n  text-align: left;\n  border: 1px solid #ddd;\n}\n.garment-measurement-table th {\n  background: #f5f5f5;\n  font-weight: 600;\n}\n.measurement-help {\n  color: #666;\n  font-size: 14px;\n  font-style: italic;\n  margin-top: 10px;\n}\n\n/* Responsive Adjustments */\n@media (max-width: 768px) {\n  .garment-split-container {\n    flex-direction: column;\n  }\n  .garment-carousel-wrapper, \n  .garment-measurement-table {\n    min-width: 100%;\n  }\n}\n</style>\n\n<!-- JavaScript -->\n<script>\nlet currentSlide = 0;\nconst carousel = document.getElementById('carouselTrack');\nconst items = document.querySelectorAll('.carousel-item');\nconst totalSlides = items.length;\n\nfunction openMeasurementModal() {\n  document.getElementById('garmentModal').style.display = 'block';\n  resetCarousel();\n}\n\nfunction closeMeasurementModal() {\n  document.getElementById('garmentModal').style.display = 'none';\n}\n\nfunction resetCarousel() {\n  currentSlide = 0;\n  updateCarousel();\n}\n\nfunction scrollCarousel(direction) {\n  currentSlide = (currentSlide + direction + totalSlides) % totalSlides;\n  updateCarousel();\n}\n\nfunction updateCarousel() {\n  carousel.style.transform = `translateX(-${currentSlide * 100}%)`;\n  document.querySelector('.carousel-arrow.left').disabled = currentSlide === 0;\n  document.querySelector('.carousel-arrow.right').disabled = currentSlide === totalSlides - 1;\n}\n\n// Close modal when clicking outside\nwindow.onclick = function(event) {\n  if (event.target === document.getElementById('garmentModal')) {\n    closeMeasurementModal();\n  }\n}\n\n// Initialize on page load\ndocument.addEventListener('DOMContentLoaded', function() {\n  if (totalSlides > 0) {\n    updateCarousel();\n  }\n});\n</script>"
+          }
+        },
+        "complementary_products": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "Pairs well with",
+            "products_count": 2,
+            "show_below_gallery": true,
+            "stack_products": false,
+            "show_quick_buy": true
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "payment_terms",
+        "separator",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "pickup_availability_rDd6Yw",
+        "liquid_hti6WB",
+        "complementary_products"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "container_size": "lg",
+        "product_info_size": 35,
+        "show_sticky_add_to_cart": true,
+        "center_basic_info": true,
+        "desktop_media_layout": "grid",
+        "desktop_media_grid_gap": 30,
+        "mobile_controls": "dots",
+        "enable_media_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "hide_product_information": false,
+        "stack_products": false,
+        "recommendations_count": 10,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 1,
+        "vertical_spacing_factor": 1,
+        "subheading": "",
+        "title": "Related products",
+        "content": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
+}

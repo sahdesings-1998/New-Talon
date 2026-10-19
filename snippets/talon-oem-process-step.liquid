@@ -1,0 +1,21 @@
+{%- comment -%}
+  OEM timeline workflow step.
+  Accepts: step_index, icon, title, description
+{%- endcomment -%}
+{%- assign step_label = step_index | prepend: '00' | slice: -2, 2 -%}
+<li class="oem-timeline__step">
+  <article class="oem-timeline__item">
+    <div class="oem-timeline__marker oem-icon-ring">
+      <span class="oem-timeline__index" aria-hidden="true">{{ step_label }}</span>
+      <span class="oem-timeline__glyph oem-icon" aria-hidden="true">
+        {%- render 'talon-oem-process-icon', icon: icon -%}
+      </span>
+    </div>
+    <div class="oem-timeline__copy">
+      <h3 class="oem-timeline__title">{{ title }}</h3>
+      {%- if description != blank -%}
+        <p class="oem-timeline__text">{{ description }}</p>
+      {%- endif -%}
+    </div>
+  </article>
+</li>

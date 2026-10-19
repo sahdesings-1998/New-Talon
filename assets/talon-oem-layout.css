@@ -1,0 +1,32 @@
+/* TALON OEM layout system — shared spacing with OEM & ODM page */
+
+:root {
+  --talon-oem-space-section-pad: clamp(0.35rem, 0.85vw, 0.75rem);
+  --talon-oem-space-flow-tight: clamp(0.7rem, 1.35vw, 1rem);
+  --talon-oem-space-flow-medium: clamp(1rem, 1.75vw, 1.4rem);
+  --talon-oem-space-title-after: clamp(1.15rem, 1.85vw, 1.5rem);
+  --talon-oem-capability-gap: clamp(1.2rem, 2.5vw, 1.65rem);
+  --talon-oem-wrap-max: 1320px;
+  --talon-oem-wrap-pad-x: clamp(1rem, 3.125vw, 2.5rem);
+  --talon-oem-wrap-pad-block: 0;
+  --talon-oem-space-section: 3.5rem; /* 56px — homepage OEM showcase major gap */
+  --talon-oem-radius-card: var(--image-radius, 8px);
+}
+
+@media screen and (min-width: 80rem) {
+  :root {
+    --talon-oem-wrap-max: 1360px;
+  }
+}
+
+/* Homepage — align downstream sections with OEM page container */
+body.template-index .shopify-section--multi-column .container,
+body.template-index .shopify-section--video .container,
+body.template-index .shopify-section--logo-list .container,
+body.template-index .shopify-section--featured-collections .container {
+  max-width: var(--talon-oem-wrap-max);
+  margin-inline: auto;
+  padding-inline: var(--talon-oem-wrap-pad-x);
+}
+
+/* Homepage theme sections use global .section-spacing half-gap (no full-pad override) */

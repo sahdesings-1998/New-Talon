@@ -1,0 +1,1240 @@
+<section class="cu-section">
+
+  <!--
+    ═══════════════════════════════════════
+         CONTACT US — TOP / BREADCRUMB
+    ═══════════════════════════════════════
+  -->
+  <div class="cu-container cu-top-container">
+    <nav class="cu-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="cu-breadcrumb-separator">/</span>
+      <span class="cu-breadcrumb-current">Contact Us</span>
+    </nav>
+
+    <div class="cu-hero-box">
+      <h2 class="cu-section-title">{{ section.settings.page_title }}</h2>
+      <div class="cu-hero-text">{{ section.settings.page_intro }}</div>
+    </div>
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         CONTACT INFO + FORM
+    ═══════════════════════════════════════
+  -->
+  <div class="cu-container">
+    <div class="cu-main-grid">
+
+      <!-- LEFT: Contact Details -->
+      <div class="cu-info-col">
+
+        {% if section.settings.info_heading != blank %}
+          <h3 class="cu-info-heading">{{ section.settings.info_heading }}</h3>
+        {% endif %}
+
+        {% if section.settings.info_intro != blank %}
+          <div class="cu-info-intro">{{ section.settings.info_intro }}</div>
+        {% endif %}
+
+        <div class="cu-contact-cards">
+
+          {% if section.settings.address != blank %}
+            <div class="cu-contact-card">
+              <div class="cu-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="cu-card-body">
+                <span class="cu-card-label">{{ section.settings.address_label | default: 'Address' }}</span>
+                <span class="cu-card-value">{{ section.settings.address }}</span>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if section.settings.email != blank %}
+            <div class="cu-contact-card">
+              <div class="cu-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="cu-card-body">
+                <span class="cu-card-label">{{ section.settings.email_label | default: 'Email' }}</span>
+                <a class="cu-card-value cu-card-link" href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if section.settings.phone != blank %}
+            <div class="cu-contact-card">
+              <div class="cu-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.04z"/></svg>
+              </div>
+              <div class="cu-card-body">
+                <span class="cu-card-label">{{ section.settings.phone_label | default: 'Phone' }}</span>
+                <a class="cu-card-value cu-card-link" href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if section.settings.working_hours != blank %}
+            <div class="cu-contact-card">
+              <div class="cu-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="cu-card-body">
+                <span class="cu-card-label">{{ section.settings.hours_label | default: 'Working Hours' }}</span>
+                <span class="cu-card-value">{{ section.settings.working_hours }}</span>
+              </div>
+            </div>
+          {% endif %}
+
+        </div><!-- /.cu-contact-cards -->
+
+        <!-- Social Links -->
+        {% if section.settings.whatsapp != blank or section.settings.wechat != blank or section.settings.linkedin != blank %}
+          <div class="cu-social-row">
+            {% if section.settings.whatsapp != blank %}
+              <a href="{{ section.settings.whatsapp }}" class="cu-social-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+            {% endif %}
+            {% if section.settings.linkedin != blank %}
+              <a href="{{ section.settings.linkedin }}" class="cu-social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+            {% endif %}
+            {% if section.settings.wechat != blank %}
+              <div class="cu-social-btn cu-wechat-trigger" data-wechat="{{ section.settings.wechat }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.062-6.122zm-3.84 3.357c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.434-.983.969-.983zm5.6 0c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.434-.983.969-.983z"/></svg>
+                WeChat
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+      </div><!-- /.cu-info-col -->
+
+      <!-- RIGHT: Contact Form -->
+      <div class="cu-form-col">
+        <div class="cu-form-box">
+          {% if section.settings.form_heading != blank %}
+            <h3 class="cu-form-heading">{{ section.settings.form_heading }}</h3>
+          {% endif %}
+
+          {%- form 'contact', id: 'ContactForm' -%}
+            {%- if form.posted_successfully? -%}
+              <div class="cu-form-success" role="status">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                {{ 'contact.form.post_success' | t }}
+              </div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="cu-form-error" role="alert">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            <div class="cu-form-row">
+              <div class="cu-form-group">
+                <label class="cu-form-label" for="ContactForm-name">{{ section.settings.label_name | default: 'Full Name' }} <span class="cu-required">*</span></label>
+                <input
+                  class="cu-form-input"
+                  type="text"
+                  id="ContactForm-name"
+                  name="contact[name]"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                  placeholder="{{ section.settings.placeholder_name | default: 'Your full name' }}"
+                  required
+                  autocomplete="name"
+                >
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-form-label" for="ContactForm-email">{{ section.settings.label_email | default: 'Email Address' }} <span class="cu-required">*</span></label>
+                <input
+                  class="cu-form-input"
+                  type="email"
+                  id="ContactForm-email"
+                  name="contact[email]"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  placeholder="{{ section.settings.placeholder_email | default: 'Your email address' }}"
+                  required
+                  autocomplete="email"
+                >
+              </div>
+            </div>
+
+            <div class="cu-form-row">
+              <div class="cu-form-group">
+                <label class="cu-form-label" for="ContactForm-phone">{{ section.settings.label_phone | default: 'Phone Number' }}</label>
+                <input
+                  class="cu-form-input"
+                  type="tel"
+                  id="ContactForm-phone"
+                  name="contact[phone]"
+                  value="{{ form.phone }}"
+                  placeholder="{{ section.settings.placeholder_phone | default: 'Your phone number' }}"
+                  autocomplete="tel"
+                >
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-form-label" for="ContactForm-company">{{ section.settings.label_company | default: 'Company Name' }}</label>
+                <input
+                  class="cu-form-input"
+                  type="text"
+                  id="ContactForm-company"
+                  name="contact[company]"
+                  value="{{ form.company }}"
+                  placeholder="{{ section.settings.placeholder_company | default: 'Your company name' }}"
+                  autocomplete="organization"
+                >
+              </div>
+            </div>
+
+            <div class="cu-form-group">
+              <label class="cu-form-label" for="ContactForm-subject">{{ section.settings.label_subject | default: 'Subject' }}</label>
+              <input
+                class="cu-form-input"
+                type="text"
+                id="ContactForm-subject"
+                name="contact[subject]"
+                value="{{ form.subject }}"
+                placeholder="{{ section.settings.placeholder_subject | default: 'How can we help you?' }}"
+              >
+            </div>
+
+            <div class="cu-form-group">
+              <label class="cu-form-label" for="ContactForm-message">{{ section.settings.label_message | default: 'Message' }} <span class="cu-required">*</span></label>
+              <textarea
+                class="cu-form-input cu-form-textarea"
+                id="ContactForm-message"
+                name="contact[body]"
+                rows="5"
+                placeholder="{{ section.settings.placeholder_message | default: 'Tell us about your requirements...' }}"
+                required
+              >{{ form.body }}</textarea>
+            </div>
+
+            {% comment %} <button type="submit" class="cu-submit-btn"> {% endcomment %}
+            <button type="submit" class="button cu-submit-btn">
+              {{ section.settings.submit_label | default: 'Send Message' }}
+              {% comment %} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> {% endcomment %}
+            </button>
+
+          {%- endform -%}
+        </div>
+      </div><!-- /.cu-form-col -->
+
+    </div>
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         MAP / IMAGE BANNER
+    ═══════════════════════════════════════
+  -->
+  {% if section.settings.map_image != blank or section.settings.show_map_embed %}
+    <div class="cu-container cu-map-container">
+      {% if section.settings.map_image != blank %}
+        <div class="cu-map-wrap">
+          <img
+            src="{{ section.settings.map_image | image_url: width: 1600 }}"
+            alt="Our Location"
+            loading="lazy"
+            class="cu-map-img"
+          >
+          {% if section.settings.map_overlay_text != blank %}
+            <div class="cu-map-overlay">
+              <span>{{ section.settings.map_overlay_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!--
+    ═══════════════════════════════════════
+         BOTTOM BANNER
+    ═══════════════════════════════════════
+  -->
+  {% if section.settings.bottom_banner != blank %}
+    <div class="cu-container">
+      <div class="cu-bottom-banner">
+        <img
+          src="{{ section.settings.bottom_banner | image_url: width: 1600 }}"
+          alt="Banner"
+          loading="lazy"
+        >
+        <div class="cu-banner-content">
+          {% if section.settings.banner_title != blank %}
+            <h2 class="cu-banner-title">{{ section.settings.banner_title }}</h2>
+          {% endif %}
+          {% if section.settings.banner_subtitle != blank %}
+            <p class="cu-banner-subtitle">{{ section.settings.banner_subtitle }}</p>
+          {% endif %}
+          {% if section.settings.banner_cta_label != blank and section.settings.banner_cta_url != blank %}
+            <a href="{{ section.settings.banner_cta_url }}" class="cu-banner-btn">{{ section.settings.banner_cta_label }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+</section>
+
+<!-- WeChat ID popup -->
+<div class="cu-wechat-popup" id="cuWechatPopup">
+  <div class="cu-wechat-popup-inner">
+    <span class="cu-wechat-close" id="cuWechatClose">&times;</span>
+    <p class="cu-wechat-label">WeChat ID</p>
+    <p class="cu-wechat-id" id="cuWechatId"></p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const popup   = document.getElementById("cuWechatPopup");
+    const closeBtn = document.getElementById("cuWechatClose");
+    const idEl    = document.getElementById("cuWechatId");
+
+    document.querySelectorAll(".cu-wechat-trigger").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        idEl.textContent = btn.dataset.wechat;
+        popup.classList.add("active");
+      });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        popup.classList.remove("active");
+      });
+    }
+
+    if (popup) {
+      popup.addEventListener("click", function (e) {
+        if (e.target === popup) popup.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+<style>
+
+/* ════════════════════════════════════════════════════════
+   CONTACT US — Root tokens (mirrors cp- convention)
+════════════════════════════════════════════════════════ */
+:root {
+  --cu-section-gap: clamp(2.75rem, 5vw, 4rem);
+  --cu-title-gap:   clamp(1.15rem, 1.85vw, 1.5rem);
+  --cu-grid-gap:    clamp(1.2rem, 2.5vw, 1.65rem);
+  --cu-pad-x:       clamp(1.25rem, 3vw, 2.5rem);
+  --cu-pad-y-top:   clamp(3rem, 4.5vw, 3.5rem);
+  --cu-pad-y-bot:   clamp(3rem, 4.5vw, 3.5rem);
+  --cu-accent:      rgb(var(--button-background, 0 0 0));
+  --cu-radius:      8px;
+  --cu-input-border: #d1d5db;
+  --cu-input-focus:  rgb(var(--button-background, 0 0 0));
+}
+
+/* ════════════════════════════════════
+   BASE
+════════════════════════════════════ */
+.cu-section {
+  color: rgb(var(--text-color, 17 17 17));
+}
+
+/* ════════════════════════════════════
+   CONTAINER
+════════════════════════════════════ */
+.cu-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--cu-pad-y-top) var(--cu-pad-x) var(--cu-pad-y-bot);
+}
+
+@media screen and (min-width: 1280px) {
+  .cu-container { max-width: 1360px; }
+}
+
+/* ════════════════════════════════════
+   BREADCRUMB
+════════════════════════════════════ */
+.cu-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(0.3rem, 1vw, 0.5rem);
+  font-size: 18px;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  color: rgb(var(--text-color) / 0.7);
+  word-break: break-word;
+}
+
+.cu-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cu-breadcrumb a:hover { color: rgb(var(--button-background)); }
+
+.cu-breadcrumb-current {
+  color: rgb(var(--text-color));
+  font-weight: 500;
+}
+
+.cu-breadcrumb-separator { opacity: 0.6; }
+
+/* ════════════════════════════════════
+   HERO / INTRO
+════════════════════════════════════ */
+.cu-section-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.cu-hero-text {
+  font-size: 18px;
+  line-height: 28px;
+  color: black;
+  font-weight: 400;
+  word-spacing: 1.5px;
+  word-wrap: break-word;
+  max-width: 760px;
+}
+
+/* ════════════════════════════════════
+   MAIN GRID: INFO + FORM
+════════════════════════════════════ */
+.cu-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+/* ════════════════════════════════════
+   INFO COLUMN
+════════════════════════════════════ */
+.cu-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.cu-info-heading {
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.cu-info-intro {
+  font-size: 18px;
+  line-height: 28px;
+  color: black;
+  font-weight: 400;
+  word-spacing: 1.5px;
+  margin: 0;
+}
+
+/* Contact Cards */
+.cu-contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cu-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--cu-radius);
+  background: #fafafa;
+}
+
+.cu-card-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: rgb(var(--button-background, 0 0 0));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cu-card-icon svg {
+  width: 20px;
+  height: 20px;
+  color: rgb(var(--button-label, 255 255 255));
+  stroke: rgb(var(--button-label, 255 255 255));
+}
+
+.cu-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cu-card-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(var(--text-color) / 0.55);
+}
+
+.cu-card-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.cu-card-link {
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cu-card-link:hover {
+  color: rgb(var(--button-background));
+  text-decoration: underline;
+}
+
+/* Social Row */
+.cu-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cu-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid rgb(var(--button-background, 0 0 0));
+  border-radius: var(--cu-radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(var(--button-background, 0 0 0));
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cu-social-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.cu-social-btn:hover {
+  background: rgb(var(--button-background, 0 0 0));
+  color: rgb(var(--button-label, 255 255 255));
+}
+
+/* ════════════════════════════════════
+   FORM COLUMN
+════════════════════════════════════ */
+.cu-form-box {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.cu-form-heading {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+
+.cu-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cu-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0;
+}
+
+.cu-form-group + .cu-form-group:not(.cu-form-row .cu-form-group) {
+  margin-top: 16px;
+}
+
+/* Standalone groups (not inside a row) */
+.cu-form-box > .cu-form-group {
+  margin-bottom: 16px;
+}
+
+.cu-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cu-required {
+  color: #e53e3e;
+  margin-left: 2px;
+}
+
+.cu-form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--cu-input-border);
+  border-radius: var(--cu-radius);
+  font-size: 15px;
+  color: black;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+
+.cu-form-input:focus {
+  border-color: rgb(var(--button-background, 0 0 0));
+  box-shadow: 0 0 0 3px rgb(var(--button-background, 0 0 0) / 0.08);
+}
+
+.cu-form-input::placeholder {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.cu-form-textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* Submit */
+.cu-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  {% comment %} padding: 14px 32px; {% endcomment %}
+  background: rgb(var(--button-background, 0 0 0));
+  color: rgb(var(--button-label, 255 255 255));
+  border: none;
+  {% comment %} border-radius: var(--cu-radius); {% endcomment %}
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  margin-top: 16px;
+}
+
+.cu-submit-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.cu-submit-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.cu-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Form success / error */
+.cu-form-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--cu-radius);
+  font-size: 15px;
+  color: #166534;
+  margin-bottom: 20px;
+}
+
+.cu-form-success svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  stroke: #166534;
+}
+
+.cu-form-error {
+  padding: 14px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--cu-radius);
+  font-size: 14px;
+  color: #991b1b;
+  margin-bottom: 20px;
+}
+
+/* ════════════════════════════════════
+   MAP SECTION
+════════════════════════════════════ */
+.cu-map-container {
+  padding-top: 0;
+}
+
+.cu-map-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cu-map-img {
+  width: 100%;
+  display: block;
+  height: 420px;
+  object-fit: cover;
+}
+
+.cu-map-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(0,0,0,0.72);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════════
+   BOTTOM BANNER
+════════════════════════════════════ */
+.cu-bottom-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.cu-bottom-banner img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  min-height: 280px;
+}
+
+.cu-banner-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  background: linear-gradient(to right, rgb(0 0 0 / 0.65) 0%, rgb(0 0 0 / 0.25) 100%);
+  gap: 12px;
+}
+
+.cu-banner-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cu-banner-subtitle {
+  font-size: 18px;
+  color: rgb(255 255 255 / 0.88);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cu-banner-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 28px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.cu-banner-btn:hover { opacity: 0.88; }
+
+/* ════════════════════════════════════
+   WECHAT POPUP
+════════════════════════════════════ */
+.cu-wechat-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 9999;
+}
+
+.cu-wechat-popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cu-wechat-popup-inner {
+  background: #fff;
+  border-radius: 14px;
+  padding: 40px 48px;
+  text-align: center;
+  position: relative;
+  min-width: 260px;
+}
+
+.cu-wechat-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+}
+
+.cu-wechat-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  margin: 0 0 8px;
+}
+
+.cu-wechat-id {
+  font-size: 22px;
+  font-weight: 700;
+  color: black;
+  margin: 0;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 1024px
+════════════════════════════════════ */
+@media screen and (max-width: 1024px) {
+  :root {
+    --cu-pad-x:     clamp(1.5rem, 3vw, 2rem);
+    --cu-pad-y-top: clamp(2.5rem, 4vw, 3rem);
+    --cu-pad-y-bot: clamp(2.5rem, 4vw, 3rem);
+    --cu-grid-gap:  clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .cu-main-grid {
+    grid-template-columns: 1fr 1.2fr;
+  }
+
+  .cu-section-title { font-size: clamp(22px, 2.8vw, 28px); }
+  .cu-info-heading  { font-size: clamp(18px, 2.4vw, 23px); }
+  .cu-form-heading  { font-size: clamp(18px, 2.4vw, 20px); }
+
+  .cu-hero-text,
+  .cu-info-intro,
+  .cu-card-value  { font-size: clamp(15px, 1.6vw, 17px); }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 900px
+════════════════════════════════════ */
+@media screen and (max-width: 900px) {
+  :root {
+    --cu-pad-x:     clamp(1.25rem, 3vw, 1.75rem);
+    --cu-pad-y-top: clamp(2rem, 3.5vw, 2.5rem);
+    --cu-pad-y-bot: clamp(2rem, 3.5vw, 2.5rem);
+  }
+
+  .cu-main-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .cu-section-title { font-size: clamp(20px, 3vw, 26px); }
+  .cu-info-heading  { font-size: clamp(16px, 2.6vw, 21px); }
+
+  .cu-map-img { height: 320px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 768px
+════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+  :root {
+    --cu-pad-x:     clamp(1rem, 4vw, 1.5rem);
+    --cu-pad-y-top: clamp(1.75rem, 4vw, 2.25rem);
+    --cu-pad-y-bot: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  .cu-section-title   { font-size: clamp(18px, 4vw, 24px); }
+  .cu-info-heading    { font-size: clamp(15px, 3.5vw, 19px); }
+  .cu-form-heading    { font-size: clamp(15px, 3.5vw, 18px); }
+
+  .cu-hero-text,
+  .cu-info-intro,
+  .cu-card-value      { font-size: clamp(13px, 2.2vw, 15px); line-height: 24px; }
+
+  .cu-form-row        { grid-template-columns: 1fr; }
+
+  .cu-breadcrumb      { font-size: clamp(13px, 2vw, 15px); }
+
+  .cu-map-img         { height: 260px; }
+
+  .cu-banner-content  { align-items: center; text-align: center; padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .cu-banner-title    { font-size: clamp(16px, 3.5vw, 20px); }
+  .cu-banner-subtitle { font-size: clamp(13px, 2.2vw, 15px); }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 600px
+════════════════════════════════════ */
+@media screen and (max-width: 600px) {
+  :root {
+    --cu-pad-x:     clamp(0.9rem, 4.5vw, 1.25rem);
+    --cu-pad-y-top: clamp(1.5rem, 4.5vw, 2rem);
+    --cu-pad-y-bot: clamp(1.5rem, 4.5vw, 2rem);
+  }
+
+  .cu-section-title   { font-size: clamp(17px, 4.5vw, 22px); }
+  .cu-info-heading    { font-size: clamp(14px, 4vw, 18px); }
+
+  .cu-hero-text,
+  .cu-info-intro      { font-size: clamp(13px, 3.2vw, 15px); line-height: 23px; }
+
+  .cu-form-box        { padding: clamp(1rem, 4vw, 1.5rem); }
+  .cu-submit-btn      { width: 100%; justify-content: center; }
+
+  .cu-map-img         { height: 220px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 480px
+════════════════════════════════════ */
+@media screen and (max-width: 480px) {
+  :root {
+    --cu-pad-x:     clamp(0.75rem, 5vw, 1rem);
+    --cu-pad-y-top: clamp(1.25rem, 5vw, 1.75rem);
+    --cu-pad-y-bot: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .cu-section-title   { font-size: clamp(15px, 5vw, 20px); }
+  .cu-info-heading    { font-size: clamp(13px, 4.5vw, 17px); }
+
+  .cu-hero-text,
+  .cu-info-intro      { font-size: clamp(12px, 3.5vw, 14px); line-height: 21px; }
+
+  .cu-form-input      { font-size: 14px; padding: 10px 12px; }
+  .cu-form-label      { font-size: 12px; }
+
+  .cu-social-btn      { font-size: 13px; padding: 9px 14px; }
+
+  .cu-card-value      { font-size: 14px; }
+  .cu-card-label      { font-size: 11px; }
+
+  .cu-banner-title    { font-size: clamp(14px, 4.5vw, 17px); }
+
+  .cu-map-img         { height: 200px; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE — 380px
+════════════════════════════════════ */
+@media screen and (max-width: 380px) {
+  :root {
+    --cu-pad-x:     0.75rem;
+    --cu-pad-y-top: 1.25rem;
+    --cu-pad-y-bot: 1.25rem;
+  }
+
+  .cu-section-title   { font-size: 15px; }
+  .cu-info-heading    { font-size: 13px; }
+  .cu-hero-text,
+  .cu-info-intro      { font-size: 12px; line-height: 20px; }
+  .cu-card-value      { font-size: 13px; }
+  .cu-form-input      { font-size: 13px; }
+  .cu-submit-btn      { font-size: 13px; padding: 12px 20px; }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "Contact Us",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Intro"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "richtext",
+      "id": "page_intro",
+      "label": "Intro Text",
+      "default": "<p>We'd love to hear from you. Whether you have a question about our products, want to discuss a custom order, or just want to say hello — our team is ready to help.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info Column Heading",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "richtext",
+      "id": "info_intro",
+      "label": "Info Intro Text",
+      "default": "<p>Reach out to us through any of the channels below and we will get back to you as soon as possible.</p>"
+    },
+    {
+      "type": "text",
+      "id": "address_label",
+      "label": "Address Label",
+      "default": "Address"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "No. 123 Industrial Avenue, Guangzhou, Guangdong, China"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "info@yourcompany.com"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone Label",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+86 123 4567 8901"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Hours Label",
+      "default": "Working Hours"
+    },
+    {
+      "type": "text",
+      "id": "working_hours",
+      "label": "Working Hours",
+      "default": "Mon – Fri: 9:00 AM – 6:00 PM (CST)"
+    },
+    {
+      "type": "header",
+      "content": "Social / Messaging"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp",
+      "label": "WhatsApp URL",
+      "info": "e.g. https://wa.me/861234567890"
+    },
+    {
+      "type": "text",
+      "id": "wechat",
+      "label": "WeChat ID",
+      "info": "Displays a popup with the WeChat ID when clicked"
+    },
+    {
+      "type": "text",
+      "id": "linkedin",
+      "label": "LinkedIn URL"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Send Us A Message"
+    },
+    {
+      "type": "text",
+      "id": "label_name",
+      "label": "Name Field Label",
+      "default": "Full Name"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_name",
+      "label": "Name Placeholder",
+      "default": "Your full name"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Email Field Label",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Email Placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "label_phone",
+      "label": "Phone Field Label",
+      "default": "Phone Number"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_phone",
+      "label": "Phone Placeholder",
+      "default": "Your phone number"
+    },
+    {
+      "type": "text",
+      "id": "label_company",
+      "label": "Company Field Label",
+      "default": "Company Name"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_company",
+      "label": "Company Placeholder",
+      "default": "Your company name"
+    },
+    {
+      "type": "text",
+      "id": "label_subject",
+      "label": "Subject Field Label",
+      "default": "Subject"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_subject",
+      "label": "Subject Placeholder",
+      "default": "How can we help you?"
+    },
+    {
+      "type": "text",
+      "id": "label_message",
+      "label": "Message Field Label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_message",
+      "label": "Message Placeholder",
+      "default": "Tell us about your requirements..."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit Button Label",
+      "default": "Send Message"
+    },
+    {
+      "type": "header",
+      "content": "Map / Location Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map or Location Image"
+    },
+    {
+      "type": "text",
+      "id": "map_overlay_text",
+      "label": "Map Overlay Label",
+      "default": "Our Factory Location"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_banner",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "Ready To Work Together?"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle",
+      "label": "Banner Subtitle",
+      "default": "Reach out today and let's build something great."
+    },
+    {
+      "type": "text",
+      "id": "banner_cta_label",
+      "label": "CTA Button Label",
+      "default": "Get A Quote"
+    },
+    {
+      "type": "url",
+      "id": "banner_cta_url",
+      "label": "CTA Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us"
+    }
+  ]
+}
+{% endschema %}

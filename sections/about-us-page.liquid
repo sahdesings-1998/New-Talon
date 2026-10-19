@@ -1,0 +1,1916 @@
+<section class="cp-section">
+  <!--
+    ═══════════════════════════════════════
+         COMPANY PROFILE
+    ═══════════════════════════════════════
+  -->
+  <div class="cp-container cp-top-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">About Us</span>
+    </nav>
+
+    <div class="cp-profile-box">
+      <h2 class="cp-profile-title cp-profile-titl-heading">{{ section.settings.profile_title }}</h2>
+      <div class="cp-profile-text">{{ section.settings.profile_text }}</div>
+    </div>
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         OUR FACTORY
+    ═══════════════════════════════════════
+  -->
+  <div class="cp-container">
+    <div class="cp-factory-wrap">
+      <div class="cp-factory-header">
+        <span class="cp-profile-title" id="our-factory">{{ section.settings.factory_small }}</span>
+      </div>
+
+      <!-- Row 1: text left | image right -->
+      <div class="cp-factory-row">
+        <div class="cp-factory-text">
+          <h2 class="cp-profile-title">{{ section.settings.work_title }}</h2>
+          <div class="cp-profile-text">
+            <p>{{ section.settings.work_text }}</p>
+          </div>
+        </div>
+        <div class="cp-factory-img">
+          {% if section.settings.work_image != blank %}
+            <img
+              src="{{ section.settings.work_image | image_url: width: 900 }}"
+              alt="Factory"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop"
+              alt="Factory"
+            >
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Row 2: image left | text right -->
+      <div class="cp-factory-row cp-swap-mobile">
+        <div class="cp-factory-img">
+          {% if section.settings.capacity_image != blank %}
+            <img
+              src="{{ section.settings.capacity_image | image_url: width: 900 }}"
+              alt="Capacity"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=900&auto=format&fit=crop"
+              alt="Capacity"
+            >
+          {% endif %}
+        </div>
+        <div class="cp-factory-text cp-text-center">
+          <h3>{{ section.settings.capacity_title }}</h3>
+          <div>{{ section.settings.capacity_text }}</div>
+        </div>
+      </div>
+
+      <!-- Row 3: Quality Control — text left | gallery right -->
+      <div class="cp-quality-grid" id="production-process">
+        <div class="cp-quality-text">
+          <h3>{{ section.settings.quality_title }}</h3>
+          <div>{{ section.settings.quality_text }}</div>
+        </div>
+        <div class="cp-quality-images">
+          <div class="cp-gallery-col">
+            <div class="cp-gallery-item">
+              {% if section.settings.gallery_image_1 != blank %}
+                <img
+                  src="{{ section.settings.gallery_image_1 | image_url: width: 600 }}"
+                  alt="Quality 1"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  src="https://images.unsplash.com/photo-1524522173746-f628baad3644?w=600&auto=format&fit=crop"
+                  alt="Quality 1"
+                >
+              {% endif %}
+            </div>
+            <div class="cp-gallery-item">
+              {% if section.settings.gallery_image_2 != blank %}
+                <img
+                  src="{{ section.settings.gallery_image_2 | image_url: width: 600 }}"
+                  alt="Quality 2"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop"
+                  alt="Quality 2"
+                >
+              {% endif %}
+            </div>
+          </div>
+          <div class="cp-gallery-col cp-gallery-col--center">
+            <div class="cp-gallery-item">
+              {% if section.settings.gallery_image_3 != blank %}
+                <img
+                  src="{{ section.settings.gallery_image_3 | image_url: width: 600 }}"
+                  alt="Quality 3"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&auto=format&fit=crop"
+                  alt="Quality 3"
+                >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         QUALIFICATION CERTIFICATE
+    ═══════════════════════════════════════
+  -->
+  {% comment %}
+    <div class="cp-container" id="certifications">
+      <div class="cp-cert-heading">{{ section.settings.certificate_heading }}</div>
+
+      <div class="cp-cert-grid">
+
+        <div class="cp-cert-item">
+          {% if section.settings.certificate_image_1 != blank %}
+            <img
+              src="{{ section.settings.certificate_image_1 | image_url: width: 700 }}"
+              alt="Certificate 1"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&auto=format&fit=crop"
+              alt="Certificate 1"
+            >
+          {% endif %}
+          <span>{{ section.settings.certificate_text_1 }}</span>
+        </div>
+
+        <div class="cp-cert-item">
+          {% if section.settings.certificate_image_2 != blank %}
+            <img
+              src="{{ section.settings.certificate_image_2 | image_url: width: 700 }}"
+              alt="Certificate 2"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&auto=format&fit=crop"
+              alt="Certificate 2"
+            >
+          {% endif %}
+          <span>{{ section.settings.certificate_text_2 }}</span>
+        </div>
+
+        <div class="cp-cert-item">
+          {% if section.settings.certificate_image_3 != blank %}
+            <img
+              src="{{ section.settings.certificate_image_3 | image_url: width: 700 }}"
+              alt="Certificate 3"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&auto=format&fit=crop"
+              alt="Certificate 3"
+            >
+          {% endif %}
+          <span>{{ section.settings.certificate_text_3 }}</span>
+        </div>
+
+      </div>
+    </div>
+  {% endcomment %}
+
+  <div class="cp-container" id="certifications">
+    <div class="cp-cert-heading">{{ section.settings.certificate_heading }}</div>
+
+    <div class="cp-cert-grid">
+      <div class="cp-cert-item">
+        {% if section.settings.certificate_image_1 != blank %}
+          <img
+            src="{{ section.settings.certificate_image_1 | image_url: width: 900 }}"
+            alt="Certificate 1"
+            loading="lazy"
+            class="cp-popup-image"
+          >
+        {% endif %}
+        <span>{{ section.settings.certificate_text_1 }}</span>
+      </div>
+
+      <div class="cp-cert-item">
+        {% if section.settings.certificate_image_2 != blank %}
+          <img
+            src="{{ section.settings.certificate_image_2 | image_url: width: 900 }}"
+            alt="Certificate 2"
+            loading="lazy"
+            class="cp-popup-image"
+          >
+        {% endif %}
+        <span>{{ section.settings.certificate_text_2 }}</span>
+      </div>
+
+      <div class="cp-cert-item">
+        {% if section.settings.certificate_image_3 != blank %}
+          <img
+            src="{{ section.settings.certificate_image_3 | image_url: width: 900 }}"
+            alt="Certificate 3"
+            loading="lazy"
+            class="cp-popup-image"
+          >
+        {% endif %}
+        <span>{{ section.settings.certificate_text_3 }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="cp-image-popup">
+    <span class="cp-popup-close">&times;</span>
+    <img class="cp-popup-content" src="" alt="">
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         COMMITMENT TO SUSTAINABILITY
+    ═══════════════════════════════════════
+  -->
+  <div class="cp-container" id="sustainability">
+    <div class="cp-commit-heading">{{ section.settings.commitment_heading }}</div>
+
+    <div class="cp-commit-wrapper">
+      <!-- Row 1: text left | image right -->
+      <div class="cp-commit-row">
+        <div class="cp-commit-text-col">
+          <div class="cp-commit-text">{{ section.settings.commitment_Top_text }}</div>
+        </div>
+        <div class="cp-commit-img-col">
+          {% if section.settings.commitment_Top_image != blank %}
+            <img
+              src="{{ section.settings.commitment_Top_image | image_url: width: 900 }}"
+              alt="Commitment"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1497436072909-f5e4be8c8e1e?w=900&auto=format&fit=crop"
+              alt="Commitment"
+            >
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Row 2: image left | text right -->
+      <div class="cp-commit-row cp-commit-row--reverse">
+        <div class="cp-commit-text-col">
+          <div class="cp-commit-text">{{ section.settings.commitment_text }}</div>
+        </div>
+        <div class="cp-commit-img-col">
+          {% if section.settings.commitment_image != blank %}
+            <img
+              src="{{ section.settings.commitment_image | image_url: width: 900 }}"
+              alt="Commitment"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="https://images.unsplash.com/photo-1497436072909-f5e4be8c8e1e?w=900&auto=format&fit=crop"
+              alt="Commitment"
+            >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    ═══════════════════════════════════════
+         BOTTOM BANNER
+    ═══════════════════════════════════════
+  -->
+  <div class="cp-container">
+    <div class="cp-bottom-banner">
+      {% if section.settings.bottom_banner != blank %}
+        <img
+          src="{{ section.settings.bottom_banner | image_url: width: 1600 }}"
+          alt="Banner"
+          loading="lazy"
+        >
+      {% else %}
+        <img
+          src="https://images.unsplash.com/photo-1620714223084-8fcacc2dbed5?w=1600&auto=format&fit=crop"
+          alt="Banner"
+        >
+      {% endif %}
+      <div class="cp-banner-content">
+        <h2 class="cp-banner-title">{{ section.settings.banner_title }}</h2>
+        <ul class="cp-banner-list">
+          {% if section.settings.banner_point_1 != blank %}
+            <li>{{ section.settings.banner_point_1 }}</li>
+          {% endif %}
+          {% if section.settings.banner_point_2 != blank %}
+            <li>{{ section.settings.banner_point_2 }}</li>
+          {% endif %}
+          {% if section.settings.banner_point_3 != blank %}
+            <li>{{ section.settings.banner_point_3 }}</li>
+          {% endif %}
+          {% if section.settings.banner_point_4 != blank %}
+            <li>{{ section.settings.banner_point_4 }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const popup = document.querySelector('.cp-image-popup');
+    const popupImg = document.querySelector('.cp-popup-content');
+    const closeBtn = document.querySelector('.cp-popup-close');
+
+    document.querySelectorAll('.cp-popup-image').forEach((img) => {
+      img.addEventListener('click', function () {
+        popup.classList.add('active');
+        popupImg.src = this.src;
+      });
+    });
+
+    closeBtn.addEventListener('click', function () {
+      popup.classList.remove('active');
+    });
+
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) {
+        popup.classList.remove('active');
+      }
+    });
+  });
+</script>
+
+<!--
+  ═══════════════════════════════════════════════════════
+       STYLES
+  ═══════════════════════════════════════════════════════
+-->
+<style>
+      /* ════════════════════════════════════════════════════════
+     image popup
+  ════════════════════════════════════════════════════════ */
+
+  {% comment %} .cp-top-container{
+  padding: var(--cp-pad-y-top) var(--cp-pad-x) 0 !important;
+  } {% endcomment %}
+  .cp-cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .cp-cert-item {
+    text-align: center;
+  }
+
+  .cp-cert-item img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .cp-cert-item img:hover {
+    transform: scale(1.02);
+  }
+
+  .cp-cert-item span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  /* Popup */
+  .cp-image-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 9999;
+    padding: 20px;
+  }
+
+  .cp-image-popup.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .cp-popup-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .cp-popup-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 42px;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 768px) {
+    .cp-cert-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+    /* ════════════════════════════════════════════════════════
+     COMPANY PROFILE — Full Styles (OEM-aligned spacing)
+  ════════════════════════════════════════════════════════ */
+
+  /* ── Base ── */
+  .cp-section {
+    color: rgb(var(--text-color, 17 17 17));
+  }
+
+  /* ── Shared section spacing token ── */
+  :root {
+    --cp-section-gap: clamp(2.75rem, 5vw, 4rem);
+    --cp-title-gap:   clamp(1.15rem, 1.85vw, 1.5rem);
+    --cp-grid-gap:    clamp(1.2rem, 2.5vw, 1.65rem);
+    --cp-pad-x:       clamp(1.25rem, 3vw, 2.5rem);
+    --cp-pad-y-top:   clamp(3rem, 4.5vw, 3.5rem);
+    --cp-pad-y-bot:   clamp(3rem, 4.5vw, 3.5rem);
+  }
+
+  /* ── Container — every section uses this ── */
+  .cp-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: var(--cp-pad-y-top) var(--cp-pad-x) var(--cp-pad-y-bot);
+  }
+
+  @media screen and (min-width: 1280px) {
+    .cp-container {
+      max-width: 1360px;
+    }
+  }
+
+  /* ── Section divider line between containers ── */
+  .cp-container + .cp-container {
+    {% comment %} border-top: 1px solid rgb(var(--border-color, 220 220 220)); {% endcomment %}
+  }
+
+  /* ════════════════════════════════════
+     BREADCRUMB
+  ════════════════════════════════════ */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(0.3rem, 1vw, 0.5rem);
+    {% comment %} font-size: clamp(0.78rem, 1.4vw, 0.95rem); {% endcomment %}
+     font-size:18px;
+    {% comment %} line-height: 1.5; {% endcomment %}
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    color: rgb(var(--text-color) / 0.7);
+    word-break: break-word;
+  }
+
+  .breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: rgb(var(--button-background));
+  }
+
+  .breadcrumb-current {
+    color: rgb(var(--text-color));
+    font-weight: 500;
+  }
+
+  .breadcrumb-separator {
+    opacity: 0.6;
+  }
+
+  /* ════════════════════════════════════
+     SHARED HEADING & TEXT TOKENS
+  ════════════════════════════════════ */
+
+  /* Section heading — used by profile title, factory header,
+     cert heading, commit heading */
+  .cp-section-heading,
+  .cp-profile-title,
+  .cp-cert-heading,
+  .cp-commit-heading {
+    {% comment %} font-size: clamp(1.05rem, 1.35vw, 1.2rem); {% endcomment %}
+    font-size: 30px;
+    font-weight: bold;
+    {% comment %} color: rgb(var(--text-color, 17 17 17)); {% endcomment %}
+    color: black;
+    {% comment %} margin: 0 0 var(--cp-title-gap); {% endcomment %}
+    text-transform: uppercase;
+    {% comment %} letter-spacing: 0.1em; {% endcomment %}
+    {% comment %} line-height: 1.3; {% endcomment %}
+  }
+
+
+  .cp-cert-heading,
+  .cp-commit-heading {
+    text-align: center;
+    font-weight: 700;
+  }
+
+  /* Body text */
+  .cp-profile-text,
+  .cp-factory-text div,
+  .cp-factory-text p,
+  .cp-quality-text div,
+  .cp-quality-text p,
+  .cp-commit-text-col .cp-commit-text,
+  .cp-commit-text {
+    {% comment %} font-size: clamp(0.92rem, 1.1vw, 1rem); {% endcomment %}
+     {% comment %} font-size: clamp(16px, 1.1vw, 18px); {% endcomment %}
+     {% comment %} color: rgb(var(--text-color, 17 17 17) / 0.72); {% endcomment %}
+      font-size:18px;
+    line-height: 1.62;
+     color:black;
+     font-weight:400;
+         line-height: 28px !important;
+      word-spacing: 1.5px !important;
+          word-wrap: break-word;
+      white-space: normal;
+    margin: 0;
+  }
+
+  .cp-profile-text p,
+  .cp-commit-text p {
+    margin: 0 0 6px;
+  }
+
+  .cp-profile-text p:last-child,
+  .cp-commit-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ════════════════════════════════════
+     SECTION 1 — COMPANY PROFILE BOX
+  ════════════════════════════════════ */
+  .cp-profile-box {
+    /* no extra padding — container handles all spacing */
+  }
+
+  /* ════════════════════════════════════
+     SECTION 2 — OUR FACTORY
+  ════════════════════════════════════ */
+  .cp-factory-wrap {
+    /* no extra margin — container top padding handles gap */
+  }
+
+  .cp-factory-header {
+    text-align: center;
+    margin-bottom: var(--cp-title-gap);
+    line-height: 1.2;
+  }
+
+  .cp-factory-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--cp-grid-gap);
+    margin-bottom: var(--cp-grid-gap);
+    align-items: center;
+  }
+
+  .cp-factory-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .cp-factory-text {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cp-factory-text h2,
+  .cp-factory-text h3 {
+    {% comment %} font-size: clamp(1.05rem, 1.35vw, 1.2rem); {% endcomment %}
+    font-weight: bold;
+        font-size: 25px;
+    color: rgb(var(--text-color, 17 17 17));
+    {% comment %} margin: 0 0 var(--cp-title-gap); {% endcomment %}
+    text-transform: uppercase;
+    margin-bottom:20px;
+    {% comment %} letter-spacing: 0.1em; {% endcomment %}
+    {% comment %} line-height: 1.3; {% endcomment %}
+  }
+
+  .cp-factory-img {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .cp-factory-img img {
+    width: 100%;
+    height: 340px;
+    min-height: 340px;
+    max-height: 340px;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .cp-text-center {
+    text-align: center;
+  }
+
+  /* ── Quality grid (inside factory section) ── */
+  .cp-quality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--cp-grid-gap);
+    margin-top: var(--cp-grid-gap);
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  .cp-quality-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cp-quality-text h3 {
+    {% comment %} font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+    font-weight: 700; {% endcomment %}
+        font-size: 25px;
+      font-weight: bold;
+    color: rgb(var(--text-color, 17 17 17));
+    margin: 0 0 var(--cp-title-gap);
+    text-transform: uppercase;
+    {% comment %} letter-spacing: 0.1em; {% endcomment %}
+    {% comment %} line-height: 1.3; {% endcomment %}
+  }
+
+  .cp-quality-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .cp-gallery-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cp-gallery-col--center {
+    justify-content: center;
+  }
+
+  .cp-gallery-item img {
+    width: 100%;
+    display: block;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .cp-gallery-col--center .cp-gallery-item {
+    height: 100%;
+  }
+
+  .cp-gallery-col--center .cp-gallery-item img {
+    height: 368px;
+    max-height: 368px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  /* ════════════════════════════════════
+     SECTION 3 — QUALIFICATION CERTIFICATE
+  ════════════════════════════════════ */
+  .cp-cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--cp-grid-gap);
+  }
+
+  .cp-cert-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .cp-cert-item img {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    height: 340px;
+    max-height: 340px;
+    object-fit: contain;
+  }
+
+  .cp-cert-item span {
+    display: block;
+    {% comment %} font-size: clamp(0.84rem, 1.05vw, 0.9rem);
+    font-weight: 600;
+    line-height: 1.45; {% endcomment %}
+    font-size: 18px;
+      line-height: 1.62;
+      color: black;
+      font-weight: 600;
+      line-height: 28px !important;
+      word-spacing: 1.5px !important;
+      word-wrap: break-word;
+      white-space: normal;
+      margin: 0;
+      text-transform:uppercase;
+  }
+
+  /* ════════════════════════════════════
+     SECTION 4 — COMMITMENT / SUSTAINABILITY
+  ════════════════════════════════════ */
+  .cp-commit-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cp-grid-gap);
+  }
+
+  .cp-commit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--cp-grid-gap);
+    align-items: center;
+    padding: clamp(1.25rem, 2vw, 1.65rem);
+    border-radius: 10px;
+  }
+
+  .cp-commit-row--reverse {
+    direction: rtl;
+  }
+
+  .cp-commit-row--reverse > * {
+    direction: ltr;
+  }
+
+  .cp-commit-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cp-commit-img-col {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cp-commit-img-col img {
+    width: 100%;
+    {% comment %} height: 360px; {% endcomment %}
+    {% comment %} min-height: 360px; {% endcomment %}
+    {% comment %} max-height: 360px; {% endcomment %}
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+  }
+
+  /* ════════════════════════════════════
+     SECTION 5 — BOTTOM BANNER
+  ════════════════════════════════════ */
+
+  /* Banner container gets no bottom padding — image goes edge to edge */
+  .cp-container:has(.cp-bottom-banner) {
+    {% comment %} padding-bottom: 0; {% endcomment %}
+  }
+
+  .cp-bottom-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .cp-bottom-banner img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    min-height: 280px;
+  }
+
+  .cp-banner-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 4rem);
+    background: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.65) 0%,
+      rgb(0 0 0 / 0.35) 100%
+    );
+  }
+
+  .cp-banner-title {
+      font-size: 25px;
+      font-weight: bold;
+    color: #ffffff;
+    margin: 0 0 var(--cp-title-gap);
+    text-transform: uppercase;
+    {% comment %} letter-spacing: 0.1em; {% endcomment %}
+    {% comment %} line-height: 1.3; {% endcomment %}
+  }
+
+  .cp-banner-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cp-banner-list li {
+    {% comment %} font-size: clamp(0.84rem, 1.05vw, 0.9rem);
+    line-height: 1.65;
+    color: rgb(255 255 255 / 0.88);
+    padding-left: 1.2rem;
+    position: relative; {% endcomment %}
+     font-size:18px;
+    line-height: 1.62;
+     {% comment %} color:black; {% endcomment %}
+      color: rgb(255 255 255 / 0.88);
+     font-weight:400;
+         line-height: 28px !important;
+      word-spacing: 1.5px !important;
+          word-wrap: break-word;
+      white-space: normal;
+    margin: 0;
+  }
+
+  .cp-banner-list li::before {
+    {% comment %} content: "—"; {% endcomment %}
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: rgb(255 255 255 / 0.6);
+    font-weight: 400;
+  }
+  .cp-cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .cp-cert-item img {
+    width: 100%;
+    display: block;
+  }
+  {% comment %}
+  @media screen and (max-width: 768px) {
+    .cp-cert-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* ════════════════════════════════════
+     RESPONSIVE — tablet (≤1000px)
+  ════════════════════════════════════ */
+  @media screen and (max-width: 1000px) {
+    .cp-factory-img img {
+      height: 260px;
+      min-height: 260px;
+      max-height: 260px;
+    }
+
+    .cp-gallery-item img {
+      height: 150px;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 308px;
+      max-height: 308px;
+    }
+
+    .cp-commit-img-col img {
+      height: 240px;
+      min-height: 240px;
+      max-height: 240px;
+    }
+
+    .cp-cert-item {
+      padding: 12px;
+    }
+  }
+
+  /* ════════════════════════════════════
+     RESPONSIVE — mobile (≤768px)
+  ════════════════════════════════════ */
+  @media screen and (max-width: 768px) {
+    .cp-commit-row {
+      grid-template-columns: 1fr;
+      padding: clamp(0.85rem, 2.5vw, 1rem);
+    }
+
+    .cp-commit-row--reverse {
+      direction: ltr;
+    }
+
+    .cp-commit-img-col img {
+      height: 220px;
+      min-height: 220px;
+      max-height: 220px;
+    }
+  }
+
+  /* ════════════════════════════════════
+     RESPONSIVE — mobile (≤700px)
+  ════════════════════════════════════ */
+  @media screen and (max-width: 700px) {
+    :root {
+      --cp-section-gap: clamp(1.75rem, 4vw, 2.5rem);
+      --cp-title-gap:   clamp(1rem, 2.5vw, 1.25rem);
+      --cp-grid-gap:    clamp(0.9rem, 3vw, 1.15rem);
+      --cp-pad-y-top:   clamp(2rem, 4vw, 2.75rem);
+      --cp-pad-y-bot:   clamp(2rem, 4vw, 2.75rem);
+    }
+
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      letter-spacing: 0.08em;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      {% comment %} font-size: clamp(0.84rem, 3.4vw, 0.9rem); {% endcomment %}
+      font-size: clamp(14px, 3.4vw, 18px);
+      line-height: 1.58;
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(0.8rem, 3.6vw, 0.88rem);
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+    }
+  }
+
+  /* ════════════════════════════════════
+     RESPONSIVE — mobile (≤600px)
+  ════════════════════════════════════ */
+  @media screen and (max-width: 600px) {
+    .cp-factory-row,
+    .cp-quality-grid,
+    .cp-cert-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cp-factory-img img {
+      height: 220px;
+      min-height: 220px;
+      max-height: 220px;
+    }
+
+    .cp-gallery-item img {
+      height: 140px;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 140px;
+      max-height: 140px;
+    }
+
+    .cp-commit-img-col img {
+      height: 200px;
+      min-height: 200px;
+      max-height: 200px;
+    }
+
+    .cp-cert-item img {
+      height: 160px;
+      max-height: 160px;
+    }
+
+    .cp-banner-content {
+      align-items: center;
+      text-align: center;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .cp-banner-list {
+      text-align: left;
+    }
+  }
+
+  /* ════════════════════════════════════
+     RESPONSIVE — small mobile (≤500px)
+  ════════════════════════════════════ */
+  @media (max-width: 500px) {
+    .cp-bottom-banner img {
+      min-height: 480px;
+      max-height: 520px;
+    }
+  } {% endcomment %}
+
+  /* ════════════════════════════════════════════════════════
+     RESPONSIVE — ALL SCREENS UNDER 1024px
+     Covers: fonts, sections, images (object-fit: contain)
+  ════════════════════════════════════════════════════════ */
+
+  /* ── 1024px — Large Tablet ── */
+  @media screen and (max-width: 1024px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     clamp(1.5rem, 3vw, 2rem);
+      --cp-pad-y-top: clamp(2.5rem, 4vw, 3rem);
+      --cp-pad-y-bot: clamp(2.5rem, 4vw, 3rem);
+      --cp-grid-gap:  clamp(1rem, 2vw, 1.5rem);
+      --cp-title-gap: clamp(1rem, 1.6vw, 1.25rem);
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: clamp(22px, 2.8vw, 28px);
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(18px, 2.4vw, 23px);
+      margin-bottom: 14px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: 1.65;
+      word-spacing: 1px !important;
+    }
+
+    .cp-cert-item span {
+      font-size: clamp(14px, 1.5vw, 16px);
+    }
+
+    .cp-banner-title {
+      font-size: clamp(18px, 2.4vw, 23px);
+    }
+
+    .cp-banner-list li {
+      font-size: clamp(14px, 1.6vw, 16px);
+      line-height: 1.65;
+    }
+
+    .breadcrumb {
+      font-size: clamp(14px, 1.5vw, 16px);
+    }
+
+    /* Layout */
+    .cp-factory-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cp-quality-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cp-cert-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .cp-commit-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 280px;
+      min-height: 280px;
+      max-height: 280px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-item img {
+      height: 155px;
+      object-fit: contain;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 318px;
+      max-height: 318px;
+      object-fit: contain;
+    }
+
+    .cp-cert-item img {
+      height: 280px;
+      max-height: 280px;
+      object-fit: contain;
+    }
+
+    .cp-commit-img-col img {
+      height: auto;
+      min-height: unset;
+      max-height: unset;
+      object-fit: contain;
+    }
+  }
+
+  /* ── 900px — Small Tablet ── */
+  @media screen and (max-width: 900px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     clamp(1.25rem, 3vw, 1.75rem);
+      --cp-pad-y-top: clamp(2rem, 3.5vw, 2.5rem);
+      --cp-pad-y-bot: clamp(2rem, 3.5vw, 2.5rem);
+      --cp-grid-gap:  clamp(0.9rem, 2vw, 1.25rem);
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: clamp(20px, 3vw, 26px);
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(16px, 2.6vw, 21px);
+      margin-bottom: 12px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: clamp(14px, 1.8vw, 16px);
+      line-height: 1.62;
+      word-spacing: 1px !important;
+      line-height: 26px !important;
+    }
+
+    /* Layout */
+    .cp-factory-row {
+      grid-template-columns: 1fr;
+    }
+
+    .cp-quality-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cp-cert-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .cp-commit-row {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    .cp-commit-row--reverse {
+      direction: ltr;
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 260px;
+      min-height: 260px;
+      max-height: 260px;
+      object-fit: cover;
+    }
+
+    .cp-quality-images {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cp-gallery-item img {
+      height: 145px;
+      object-fit: contain;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 298px;
+      max-height: 298px;
+      object-fit: contain;
+    }
+
+    .cp-cert-item img {
+      height: 240px;
+      max-height: 240px;
+      object-fit: contain;
+    }
+
+    .cp-commit-img-col img {
+      height: auto;
+      min-height: unset;
+      max-height: unset;
+      object-fit: contain;
+    }
+  }
+    {% comment %} @media screen and (max-width: 768px) {
+
+    .cp-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: clamp(2.125rem, 2rem + .6vw, 2.375rem);
+}
+    } {% endcomment %}
+
+  /* ── 768px — Mobile Landscape / Tablet Portrait ── */
+  @media screen and (max-width: 768px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     clamp(1rem, 4vw, 1.5rem);
+      --cp-pad-y-top:clamp(2.125rem, 2rem + .6vw, 2.375rem);
+      --cp-pad-y-bot: clamp(2.125rem, 2rem + .6vw, 2.375rem);
+      --cp-grid-gap:  clamp(0.85rem, 2.5vw, 1.1rem);
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: clamp(18px, 4vw, 24px);
+      letter-spacing: 0em;
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(15px, 3.5vw, 19px);
+      margin-bottom: 10px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: clamp(1rem, 0.5rem + 0.8vw, 1.125rem);
+      line-height: 1.6;
+      word-spacing: 0.8px !important;
+      line-height: 24px !important;
+      padding:4px 0px ;
+
+    }
+    .cp-factory-text{
+       padding:12px 0px ;
+    }
+    .cp-text-center{
+    text-align:start;
+    }
+
+    .cp-cert-item span {
+      font-size: clamp(13px, 2vw, 15px);
+    }
+
+    .cp-banner-title {
+      font-size: clamp(16px, 3.5vw, 20px);
+    }
+
+    .cp-banner-list li {
+      font-size: clamp(13px, 2.2vw, 15px);
+      line-height: 1.6;
+      line-height: 24px !important;
+    }
+
+    .breadcrumb {
+      font-size: clamp(13px, 2vw, 15px);
+    }
+
+    /* Layout */
+    .cp-factory-row,
+    .cp-quality-grid,
+    .cp-commit-row,
+    .cp-commit-row--reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .cp-cert-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .cp-quality-images {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cp-commit-row {
+      padding: clamp(0.85rem, 2.5vw, 1rem);
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 240px;
+      min-height: 240px;
+      max-height: 240px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-item img {
+      height: 135px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 278px;
+      max-height: 278px;
+      object-fit: cover;
+    }
+
+    .cp-cert-item img {
+      height: 200px;
+      max-height: 200px;
+      object-fit: contain;
+    }
+
+    .cp-commit-img-col img {
+      height: auto;
+      min-height: unset;
+      max-height: unset;
+      object-fit: contain;
+    }
+  }
+
+  /* ── 600px — Mobile Portrait ── */
+  @media screen and (max-width: 600px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     clamp(0.9rem, 4.5vw, 1.25rem);
+      --cp-pad-y-top: clamp(1.5rem, 4.5vw, 2rem);
+      --cp-pad-y-bot: clamp(1.5rem, 4.5vw, 2rem);
+      --cp-grid-gap:  clamp(0.75rem, 3vw, 1rem);
+      --cp-title-gap: clamp(0.75rem, 2.5vw, 1rem);
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: clamp(17px, 4.5vw, 22px);
+      letter-spacing: 0em;
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(14px, 4vw, 18px);
+      margin-bottom: 8px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: clamp(13px, 3.2vw, 15px);
+      line-height: 1.58;
+      word-spacing: 0.5px !important;
+      line-height: 23px !important;
+    }
+
+    .cp-cert-item span {
+      font-size: clamp(12px, 3vw, 14px);
+    }
+
+    .cp-banner-title {
+      font-size: clamp(15px, 4vw, 18px);
+    }
+
+    .cp-banner-list li {
+      font-size: clamp(12px, 3.2vw, 14px);
+      line-height: 22px !important;
+    }
+
+    .breadcrumb {
+      font-size: clamp(12px, 3vw, 14px);
+    }
+
+    /* Layout */
+    .cp-factory-row,
+    .cp-quality-grid,
+    .cp-quality-images,
+    .cp-cert-grid {
+      grid-template-columns: 1fr;
+      gap: var(--cp-grid-gap);
+    }
+
+    .cp-banner-content {
+      align-items: center;
+      text-align: center;
+      padding: clamp(1.25rem, 4vw, 2rem);
+    }
+
+    .cp-banner-list {
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 220px;
+      min-height: 220px;
+      max-height: 220px;
+      object-fit: contain;
+    }
+
+    .cp-gallery-item img {
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 190px;
+      max-height: 190px;
+      object-fit: cover;
+    }
+
+    .cp-cert-item img {
+      height: 180px;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .cp-commit-img-col img {
+      height: auto;
+      min-height: unset;
+      max-height: unset;
+      object-fit: contain;
+    }
+  }
+
+  @media (max-width: 768px) {
+  .cp-swap-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cp-swap-mobile .cp-factory-text {
+    order: 1;
+  }
+
+  .cp-swap-mobile .cp-factory-img {
+    order: 2;
+    width: 100%;
+  }
+  .cp-quality-text{
+    padding: 12px 0px;
+  }
+      .cp-commit-row {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .cp-cert-item {
+    padding: 16px 0px;
+  }
+}
+
+  /* ── 480px — Small Mobile ── */
+  @media screen and (max-width: 480px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     clamp(0.75rem, 5vw, 1rem);
+      --cp-pad-y-top: clamp(2rem, 1.9rem + .5vw, 2.125rem);
+      --cp-pad-y-bot: clamp(2rem, 1.9rem + .5vw, 2.125rem);
+      --cp-grid-gap:  clamp(0.65rem, 3.5vw, 0.9rem);
+      --cp-title-gap: clamp(0.65rem, 3vw, 0.85rem);
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: clamp(15px, 5vw, 20px);
+      letter-spacing: 0em;
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: clamp(13px, 4.5vw, 18px);
+      margin-bottom: 8px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: clamp(12px, 3.5vw, 14px);
+      line-height: 1.55;
+      word-spacing: 0px !important;
+      line-height: 21px !important;
+    }
+
+    .cp-cert-item span {
+      font-size: clamp(11px, 3.2vw, 14px);
+    }
+
+    .cp-banner-title {
+      font-size: clamp(14px, 4.5vw, 18px);
+    }
+
+    .cp-banner-list li {
+      font-size: clamp(11px, 3.5vw, 14px);
+      line-height: 21px !important;
+    }
+
+    .breadcrumb {
+      font-size: clamp(11px, 3.2vw, 13px);
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 200px;
+      min-height: 200px;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-item img,
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 170px;
+      max-height: 170px;
+      object-fit: cover;
+    }
+
+    .cp-cert-item img {
+      height: 350px;
+      max-height: 350px;
+      object-fit: contain;
+    }
+
+    .cp-bottom-banner img {
+      min-height: 460px;
+      max-height: 520px;
+      object-fit: cover;
+    }
+  }
+
+  /* ── 380px — Extra Small Mobile ── */
+  @media screen and (max-width: 380px) {
+
+    /* Tokens */
+    :root {
+      --cp-pad-x:     0.75rem;
+      --cp-pad-y-top: 1.25rem;
+      --cp-pad-y-bot: 1.25rem;
+      --cp-grid-gap:  0.6rem;
+    }
+
+    /* Fonts */
+    .cp-profile-title,
+    .cp-cert-heading,
+    .cp-commit-heading {
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    .cp-factory-text h2,
+    .cp-factory-text h3,
+    .cp-quality-text h3 {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .cp-profile-text,
+    .cp-factory-text div,
+    .cp-factory-text p,
+    .cp-quality-text div,
+    .cp-quality-text p,
+    .cp-commit-text-col .cp-commit-text,
+    .cp-commit-text {
+      font-size: 12px;
+      line-height: 20px !important;
+      word-spacing: 0px !important;
+    }
+
+    .cp-cert-item span {
+      font-size: 11px;
+    }
+
+    .cp-banner-title {
+      font-size: 13px;
+    }
+
+    .cp-banner-list li {
+      font-size: 11px;
+      line-height: 19px !important;
+    }
+
+    .breadcrumb {
+      font-size: 11px;
+    }
+
+    /* Images */
+    .cp-factory-img img {
+      height: 180px;
+      min-height: 180px;
+      max-height: 180px;
+      object-fit: cover;
+    }
+
+    .cp-gallery-item img,
+    .cp-gallery-col--center .cp-gallery-item img {
+      height: 150px;
+      max-height: 150px;
+      object-fit: cover;
+    }
+
+    .cp-cert-item img {
+      height: 350px;
+      max-height: 350px;
+      object-fit: contain;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Company Profile",
+  "settings": [
+    {
+      "type": "text",
+      "id": "profile_title",
+      "label": "Profile Title",
+      "default": "Company Profile"
+    },
+    {
+      "type": "richtext",
+      "id": "profile_text",
+      "label": "Profile Text",
+      "default": "<p>We are a professional sports wear manufacturer with more than 20 years of producing experience. Our company covers an area of 5000 square meters with more than 18 advanced production lines and 360 staffs. We provide customers with the best professional services and look forward to establishing a long-term business relationship with you.</p>"
+    },
+    {
+      "type": "text",
+      "id": "factory_small",
+      "label": "Factory Small Text",
+      "default": "OUR FACTORY"
+    },
+    {
+      "type": "text",
+      "id": "factory_big",
+      "label": "Factory Big Text",
+      "default": "FACTORY"
+    },
+    {
+      "type": "text",
+      "id": "work_title",
+      "label": "Work Content Title",
+      "default": "Work content"
+    },
+    {
+      "type": "textarea",
+      "id": "work_text",
+      "label": "Work Content Text",
+      "default": "Our company provide one-stop customized services including product design, sample, blank order production, specializes in helping customers customize sports wear. Services including: make includes: left and breathable jacquard fabric and nylon tops and athletic, sublimation printing hoodies and shorts. We provide customers with the best products with the trendiest designs and professional customization."
+    },
+    {
+      "type": "image_picker",
+      "id": "work_image",
+      "label": "Work Content Image"
+    },
+    {
+      "type": "text",
+      "id": "capacity_title",
+      "label": "Capacity Title",
+      "default": "Capacity"
+    },
+    {
+      "type": "textarea",
+      "id": "capacity_text",
+      "label": "Capacity Text",
+      "default": "Our company covers an area of 2000 square meters with more than 10 advanced production lines and 240 staffs, and an annual output of more than 2 million pieces. We have been verified by BSCI and received the Factory Standardized Model award for several years."
+    },
+    {
+      "type": "image_picker",
+      "id": "capacity_image",
+      "label": "Capacity Image"
+    },
+    {
+      "type": "text",
+      "id": "quality_title",
+      "label": "Quality Control Title",
+      "default": "Quality Control"
+    },
+    {
+      "type": "textarea",
+      "id": "quality_text",
+      "label": "Quality Control Text",
+      "default": "We have a complete quality inspection process to ensure that every piece of clothing from customers can be made according to customer requirements and meet the quality requirements for each customer. Our factories are continuously monitored and formally audited by BSCI at least twice a year. In order to maintain the highest possible standard and ensure compliance with the Code of Conduct and Corporate Social Responsibility Policy."
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Quality Image 1 (Top Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Quality Image 2 (Bottom Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Quality Image 3 (Right Center)"
+    },
+    {
+      "type": "text",
+      "id": "certificate_heading",
+      "label": "Certificate Heading",
+      "default": "Qualification Certificate"
+    },
+    {
+      "type": "image_picker",
+      "id": "certificate_image_1",
+      "label": "Certificate Image 1"
+    },
+    {
+      "type": "text",
+      "id": "certificate_text_1",
+      "label": "Certificate Label 1",
+      "default": "Amfori BSCI"
+    },
+    {
+      "type": "image_picker",
+      "id": "certificate_image_2",
+      "label": "Certificate Image 2"
+    },
+    {
+      "type": "text",
+      "id": "certificate_text_2",
+      "label": "Certificate Label 2",
+      "default": "Sustainable Apparel Coalition"
+    },
+    {
+      "type": "image_picker",
+      "id": "certificate_image_3",
+      "label": "Certificate Image 3"
+    },
+    {
+      "type": "text",
+      "id": "certificate_text_3",
+      "label": "Certificate Label 3",
+      "default": "Global Recycled Standard"
+    },
+    {
+      "type": "text",
+      "id": "commitment_heading",
+      "label": "Commitment Heading",
+      "default": "Commitment To A Sustainable Future"
+    },
+    {
+      "type": "richtext",
+      "id": "commitment_Top_text",
+      "label": "Commitment Top Text",
+      "default": "<p>Protecting Our Environment With Sustainability And Responsibility.Consideration for our environment informs every decision we make.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "commitment_Top_image",
+      "label": "Commitment Top Image"
+    },
+    {
+      "type": "richtext",
+      "id": "commitment_text",
+      "label": "Commitment Text",
+      "default": "<p>Our corporate policies, factory remediation efforts, and ongoing manufacturing processes are all guided by a commitment to minimize environmental impact and maximize sustainability. We work to reduce water, energy, and materials wastage for every product we make.</p>"
+    },
+    {
+      "type": "text",
+      "id": "commitment_tag_1",
+      "label": "Commitment Tag 1",
+      "default": "Our Environment"
+    },
+    {
+      "type": "text",
+      "id": "commitment_tag_2",
+      "label": "Commitment Tag 2",
+      "default": "Our Responsibility"
+    },
+    {
+      "type": "image_picker",
+      "id": "commitment_image",
+      "label": "Commitment Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "Some of what makes us different includes"
+    },
+    {
+      "type": "richtext",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "<p>Helping facility to be environmentally conscious and use all optimal material for business. We also guarantee that our products are of the highest quality.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_banner",
+      "label": "Bottom Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_point_1",
+      "label": "Banner Point 1",
+      "default": "Helping facility to be environmentally conscious"
+    },
+    {
+      "type": "text",
+      "id": "banner_point_2",
+      "label": "Banner Point 2",
+      "default": "Use all optimal material for business"
+    },
+    {
+      "type": "text",
+      "id": "banner_point_3",
+      "label": "Banner Point 3",
+      "default": "Products are of the highest quality standards"
+    },
+    {
+      "type": "text",
+      "id": "banner_point_4",
+      "label": "Banner Point 4",
+      "default": "Long-term sustainable manufacturing processes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "gallery_image",
+          "label": "Gallery Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Company Profile"
+    }
+  ]
+}
+{% endschema %}
